@@ -12,7 +12,7 @@ import java.util.List;
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CategoryDtoMapper {
     
-    CategoryModel requesToModel(SaveCategoryRequest saveCategoryRequest);
+    CategoryModel requestToModel(SaveCategoryRequest saveCategoryRequest);
     CategoryResponse modelToResponse(CategoryModel categoryModel);
     List<CategoryResponse> modelListToResponseList(List<CategoryModel> categories);
 }

@@ -23,7 +23,7 @@ public class CategoryHandlerImpl implements CategoryHandler {
 
     @Override
     public SaveCategoryResponse save(SaveCategoryRequest request) {
-        categoryServicePort.save(categoryDtoMapper.requesToModel(request));
+        categoryServicePort.save(categoryDtoMapper.requestToModel(request));
         return new SaveCategoryResponse(Constants.SAVE_CATEGORY_RESPONSE_MESSAGE, LocalDateTime.now());
     }
 

@@ -26,15 +26,15 @@ public class CategoryModel {
 
     public String getName() {
         if (name.length() > 50) throw new NameMaxSizeExceededException();
-        return name = Objects.requireNonNull(name, DomainConstants.FIELD_NAME_NULL_MESSAGE);
+        return Objects.requireNonNull(name, DomainConstants.FIELD_NAME_NULL_MESSAGE);
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name, DomainConstants.FIELD_NAME_NULL_MESSAGE);
     }
 
     public String getDescription() {
-        return description;
+        return Objects.requireNonNull(description, DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
     }
 
     public void setDescription(String description) {
