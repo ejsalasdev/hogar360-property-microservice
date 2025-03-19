@@ -1,13 +1,14 @@
 package com.powerup.propertymicroservice.domain.ports.out;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
+import com.powerup.propertymicroservice.domain.model.PageInfo;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface CategoryPersistencePort {
     
     void save(CategoryModel categoryModel);
-    CategoryModel getCategoryByName(String categoryName);
-    List<CategoryModel> getCategories(Integer page, Integer size, boolean orderAsc);
+    Optional<CategoryModel> getCategoryByName(String categoryName);
+    PageInfo<CategoryModel> getCategories(Integer page, Integer size, String sortField, String sortDirection);
     
 }

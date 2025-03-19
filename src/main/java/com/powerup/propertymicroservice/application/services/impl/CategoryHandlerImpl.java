@@ -6,6 +6,8 @@ import com.powerup.propertymicroservice.application.dto.response.SaveCategoryRes
 import com.powerup.propertymicroservice.application.mappers.CategoryDtoMapper;
 import com.powerup.propertymicroservice.application.services.CategoryHandler;
 import com.powerup.propertymicroservice.commons.configuration.utils.Constants;
+import com.powerup.propertymicroservice.domain.model.CategoryModel;
+import com.powerup.propertymicroservice.domain.model.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryHandlerImpl implements CategoryHandler {
-    
+
     private final CategoryServicePort categoryServicePort;
     private final CategoryDtoMapper categoryDtoMapper;
-
 
     @Override
     public SaveCategoryResponse save(SaveCategoryRequest request) {
@@ -28,7 +29,20 @@ public class CategoryHandlerImpl implements CategoryHandler {
     }
 
     @Override
-    public List<CategoryResponse> getCategories(Integer page, Integer size, boolean orderAsc) {
-        return categoryDtoMapper.modelListToResponseList(categoryServicePort.getCategories(page, size, orderAsc));
+    public PageInfo<CategoryResponse> getCategories(Integer page, Integer size, boolean orderAsc) {
+        PageInfo<CategoryModel> categoryPageInfo = categoryServicePort.getCategories(page, size, orderAsc);
+        List<CategoryResponse> categoryResponses = categoryPageInfo.getContent().stream()
+                .map(categoryDtoMapper::modelToResponse)
+                .toList();
+
+        return new PageInfo<>(
+                categoryResponses,
+                categoryPageInfo.getTotalElements(),
+                categoryPageInfo.getTotalPages(),
+                categoryPageInfo.getCurrentPage(),
+                categoryPageInfo.getPageSize(),
+                categoryPageInfo.isHasNext(),
+                categoryPageInfo.isHasPrevious()
+        );
     }
 }

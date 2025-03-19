@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.infrastructure.commons.configuration.beans;
+package com.powerup.propertymicroservice.commons.configuration.beans;
 
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
@@ -13,17 +13,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class BeanConfiguration {
-    
     private final CategoryRepository categoryRepository;
     private final CategoryEntityMapper categoryEntityMapper;
-    
+
     @Bean
-    public CategoryPersistencePort categoryPersistencePort(){
-        return new CategoryPersistenceAdapter(categoryRepository, categoryEntityMapper);
-    }
-    
-    @Bean
-    public CategoryServicePort categoryServicePort(){
+    public CategoryServicePort categoryServicePort() {
         return new CategoryUseCase(categoryPersistencePort());
+    }
+
+    @Bean
+    public CategoryPersistencePort categoryPersistencePort() {
+        return new CategoryPersistenceAdapter(categoryRepository, categoryEntityMapper);
     }
 }
