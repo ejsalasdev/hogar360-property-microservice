@@ -6,6 +6,7 @@ import com.powerup.propertymicroservice.domain.model.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
 import com.powerup.propertymicroservice.domain.utils.constants.DomainConstants;
+import com.powerup.propertymicroservice.domain.validations.CategoryValidator;
 
 import java.util.Optional;
 
@@ -13,16 +14,21 @@ import java.util.Optional;
 public class CategoryUseCase implements CategoryServicePort {
 
     public final CategoryPersistencePort categoryPersistencePort;
+    public final CategoryValidator categoryValidator;
 
 
-    public CategoryUseCase(CategoryPersistencePort categoryPersistencePort) {
+    public CategoryUseCase(CategoryPersistencePort categoryPersistencePort, CategoryValidator categoryValidator) {
         this.categoryPersistencePort = categoryPersistencePort;
+        this.categoryValidator = categoryValidator;
     }
 
     @Override
     public void save(CategoryModel categoryModel) {
+        categoryValidator.validateName(categoryModel.getName());
+        categoryValidator.validateDescription(categoryModel.getDescription());
         Optional<CategoryModel> category = categoryPersistencePort.getCategoryByName(categoryModel.getName());
         if (category.isPresent()) {
+            System.out.println("Enter if category already exists");
             throw new CategoryAlreadyExistsException(DomainConstants.CATEGORY_EXISTS_EXCEPTION);
         }
         categoryPersistencePort.save(categoryModel);

@@ -3,6 +3,7 @@ package com.powerup.propertymicroservice.commons.configuration.beans;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.CategoryUseCase;
+import com.powerup.propertymicroservice.domain.validations.CategoryValidator;
 import com.powerup.propertymicroservice.infrastructure.adapters.persistence.CategoryPersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.CategoryEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.CategoryRepository;
@@ -18,11 +19,16 @@ public class BeanConfiguration {
 
     @Bean
     public CategoryServicePort categoryServicePort() {
-        return new CategoryUseCase(categoryPersistencePort());
+        return new CategoryUseCase(categoryPersistencePort(), categoryValidator());
     }
 
     @Bean
     public CategoryPersistencePort categoryPersistencePort() {
         return new CategoryPersistenceAdapter(categoryRepository, categoryEntityMapper);
+    }
+    
+    @Bean
+    public CategoryValidator categoryValidator(){
+        return new CategoryValidator();
     }
 }

@@ -1,17 +1,7 @@
 package com.powerup.propertymicroservice.domain.model;
 
-import com.powerup.propertymicroservice.domain.exceptions.DescriptionMaxSizeExceededException;
-import com.powerup.propertymicroservice.domain.exceptions.InvalidCategoryNameFormatException;
-import com.powerup.propertymicroservice.domain.exceptions.NameMaxSizeExceededException;
-import com.powerup.propertymicroservice.domain.exceptions.RequiredFieldNullOrEmptyException;
-import com.powerup.propertymicroservice.domain.utils.constants.CategoryValidationConstants;
-import com.powerup.propertymicroservice.domain.utils.constants.DomainConstants;
 
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.powerup.propertymicroservice.domain.utils.constants.CategoryValidationConstants.NAME_REGEX;
+import java.util.Objects;
 
 public class CategoryModel {
 
@@ -19,12 +9,10 @@ public class CategoryModel {
     private String name;
     private String description;
 
-    private static final Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
-
     public CategoryModel(Long id, String name, String description) {
         this.id = id;
-        setName(name);
-        setDescription(description);
+        this.name = name;
+        this.description = description;
     }
 
     public Long getId() {
@@ -36,13 +24,7 @@ public class CategoryModel {
     }
 
     public void setName(String name) {
-        if (name == null || name.trim().isEmpty())
-            throw new RequiredFieldNullOrEmptyException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
-        if (name.length() > CategoryValidationConstants.NAME_MAX_LENGTH)
-            throw new NameMaxSizeExceededException(DomainConstants.NAME_MAX_SIZE_MESSAGE);
-        if (!isValidFormatName(name))
-            throw new InvalidCategoryNameFormatException(DomainConstants.INVALID_CATEGORY_NAME_FORMAT_MESSAGE);
-        this.name = name.trim();
+        this.name = name;
     }
 
     public String getDescription() {
@@ -50,15 +32,18 @@ public class CategoryModel {
     }
 
     public void setDescription(String description) {
-        if (description == null || description.trim().isEmpty())
-            throw new RequiredFieldNullOrEmptyException(DomainConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
-        if (description.length() > CategoryValidationConstants.DESCRIPTION_MAX_LENGTH)
-            throw new DescriptionMaxSizeExceededException(DomainConstants.DESCRIPTION_MAX_SIZE_MESSAGE);
-        this.description = description.trim();
+        this.description = description;
     }
 
-    private boolean isValidFormatName(String name) {
-        Matcher matcher = NAME_PATTERN.matcher(name);
-        return matcher.matches();
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CategoryModel that = (CategoryModel) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
     }
 }
