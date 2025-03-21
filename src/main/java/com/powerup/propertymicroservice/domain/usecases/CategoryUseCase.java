@@ -28,7 +28,6 @@ public class CategoryUseCase implements CategoryServicePort {
         categoryValidator.validateDescription(categoryModel.getDescription());
         Optional<CategoryModel> category = categoryPersistencePort.getCategoryByName(categoryModel.getName());
         if (category.isPresent()) {
-            System.out.println("Enter if category already exists");
             throw new CategoryAlreadyExistsException(DomainConstants.CATEGORY_EXISTS_EXCEPTION);
         }
         categoryPersistencePort.save(categoryModel);

@@ -1,9 +1,6 @@
 package com.powerup.propertymicroservice.domain.validations;
 
-import com.powerup.propertymicroservice.domain.exceptions.DescriptionMaxSizeExceededException;
-import com.powerup.propertymicroservice.domain.exceptions.InvalidCategoryNameFormatException;
-import com.powerup.propertymicroservice.domain.exceptions.NameMaxSizeExceededException;
-import com.powerup.propertymicroservice.domain.exceptions.RequiredFieldNullOrEmptyException;
+import com.powerup.propertymicroservice.domain.exceptions.*;
 import com.powerup.propertymicroservice.domain.utils.constants.CategoryValidationConstants;
 import com.powerup.propertymicroservice.domain.utils.constants.DomainConstants;
 
@@ -27,7 +24,7 @@ public class CategoryValidator {
         if (trimmedName.length() > CategoryValidationConstants.NAME_MAX_LENGTH) {
             throw new NameMaxSizeExceededException(DomainConstants.NAME_MAX_SIZE_MESSAGE);
         }
-        if (!isValidFormatName(trimmedName)) {
+        if (isInvalidFormat(trimmedName)) {
             throw new InvalidCategoryNameFormatException(DomainConstants.INVALID_CATEGORY_NAME_FORMAT_MESSAGE);
         }
     }
@@ -43,11 +40,14 @@ public class CategoryValidator {
         if (trimmedDescription.length() > CategoryValidationConstants.DESCRIPTION_MAX_LENGTH) {
             throw new DescriptionMaxSizeExceededException(DomainConstants.DESCRIPTION_MAX_SIZE_MESSAGE);
         }
+        if (isInvalidFormat(trimmedDescription)) {
+            throw new InvalidCategoryDescriptionFormatException(DomainConstants.INVALID_CATEGORY_DESCRIPTION_FORMAT_MESSAGE);
+        }
     }
 
 
-    private boolean isValidFormatName(String name) {
-        Matcher matcher = NAME_PATTERN.matcher(name);
-        return matcher.matches();
+    private boolean isInvalidFormat(String string) {
+        Matcher matcher = NAME_PATTERN.matcher(string);
+        return !matcher.matches();
     }
 }

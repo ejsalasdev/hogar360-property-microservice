@@ -12,4 +12,5 @@ public final class DomainConstants {
     public static final String FIELD_NAME_NULL_MESSAGE = "Field 'name' can not be null or empty";
     public static final String FIELD_DESCRIPTION_NULL_MESSAGE = "Field 'description' can not be null or empty";
     public static final String INVALID_CATEGORY_NAME_FORMAT_MESSAGE = "Category name contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
+    public static final String INVALID_CATEGORY_DESCRIPTION_FORMAT_MESSAGE = "Category description contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
 }
