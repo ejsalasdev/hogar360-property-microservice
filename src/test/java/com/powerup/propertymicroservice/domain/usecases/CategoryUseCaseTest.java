@@ -58,4 +58,8 @@ class CategoryUseCaseTest {
         verify(categoryPersistencePort, never()).save(existingCategory);
 
     }
+
+    @Test
+    void getCategories() {
+    }
 }
