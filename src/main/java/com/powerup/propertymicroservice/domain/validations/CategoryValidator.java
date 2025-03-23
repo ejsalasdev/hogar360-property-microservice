@@ -15,11 +15,11 @@ public class CategoryValidator {
 
     public void validateName(String name) {
         if (name == null) {
-            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_NAME_NULL_MESSAGE);
+            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_NAME_NULL_OR_EMPTY_MESSAGE);
         }
         String trimmedName = name.trim();
         if (trimmedName.isEmpty()) {
-            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_NAME_NULL_MESSAGE);
+            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_NAME_NULL_OR_EMPTY_MESSAGE);
         }
         if (trimmedName.length() > CategoryConstants.NAME_MAX_LENGTH) {
             throw new NameMaxSizeExceededException(DomainExceptionsMessagesConstants.NAME_MAX_SIZE_MESSAGE);
@@ -31,11 +31,11 @@ public class CategoryValidator {
     
     public void validateDescription(String description){
         if (description == null) {
-            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
+            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_DESCRIPTION_NULL_OR_EMPTY_MESSAGE);
         }
         String trimmedDescription = description.trim();
         if (trimmedDescription.isEmpty()) {
-            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
+            throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_DESCRIPTION_NULL_OR_EMPTY_MESSAGE);
         }
         if (trimmedDescription.length() > CategoryConstants.DESCRIPTION_MAX_LENGTH) {
             throw new DescriptionMaxSizeExceededException(DomainExceptionsMessagesConstants.DESCRIPTION_MAX_SIZE_MESSAGE);

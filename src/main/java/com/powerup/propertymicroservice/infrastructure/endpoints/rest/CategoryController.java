@@ -7,6 +7,7 @@ import com.powerup.propertymicroservice.application.services.CategoryHandler;
 import com.powerup.propertymicroservice.domain.model.PageInfo;
 import com.powerup.propertymicroservice.infrastructure.exceptionshandler.ExceptionResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -71,7 +72,40 @@ public class CategoryController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<PageInfo<CategoryResponse>> getAllCategories(@RequestParam Integer page, @RequestParam Integer size, @RequestParam(defaultValue = "true") boolean orderAsc) {
+    @Operation(summary = "Get all categories with pagination", description = "Retrieves a paginated list of categories.")
+    @ApiResponse(responseCode = "200", description = "List of categories retrieved successfully.",
+            content = @Content(schema = @Schema(implementation = PageInfo.class)))
+    @ApiResponse(responseCode = "400", description = "Invalid pagination parameters.",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ExceptionResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "Invalid page number",
+                                    value = "{\"message\": \"Page number cannot be negative.\"}"
+                            ),
+                            @ExampleObject(
+                                    name = "Invalid page size",
+                                    value = "{\"message\": \"Page size cannot be negative or zero.\"}"
+                            ),
+                            @ExampleObject(
+                                    name = "Page size exceeds maximum allowed",
+                                    value = "{\"message\": \"Page size exceeds maximum allowed.\"}"
+                            ),
+                            @ExampleObject(
+                                    name = "Page number is required",
+                                    value = "{\"message\": \"Page number is required.\"}"
+                            ),
+                            @ExampleObject(
+                                    name = "Page size is required",
+                                    value = "{\"message\": \"Page size is required.\"}"
+                            )
+                    }
+            ))
+    public ResponseEntity<PageInfo<CategoryResponse>> getAllCategories(
+            @RequestParam(required = false) @Parameter(description = "Page number (starting from 0).") Integer page,
+            @RequestParam(required = false) @Parameter(description = "Number of items per page (starting from 1).") Integer size,
+            @RequestParam(defaultValue = "true") @Parameter(description = "Sort order (true for ascending, false for descending).") boolean orderAsc) {
         PageInfo<CategoryResponse> categoryPageInfo = categoryHandler.getCategories(page, size, orderAsc);
         return ResponseEntity.ok(categoryPageInfo);
     }

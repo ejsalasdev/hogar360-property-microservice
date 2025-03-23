@@ -23,7 +23,7 @@ class CategoryValidatorTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {"   "}) // Spaces only
+    @ValueSource(strings = {"   "})
     void Expect_RequiredFieldNullOrEmptyException_When_NameIsNullOrEmpty(String name) {
         // Arrange & Act & Assert
         assertThrows(RequiredFieldNullOrEmptyException.class, () -> categoryValidator.validateName(name));
@@ -56,7 +56,7 @@ class CategoryValidatorTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {"   "}) // Spaces only
+    @ValueSource(strings = {"   "})
     void Expect_RequiredFieldNullOrEmptyException_When_DescriptionIsNullOrEmpty(String description) {
         // Arrange & Act & Assert
         assertThrows(RequiredFieldNullOrEmptyException.class, () -> categoryValidator.validateDescription(description));

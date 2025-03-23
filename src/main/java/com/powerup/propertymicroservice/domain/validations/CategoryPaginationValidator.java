@@ -22,7 +22,7 @@ public class CategoryPaginationValidator {
             throw new RequiredFieldNullOrEmptyException(DomainExceptionsMessagesConstants.FIELD_SIZE_NULL_MESSAGE);
         }
         if (size < CategoryPaginationConstants.MIN_PAGE_SIZE) {
-            throw new InvalidPageSizeException(DomainExceptionsMessagesConstants.PAGE_SIZE_NEGATIVE_MESSAGE);
+            throw new InvalidPageSizeException(DomainExceptionsMessagesConstants.PAGE_SIZE_NEGATIVE_OR_ZERO_MESSAGE);
         }
         if (size > CategoryPaginationConstants.MAX_PAGE_SIZE) {
             throw new InvalidPageSizeException(DomainExceptionsMessagesConstants.PAGE_SIZE_MAX_EXCEEDED_MESSAGE);

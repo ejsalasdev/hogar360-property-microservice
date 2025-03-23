@@ -42,4 +42,10 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleInvalidPageNumberException(InvalidPageNumberException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
+    
+    @ExceptionHandler(InvalidPageSizeException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidPageSizeException(InvalidPageSizeException exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
+    }
+
 }
