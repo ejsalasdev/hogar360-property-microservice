@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.domain.model;
+package com.powerup.propertymicroservice.domain.utils.pagination;
 
 import java.util.List;
 

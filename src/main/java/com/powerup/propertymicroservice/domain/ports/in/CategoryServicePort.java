@@ -1,7 +1,7 @@
 package com.powerup.propertymicroservice.domain.ports.in;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 
 
 public interface CategoryServicePort {

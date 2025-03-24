@@ -1,7 +1,7 @@
-package com.powerup.propertymicroservice.domain.factories;
+package com.powerup.propertymicroservice.domain.utils.factories;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 
 import java.util.ArrayList;
 import java.util.List;

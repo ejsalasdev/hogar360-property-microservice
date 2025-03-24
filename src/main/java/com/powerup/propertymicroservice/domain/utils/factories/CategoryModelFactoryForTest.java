@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.domain.factories;
+package com.powerup.propertymicroservice.domain.utils.factories;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 

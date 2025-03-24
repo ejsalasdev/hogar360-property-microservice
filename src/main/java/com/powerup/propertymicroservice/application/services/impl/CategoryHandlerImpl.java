@@ -7,7 +7,7 @@ import com.powerup.propertymicroservice.application.mappers.CategoryDtoMapper;
 import com.powerup.propertymicroservice.application.services.CategoryHandler;
 import com.powerup.propertymicroservice.commons.configuration.utils.Constants;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

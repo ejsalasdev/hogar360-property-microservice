@@ -1,10 +1,11 @@
 package com.powerup.propertymicroservice.domain.validations;
 
 import com.powerup.propertymicroservice.domain.exceptions.DescriptionMaxSizeExceededException;
-import com.powerup.propertymicroservice.domain.exceptions.InvalidCategoryNameFormatException;
+import com.powerup.propertymicroservice.domain.exceptions.InvalidNameFormatException;
 import com.powerup.propertymicroservice.domain.exceptions.NameMaxSizeExceededException;
 import com.powerup.propertymicroservice.domain.exceptions.RequiredFieldNullOrEmptyException;
-import com.powerup.propertymicroservice.domain.utils.constants.CategoryConstants;
+import com.powerup.propertymicroservice.domain.utils.constants.categories.CategoryConstants;
+import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,7 +43,7 @@ class CategoryValidatorTest {
     @ValueSource(strings = {"Invalid Name!", " Invalid Name. "})
     void Expect_InvalidCategoryNameFormatException_When_NameHasInvalidFormat(String name) {
         // Arrange & Act & Assert
-        assertThrows(InvalidCategoryNameFormatException.class, () -> categoryValidator.validateName(name));
+        assertThrows(InvalidNameFormatException.class, () -> categoryValidator.validateName(name));
     }
 
     @Test
@@ -84,6 +85,6 @@ class CategoryValidatorTest {
     @ValueSource(strings = {"Invalid Description!", " Invalid Description. "})
     void Expect_InvalidCategoryDescriptionFormatException_When_DescriptionHasInvalidFormat(String description) {
         // Arrange & Act & Assert
-        assertThrows(InvalidCategoryNameFormatException.class, () -> categoryValidator.validateName(description));
+        assertThrows(InvalidNameFormatException.class, () -> categoryValidator.validateName(description));
     }
 }

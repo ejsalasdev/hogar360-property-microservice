@@ -4,7 +4,7 @@ import com.powerup.propertymicroservice.application.dto.request.SaveCategoryRequ
 import com.powerup.propertymicroservice.application.dto.response.CategoryResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
 import com.powerup.propertymicroservice.application.services.CategoryHandler;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.infrastructure.exceptionshandler.ExceptionResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

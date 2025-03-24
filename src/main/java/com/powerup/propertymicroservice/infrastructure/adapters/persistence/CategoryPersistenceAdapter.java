@@ -1,7 +1,7 @@
 package com.powerup.propertymicroservice.infrastructure.adapters.persistence;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
 import com.powerup.propertymicroservice.infrastructure.entities.CategoryEntity;
 import com.powerup.propertymicroservice.infrastructure.mappers.CategoryEntityMapper;

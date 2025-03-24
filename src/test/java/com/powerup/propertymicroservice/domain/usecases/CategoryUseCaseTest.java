@@ -1,13 +1,13 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.CategoryAlreadyExistsException;
-import com.powerup.propertymicroservice.domain.factories.CategoryModelFactoryForTest;
-import com.powerup.propertymicroservice.domain.factories.CategoryModelPaginationFactoryForTest;
+import com.powerup.propertymicroservice.domain.utils.factories.CategoryModelFactoryForTest;
+import com.powerup.propertymicroservice.domain.utils.factories.CategoryModelPaginationFactoryForTest;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
-import com.powerup.propertymicroservice.domain.validations.CategoryPaginationValidator;
-import com.powerup.propertymicroservice.domain.validations.CategoryValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryPaginationValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

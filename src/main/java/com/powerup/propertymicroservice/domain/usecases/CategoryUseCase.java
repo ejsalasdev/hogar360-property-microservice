@@ -2,12 +2,12 @@ package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.CategoryAlreadyExistsException;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
-import com.powerup.propertymicroservice.domain.utils.constants.DomainExceptionsMessagesConstants;
-import com.powerup.propertymicroservice.domain.validations.CategoryPaginationValidator;
-import com.powerup.propertymicroservice.domain.validations.CategoryValidator;
+import com.powerup.propertymicroservice.domain.utils.constants.categories.CategoriesExceptionsMessagesConstants;
+import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryPaginationValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 
 import java.util.Optional;
 
@@ -31,7 +31,7 @@ public class CategoryUseCase implements CategoryServicePort {
         categoryValidator.validateDescription(categoryModel.getDescription());
         Optional<CategoryModel> category = categoryPersistencePort.getCategoryByName(categoryModel.getName());
         if (category.isPresent()) {
-            throw new CategoryAlreadyExistsException(DomainExceptionsMessagesConstants.CATEGORY_EXISTS_EXCEPTION);
+            throw new CategoryAlreadyExistsException(CategoriesExceptionsMessagesConstants.CATEGORY_EXISTS_EXCEPTION);
         }
         categoryPersistencePort.save(categoryModel);
     }

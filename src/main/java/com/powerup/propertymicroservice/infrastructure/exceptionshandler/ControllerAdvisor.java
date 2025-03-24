@@ -32,8 +32,8 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
 
-    @ExceptionHandler(InvalidCategoryNameFormatException.class)
-    public ResponseEntity<ExceptionResponse> handleInvalidCategoryNameFormatException(InvalidCategoryNameFormatException exception) {
+    @ExceptionHandler(InvalidNameFormatException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidCategoryNameFormatException(InvalidNameFormatException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
     
