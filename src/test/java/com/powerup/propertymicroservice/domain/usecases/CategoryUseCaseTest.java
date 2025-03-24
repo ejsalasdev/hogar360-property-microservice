@@ -1,6 +1,6 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
-import com.powerup.propertymicroservice.domain.exceptions.CategoryAlreadyExistsException;
+import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
 import com.powerup.propertymicroservice.domain.utils.factories.CategoryModelFactoryForTest;
 import com.powerup.propertymicroservice.domain.utils.factories.CategoryModelPaginationFactoryForTest;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
@@ -58,7 +58,7 @@ class CategoryUseCaseTest {
         when(categoryPersistencePort.getCategoryByName(anyString())).thenReturn(Optional.of(existingCategory));
 
         //Act & Assert
-        assertThrows(CategoryAlreadyExistsException.class, () -> categoryUseCase.save(existingCategory));
+        assertThrows(ElementAlreadyExistsException.class, () -> categoryUseCase.save(existingCategory));
         verify(categoryPersistencePort, never()).save(existingCategory);
 
     }

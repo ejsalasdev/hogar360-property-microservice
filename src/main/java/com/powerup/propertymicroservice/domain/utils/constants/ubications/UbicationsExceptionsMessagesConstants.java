@@ -6,21 +6,21 @@ public final class UbicationsExceptionsMessagesConstants {
     public static final String UBICATION_NAME_MAX_SIZE_MESSAGE = "The name of the ubication can not exceed 50 characters";
     public static final String UBICATION_DESCRIPTION_MAX_SIZE_MESSAGE = "The description of the ubication can not exceed 120 characters";
     
-    public static final String UBICATION_EXISTS_EXCEPTION = "The ubication already exists";
+    public static final String UBICATION_EXISTS_EXCEPTION = "The ubication already exists: ";
     public static final String INVALID_UBICATION_NAME_FORMAT_MESSAGE = "Ubication name contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     public static final String INVALID_UBICATION_DESCRIPTION_FORMAT_MESSAGE = "Ubication description contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     
     // Messages for department
     public static final String DEPARTMENT_NAME_MAX_SIZE_MESSAGE = "The name of the department can not exceed 50 characters";
     public static final String DEPARTMENT_DESCRIPTION_MAX_SIZE_MESSAGE = "The description of the department can not exceed 120 characters";
-    public static final String DEPARTMENT_EXISTS_EXCEPTION = "The department already exists";
+    public static final String DEPARTMENT_EXISTS_EXCEPTION = "The department already exists: ";
     public static final String INVALID_DEPARTMENT_NAME_FORMAT_MESSAGE = "Department name contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     public static final String INVALID_DEPARTMENT_DESCRIPTION_FORMAT_MESSAGE = "Department description contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     
     // Messages for city
     public static final String CITY_NAME_MAX_SIZE_MESSAGE = "The name of the city can not exceed 50 characters";
     public static final String CITY_DESCRIPTION_MAX_SIZE_MESSAGE = "The description of the city can not exceed 120 characters";
-    public static final String CITY_EXISTS_EXCEPTION = "The city already exists";
+    public static final String CITY_EXISTS_EXCEPTION = "The city already exists: ";
     public static final String INVALID_CITY_NAME_FORMAT_MESSAGE = "City name contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     public static final String INVALID_CITY_DESCRIPTION_FORMAT_MESSAGE = "City description contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     
