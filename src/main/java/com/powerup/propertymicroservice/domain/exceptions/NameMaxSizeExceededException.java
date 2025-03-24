@@ -1,8 +1,8 @@
 package com.powerup.propertymicroservice.domain.exceptions;
 
-public class NameMaxSizeExceededException extends RuntimeException {
+public class NameMaxSizeExceededException extends IllegalArgumentException {
     
-    public NameMaxSizeExceededException(String message) {
-        super(message);
+    public NameMaxSizeExceededException(String s) {
+        super(s);
     }
 }

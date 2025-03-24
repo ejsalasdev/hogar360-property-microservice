@@ -1,8 +1,8 @@
 package com.powerup.propertymicroservice.domain.exceptions;
 
-public class RequiredFieldNullOrEmptyException extends RuntimeException{
+public class RequiredFieldNullOrEmptyException extends IllegalArgumentException{
 
-    public RequiredFieldNullOrEmptyException(String message) {
-        super(message);
+    public RequiredFieldNullOrEmptyException(String s) {
+        super(s);
     }
 }

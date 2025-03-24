@@ -1,8 +1,8 @@
 package com.powerup.propertymicroservice.domain.exceptions;
 
-public class InvalidCategoryDescriptionFormatException extends RuntimeException{
+public class InvalidCategoryDescriptionFormatException extends IllegalArgumentException{
 
-    public InvalidCategoryDescriptionFormatException(String message) {
-        super(message);
+    public InvalidCategoryDescriptionFormatException(String s) {
+        super(s);
     }
 }

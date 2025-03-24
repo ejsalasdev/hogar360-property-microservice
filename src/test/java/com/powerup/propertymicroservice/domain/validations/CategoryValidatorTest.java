@@ -4,7 +4,7 @@ import com.powerup.propertymicroservice.domain.exceptions.DescriptionMaxSizeExce
 import com.powerup.propertymicroservice.domain.exceptions.InvalidCategoryNameFormatException;
 import com.powerup.propertymicroservice.domain.exceptions.NameMaxSizeExceededException;
 import com.powerup.propertymicroservice.domain.exceptions.RequiredFieldNullOrEmptyException;
-import com.powerup.propertymicroservice.domain.utils.constants.CategoryValidationConstants;
+import com.powerup.propertymicroservice.domain.utils.constants.CategoryConstants;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,7 +23,7 @@ class CategoryValidatorTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {"   "}) // Spaces only
+    @ValueSource(strings = {"   "})
     void Expect_RequiredFieldNullOrEmptyException_When_NameIsNullOrEmpty(String name) {
         // Arrange & Act & Assert
         assertThrows(RequiredFieldNullOrEmptyException.class, () -> categoryValidator.validateName(name));
@@ -32,7 +32,7 @@ class CategoryValidatorTest {
     @Test
     void Expect_NameMaxSizeExceededException_When_NameExceedsMaxLength() {
         // Arrange
-        String longName = "a".repeat(CategoryValidationConstants.NAME_MAX_LENGTH + 1);
+        String longName = "a".repeat(CategoryConstants.NAME_MAX_LENGTH + 1);
 
         // Act & Assert
         assertThrows(NameMaxSizeExceededException.class, () -> categoryValidator.validateName(longName));
@@ -56,7 +56,7 @@ class CategoryValidatorTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {"   "}) // Spaces only
+    @ValueSource(strings = {"   "})
     void Expect_RequiredFieldNullOrEmptyException_When_DescriptionIsNullOrEmpty(String description) {
         // Arrange & Act & Assert
         assertThrows(RequiredFieldNullOrEmptyException.class, () -> categoryValidator.validateDescription(description));
@@ -65,7 +65,7 @@ class CategoryValidatorTest {
     @Test
     void Expect_DescriptionMaxSizeExceededException_When_DescriptionExceedsMaxLength() {
         // Arrange
-        String longDescription = "a".repeat(CategoryValidationConstants.DESCRIPTION_MAX_LENGTH + 1);
+        String longDescription = "a".repeat(CategoryConstants.DESCRIPTION_MAX_LENGTH + 1);
 
         // Act & Assert
         assertThrows(DescriptionMaxSizeExceededException.class, () -> categoryValidator.validateDescription(longDescription));
