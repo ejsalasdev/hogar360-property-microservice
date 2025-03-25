@@ -33,10 +33,13 @@ public class CityValidator {
     }
 
     private void validateCityName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_NULL_OR_EMPTY_MESSAGE);
+        if (name == null) {
+            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_NULL_MESSAGE);
         }
         String trimmedName = name.trim();
+        if (trimmedName.isEmpty()){
+            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_EMPTY_MESSAGE);
+        }
         if (trimmedName.length() > CityConstants.NAME_MAX_LENGTH) {
             throw new NameMaxSizeExceededException(CitiesExceptionsMessagesConstants.CITY_NAME_MAX_SIZE_MESSAGE);
         }
@@ -47,7 +50,7 @@ public class CityValidator {
 
     private void validateCityDescription(String description) {
         if (description == null || description.trim().isEmpty()) {
-            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_DESCRIPTION_NULL_OR_EMPTY_MESSAGE);
+            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
         }
         String trimmedDescription = description.trim();
         if (trimmedDescription.length() > CityConstants.DESCRIPTION_MAX_LENGTH) {
