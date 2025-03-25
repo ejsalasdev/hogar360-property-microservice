@@ -4,7 +4,7 @@ import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsEx
 import com.powerup.propertymicroservice.domain.model.UbicationModel;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.UbicationPersistencePort;
-import com.powerup.propertymicroservice.domain.utils.constants.ubications.UbicationsExceptionsMessagesConstants;
+import com.powerup.propertymicroservice.domain.utils.constants.cities.CitiesExceptionsMessagesConstants;
 
 import java.util.Optional;
 
@@ -20,7 +20,7 @@ public class UbicationUseCase implements UbicationServicePort {
     public void save(UbicationModel ubicationModel) {
         Optional<UbicationModel> ubication = ubicationPersistencePort.getUbicationByname(ubicationModel.getName());
         if (ubication.isPresent()) {
-            throw new ElementAlreadyExistsException(UbicationsExceptionsMessagesConstants.UBICATION_EXISTS_EXCEPTION + ubicationModel.getName());
+            throw new ElementAlreadyExistsException(CitiesExceptionsMessagesConstants.UBICATION_EXISTS_EXCEPTION + ubicationModel.getName());
         }
         ubicationPersistencePort.save(ubicationModel);
     }

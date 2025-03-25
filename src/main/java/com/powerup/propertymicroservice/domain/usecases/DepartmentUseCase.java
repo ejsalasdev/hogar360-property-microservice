@@ -4,7 +4,7 @@ import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsEx
 import com.powerup.propertymicroservice.domain.model.DepartmentModel;
 import com.powerup.propertymicroservice.domain.ports.in.DepartmentServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.DepartmentPersistencePort;
-import com.powerup.propertymicroservice.domain.utils.constants.ubications.UbicationsExceptionsMessagesConstants;
+import com.powerup.propertymicroservice.domain.utils.constants.cities.CitiesExceptionsMessagesConstants;
 
 import java.util.Optional;
 
@@ -18,11 +18,7 @@ public class DepartmentUseCase implements DepartmentServicePort {
     
     @Override
     public void save(DepartmentModel departmentModel) {
-        Optional<DepartmentModel> department = departmentPersistencePort.getDepartmentByName(departmentModel.getName());
-        if (department.isPresent()) {
-            throw new ElementAlreadyExistsException(UbicationsExceptionsMessagesConstants.DEPARTMENT_EXISTS_EXCEPTION + departmentModel.getName());
-        }
-        departmentPersistencePort.save(departmentModel);
+        
 
     }
 }

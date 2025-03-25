@@ -5,15 +5,17 @@ import com.powerup.propertymicroservice.application.dto.response.CategoryRespons
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
 import com.powerup.propertymicroservice.application.mappers.CategoryDtoMapper;
 import com.powerup.propertymicroservice.application.services.CategoryHandler;
-import com.powerup.propertymicroservice.commons.configuration.utils.Constants;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.Utils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.powerup.propertymicroservice.domain.utils.constants.categories.CategoryConstants.SAVE_CATEGORY_RESPONSE_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class CategoryHandlerImpl implements CategoryHandler {
     @Override
     public SaveCategoryResponse save(SaveCategoryRequest request) {
         categoryServicePort.save(categoryDtoMapper.requestToModel(request));
-        return new SaveCategoryResponse(Constants.SAVE_CATEGORY_RESPONSE_MESSAGE, LocalDateTime.now());
+        return new SaveCategoryResponse(SAVE_CATEGORY_RESPONSE_MESSAGE, LocalDateTime.now());
     }
 
     @Override

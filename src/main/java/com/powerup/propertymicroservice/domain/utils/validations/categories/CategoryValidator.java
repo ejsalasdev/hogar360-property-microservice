@@ -5,14 +5,10 @@ import com.powerup.propertymicroservice.domain.utils.constants.CommonConstants;
 import com.powerup.propertymicroservice.domain.utils.constants.categories.CategoryConstants;
 import com.powerup.propertymicroservice.domain.utils.constants.categories.CategoriesExceptionsMessagesConstants;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static com.powerup.propertymicroservice.domain.utils.constants.CommonConstants.NAME_REGEX;
+import static com.powerup.propertymicroservice.domain.utils.validations.ValidationUtils.isInvalidFormat;
+import static com.powerup.propertymicroservice.domain.utils.constants.CommonConstants.VALID_FORMAT_REGEX;
 
 public class CategoryValidator {
-
-    private static final Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
 
     public void validateName(String name) {
         if (name == null) {
@@ -23,14 +19,14 @@ public class CategoryValidator {
             throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_NULL_OR_EMPTY_MESSAGE);
         }
         if (trimmedName.length() > CategoryConstants.NAME_MAX_LENGTH) {
-            throw new NameMaxSizeExceededException(CategoriesExceptionsMessagesConstants.NAME_MAX_SIZE_MESSAGE);
+            throw new NameMaxSizeExceededException(CategoriesExceptionsMessagesConstants.CATEGORY_NAME_MAX_SIZE_MESSAGE);
         }
-        if (isInvalidFormat(trimmedName)) {
+        if (isInvalidFormat(trimmedName, VALID_FORMAT_REGEX)) {
             throw new InvalidNameFormatException(CategoriesExceptionsMessagesConstants.INVALID_CATEGORY_NAME_FORMAT_MESSAGE);
         }
     }
-    
-    public void validateDescription(String description){
+
+    public void validateDescription(String description) {
         if (description == null) {
             throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_DESCRIPTION_NULL_OR_EMPTY_MESSAGE);
         }
@@ -41,14 +37,8 @@ public class CategoryValidator {
         if (trimmedDescription.length() > CategoryConstants.DESCRIPTION_MAX_LENGTH) {
             throw new DescriptionMaxSizeExceededException(CategoriesExceptionsMessagesConstants.DESCRIPTION_MAX_SIZE_MESSAGE);
         }
-        if (isInvalidFormat(trimmedDescription)) {
+        if (isInvalidFormat(trimmedDescription, VALID_FORMAT_REGEX)) {
             throw new InvalidDescriptionFormatException(CategoriesExceptionsMessagesConstants.INVALID_CATEGORY_DESCRIPTION_FORMAT_MESSAGE);
         }
-    }
-
-
-    private boolean isInvalidFormat(String string) {
-        Matcher matcher = NAME_PATTERN.matcher(string);
-        return !matcher.matches();
     }
 }

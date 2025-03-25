@@ -1,11 +1,11 @@
-package com.powerup.propertymicroservice.domain.utils.constants.ubications;
+package com.powerup.propertymicroservice.domain.utils.constants.cities;
 
-public final class UbicationConstants {
+public final class CityConstants {
 
     public static final int NAME_MAX_LENGTH = 50;
     public static final int DESCRIPTION_MAX_LENGTH = 120;
     
-    private UbicationConstants() {
+    private CityConstants() {
         throw new IllegalStateException("Utility Class");
     }
 }

@@ -8,4 +8,6 @@ public interface CityPersistencePort {
     
     void save(CityModel cityModel);
     Optional<CityModel> getCityByName(String cityName);
+
+    Optional<CityModel> getCityByNameAndDepartmentId(String cityName, Long departmentId);
 }

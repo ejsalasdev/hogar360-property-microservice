@@ -1,6 +1,6 @@
 package com.powerup.propertymicroservice.domain.exceptions;
 
-public class ElementAlreadyExistsException extends IllegalArgumentException{
+public class ElementAlreadyExistsException extends RuntimeException{
 
     public ElementAlreadyExistsException(String s) {
         super(s);
