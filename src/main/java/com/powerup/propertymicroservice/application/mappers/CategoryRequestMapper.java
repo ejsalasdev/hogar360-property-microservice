@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CategoryDtoMapper {
+public interface CategoryRequestMapper {
     
     CategoryModel requestToModel(SaveCategoryRequest saveCategoryRequest);
     CategoryResponse modelToResponse(CategoryModel categoryModel);

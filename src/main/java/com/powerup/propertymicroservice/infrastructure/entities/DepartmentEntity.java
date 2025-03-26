@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "categories")
-public class CategoryEntity {
+@Table(name = "departments")
+public class DepartmentEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,6 @@ public class CategoryEntity {
     @Column(nullable = false, length = 50, unique = true)
     private String name;
     
-    @Column(nullable = false, length = 90)
+    @Column(nullable = false, length = 120)
     private String description;
 }

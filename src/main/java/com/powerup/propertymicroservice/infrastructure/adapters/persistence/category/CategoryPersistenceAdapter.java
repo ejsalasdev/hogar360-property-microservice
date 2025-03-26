@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.infrastructure.adapters.persistence;
+package com.powerup.propertymicroservice.infrastructure.adapters.persistence.category;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;

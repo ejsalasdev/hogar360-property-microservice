@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ControllerAdvisor {
 
-    // Exception Handler for Create Categories
+    // Exception Handler for Create Elements
     @ExceptionHandler(NameMaxSizeExceededException.class)
     public ResponseEntity<ExceptionResponse> handleNameMaxSizeExceededException(NameMaxSizeExceededException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
@@ -23,7 +23,7 @@ public class ControllerAdvisor {
     }
 
     @ExceptionHandler(ElementAlreadyExistsException.class)
-    public ResponseEntity<ExceptionResponse> handleCategoryAlreadyExistsException(ElementAlreadyExistsException exception) {
+    public ResponseEntity<ExceptionResponse> handleElementAlreadyExistsException(ElementAlreadyExistsException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
 
@@ -33,11 +33,11 @@ public class ControllerAdvisor {
     }
 
     @ExceptionHandler(InvalidNameFormatException.class)
-    public ResponseEntity<ExceptionResponse> handleInvalidCategoryNameFormatException(InvalidNameFormatException exception) {
+    public ResponseEntity<ExceptionResponse> handleInvalidNameFormatException(InvalidNameFormatException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
     
-    // Exception Handler for Get Categories Pagination
+    // Exception Handler for Get Pagination
     @ExceptionHandler(InvalidPageNumberException.class)
     public ResponseEntity<ExceptionResponse> handleInvalidPageNumberException(InvalidPageNumberException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));

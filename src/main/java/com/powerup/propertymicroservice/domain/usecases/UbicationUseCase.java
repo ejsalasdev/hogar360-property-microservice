@@ -17,11 +17,7 @@ public class UbicationUseCase implements UbicationServicePort {
     }
 
     @Override
-    public void save(UbicationModel ubicationModel) {
-        Optional<UbicationModel> ubication = ubicationPersistencePort.getUbicationByname(ubicationModel.getName());
-        if (ubication.isPresent()) {
-            throw new ElementAlreadyExistsException(CitiesExceptionsMessagesConstants.UBICATION_EXISTS_EXCEPTION + ubicationModel.getName());
-        }
-        ubicationPersistencePort.save(ubicationModel);
+    public void save(String sector, String cityName) {
+        
     }
 }

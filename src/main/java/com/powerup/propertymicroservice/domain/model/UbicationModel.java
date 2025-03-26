@@ -5,12 +5,12 @@ import java.util.Objects;
 public class UbicationModel {
 
     private Long id;
-    private DepartmentModel department;
+    private String sector;
     private CityModel city;
 
-    public UbicationModel(Long id, DepartmentModel department, CityModel city) {
+    public UbicationModel(Long id, String sector, CityModel city) {
         this.id = id;
-        this.department = department;
+        this.sector = sector;
         this.city = city;
     }
 
@@ -18,12 +18,12 @@ public class UbicationModel {
         return id;
     }
 
-    public DepartmentModel getDepartment() {
-        return department;
+    public String getSector() {
+        return sector;
     }
 
-    public void setDepartment(DepartmentModel department) {
-        this.department = department;
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 
     public CityModel getCity() {
@@ -36,14 +36,13 @@ public class UbicationModel {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UbicationModel that = (UbicationModel) o;
-        return Objects.equals(department, that.department) && Objects.equals(city, that.city);
+        return Objects.equals(sector, that.sector) && Objects.equals(city, that.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(department, city);
+        return Objects.hash(sector, city);
     }
 }

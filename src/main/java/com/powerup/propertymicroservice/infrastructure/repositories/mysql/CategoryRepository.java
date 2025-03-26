@@ -1,8 +1,6 @@
 package com.powerup.propertymicroservice.infrastructure.repositories.mysql;
 
 import com.powerup.propertymicroservice.infrastructure.entities.CategoryEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -11,7 +9,5 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
     
     Optional<CategoryEntity> findByName(String name);
-
-    Page<CategoryEntity> findAllBy(Pageable pageable);
 
 }
