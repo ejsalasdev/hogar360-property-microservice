@@ -28,4 +28,6 @@ public class DepartmentUseCase implements DepartmentServicePort {
         }
         departmentPersistencePort.save(departmentModel);
     }
+    
+    
 }

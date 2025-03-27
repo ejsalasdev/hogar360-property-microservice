@@ -13,10 +13,9 @@ public class CityUseCase implements CityServicePort {
     public CityUseCase(CityPersistencePort cityPersistencePort) {
         this.cityPersistencePort = cityPersistencePort;
     }
-
-
+    
     @Override
-    public void save(CityModel cityModel, String departmentName) {
-        
+    public Optional<CityModel> getCityByName(String name) {
+        return Optional.empty();
     }
 }

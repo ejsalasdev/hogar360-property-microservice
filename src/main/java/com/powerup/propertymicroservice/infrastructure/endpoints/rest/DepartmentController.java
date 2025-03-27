@@ -18,9 +18,9 @@ public class DepartmentController {
     
     private final DepartmentHandler departmentHandler;
     
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<SaveDepartmentResponse> save(@RequestBody SaveDepartmentRequest saveDepartmentRequest){
         SaveDepartmentResponse response = departmentHandler.save(saveDepartmentRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
+    }*/
 }
