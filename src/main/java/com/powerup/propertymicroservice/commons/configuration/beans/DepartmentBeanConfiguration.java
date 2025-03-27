@@ -4,7 +4,7 @@ import com.powerup.propertymicroservice.domain.ports.in.DepartmentServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.DepartmentPersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.DepartmentUseCase;
 import com.powerup.propertymicroservice.domain.utils.validations.departments.DepartmentValidator;
-import com.powerup.propertymicroservice.infrastructure.adapters.persistence.department.DepartmentPersistenceAdapter;
+import com.powerup.propertymicroservice.infrastructure.adapters.persistence.DepartmentPersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.DepartmentEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.DepartmentRepository;
 import lombok.RequiredArgsConstructor;

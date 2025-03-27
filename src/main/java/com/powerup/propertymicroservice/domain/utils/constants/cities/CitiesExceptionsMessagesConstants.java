@@ -6,6 +6,7 @@ public final class CitiesExceptionsMessagesConstants {
     public static final String CITY_NAME_MAX_SIZE_MESSAGE = "The name of the city can not exceed 50 characters";
     public static final String CITY_DESCRIPTION_MAX_SIZE_MESSAGE = "The description of the city can not exceed 120 characters";
     public static final String CITY_EXISTS_EXCEPTION = "The city already exists: ";
+    public static final String CITY_NOT_FOUND_EXCEPTION = "No city was found with the name: '%s'";
     public static final String CITY_ALREADY_EXISTS_IN_DEPARTMENT_EXCEPTION = "A city with the name '%s' already exists in this department.";
     public static final String INVALID_CITY_NAME_FORMAT_MESSAGE = "City name '%s' contains invalid characters. Only letters, numbers, underscore, and space are allowed.";
     public static final String INVALID_CITY_DESCRIPTION_FORMAT_MESSAGE = "City description '%s' contains invalid characters. Only letters, numbers, underscore, and space are allowed.";

@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.infrastructure.adapters.persistence.department;
+package com.powerup.propertymicroservice.infrastructure.adapters.persistence;
 
 import com.powerup.propertymicroservice.domain.model.DepartmentModel;
 import com.powerup.propertymicroservice.domain.ports.out.DepartmentPersistencePort;

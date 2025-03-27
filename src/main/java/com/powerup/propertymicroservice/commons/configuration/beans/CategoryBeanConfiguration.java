@@ -5,7 +5,7 @@ import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort
 import com.powerup.propertymicroservice.domain.usecases.CategoryUseCase;
 import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryPaginationValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
-import com.powerup.propertymicroservice.infrastructure.adapters.persistence.category.CategoryPersistenceAdapter;
+import com.powerup.propertymicroservice.infrastructure.adapters.persistence.CategoryPersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.CategoryEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.CategoryRepository;
 import lombok.RequiredArgsConstructor;
