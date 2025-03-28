@@ -2,7 +2,7 @@ package com.powerup.propertymicroservice.infrastructure.endpoints.rest;
 
 import com.powerup.propertymicroservice.application.dto.request.SaveDepartmentRequest;
 import com.powerup.propertymicroservice.application.dto.response.SaveDepartmentResponse;
-import com.powerup.propertymicroservice.application.services.DepartmentHandler;
+import com.powerup.propertymicroservice.application.handler.DepartmentHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +18,8 @@ public class DepartmentController {
     
     private final DepartmentHandler departmentHandler;
     
-    /*@PostMapping
-    public ResponseEntity<SaveDepartmentResponse> save(@RequestBody SaveDepartmentRequest saveDepartmentRequest){
-        SaveDepartmentResponse response = departmentHandler.save(saveDepartmentRequest);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }*/
+    @PostMapping
+    public ResponseEntity<SaveDepartmentResponse> save(@RequestBody SaveDepartmentRequest request){
+        return ResponseEntity.status(HttpStatus.CREATED).body(departmentHandler.save(request));
+    }
 }

@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface UbicationPersistencePort {
     
     void save(UbicationModel ubicationModel);
-    Optional<UbicationModel> getUbicationByname(String ubicationName);
+    Optional<UbicationModel> getUbicationBySectorAndCityId(String sector, Long cityId);
 }

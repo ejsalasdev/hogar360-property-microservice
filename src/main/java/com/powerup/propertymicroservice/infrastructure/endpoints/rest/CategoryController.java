@@ -3,7 +3,7 @@ package com.powerup.propertymicroservice.infrastructure.endpoints.rest;
 import com.powerup.propertymicroservice.application.dto.request.SaveCategoryRequest;
 import com.powerup.propertymicroservice.application.dto.response.CategoryResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
-import com.powerup.propertymicroservice.application.services.CategoryHandler;
+import com.powerup.propertymicroservice.application.handler.CategoryHandler;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.infrastructure.exceptionshandler.ExceptionResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,8 +67,8 @@ public class CategoryController {
                             )
                     }
             ))
-    public ResponseEntity<SaveCategoryResponse> save(@RequestBody SaveCategoryRequest saveCategoryRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryHandler.save(saveCategoryRequest));
+    public ResponseEntity<SaveCategoryResponse> save(@RequestBody SaveCategoryRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryHandler.save(request));
     }
 
     @GetMapping("/")

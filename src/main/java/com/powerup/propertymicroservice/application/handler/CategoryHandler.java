@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.application.services;
+package com.powerup.propertymicroservice.application.handler;
 
 import com.powerup.propertymicroservice.application.dto.request.SaveCategoryRequest;
 import com.powerup.propertymicroservice.application.dto.response.CategoryResponse;

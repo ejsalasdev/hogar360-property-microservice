@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public class CityUseCase implements CityServicePort {
 
-    public final CityPersistencePort cityPersistencePort;
-    public final CityValidator cityValidator;
+    private final CityPersistencePort cityPersistencePort;
+    private final CityValidator cityValidator;
 
     public CityUseCase(CityPersistencePort cityPersistencePort, CityValidator cityValidator) {
         this.cityPersistencePort = cityPersistencePort;

@@ -9,20 +9,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cities")
-public class CityEntity {
+@Table(name = "ubications")
+public class UbicationEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(nullable = false, length = 50)
-    private String name;
-    
-    @Column(nullable = false, length = 120)
-    private String description;
+    @Column(nullable = false)
+    private String sector;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
-    private DepartmentEntity department;
+    @JoinColumn(name = "city_id", nullable = false)
+    private CityEntity city;
 }

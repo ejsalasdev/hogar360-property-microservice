@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class CategoryUseCase implements CategoryServicePort {
 
-    public final CategoryPersistencePort categoryPersistencePort;
-    public final CategoryValidator categoryValidator;
-    public final CategoryPaginationValidator categoryPaginationValidator;
+    private final CategoryPersistencePort categoryPersistencePort;
+    private final CategoryValidator categoryValidator;
+    private final CategoryPaginationValidator categoryPaginationValidator;
 
 
     public CategoryUseCase(CategoryPersistencePort categoryPersistencePort, CategoryValidator categoryValidator, CategoryPaginationValidator categoryPaginationValidator) {
