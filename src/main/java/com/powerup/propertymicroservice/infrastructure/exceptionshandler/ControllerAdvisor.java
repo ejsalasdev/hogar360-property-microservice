@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class ControllerAdvisor {
-
-    // Exception Handler for Create Elements
+    
     @ExceptionHandler(NameMaxSizeExceededException.class)
     public ResponseEntity<ExceptionResponse> handleNameMaxSizeExceededException(NameMaxSizeExceededException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
@@ -25,6 +24,11 @@ public class ControllerAdvisor {
     @ExceptionHandler(ElementAlreadyExistsException.class)
     public ResponseEntity<ExceptionResponse> handleElementAlreadyExistsException(ElementAlreadyExistsException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(ElementNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleElementNotFoundException(ElementNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
 
     @ExceptionHandler(RequiredFieldNullOrEmptyException.class)
