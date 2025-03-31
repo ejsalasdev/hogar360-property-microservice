@@ -18,8 +18,8 @@ public class DepartmentController {
     
     private final DepartmentHandler departmentHandler;
     
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<SaveDepartmentResponse> save(@RequestBody SaveDepartmentRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(departmentHandler.save(request));
-    }
+    }*/
 }
