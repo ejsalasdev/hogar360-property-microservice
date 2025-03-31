@@ -20,12 +20,12 @@ public class CityUseCase implements CityServicePort {
     }
     
     @Override
-    public Optional<CityModel> getCityByName(String name) {
+    public CityModel getCityByName(String name) {
         cityValidator.validateCityName(name);
         Optional<CityModel> city = cityPersistencePort.getCityByName(name);
         if (city.isEmpty()) {
             throw new ElementNotFoundException(String.format(CitiesExceptionsMessagesConstants.CITY_NOT_FOUND_EXCEPTION, name));
         }
-        return city;
+        return city.get();
     }
 }

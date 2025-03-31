@@ -7,6 +7,7 @@ import com.powerup.propertymicroservice.domain.model.UbicationModel;
 import com.powerup.propertymicroservice.domain.ports.in.CityServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.UbicationPersistencePort;
+import com.powerup.propertymicroservice.domain.utils.constants.cities.CitiesExceptionsMessagesConstants;
 import com.powerup.propertymicroservice.domain.utils.constants.ubications.UbicationExceptionMessagesConstants;
 import com.powerup.propertymicroservice.domain.utils.validations.ubications.UbicationValidator;
 
@@ -29,10 +30,7 @@ public class UbicationUseCase implements UbicationServicePort {
     public void save(UbicationModel ubicationModel, String cityName) {
         ubicationValidator.validateSectorName(ubicationModel.getSector());
         
-        CityModel city = cityServicePort.getCityByName(cityName)
-                .orElseThrow(() -> new ElementNotFoundException(
-                        String.format(UbicationExceptionMessagesConstants.UBICATION_NOT_FOUND_EXCEPTION, cityName)
-                ));
+        CityModel city = cityServicePort.getCityByName(cityName);
 
         Optional<UbicationModel> existingUbication = ubicationPersistencePort
                 .getUbicationBySectorAndCityId(ubicationModel.getSector(), city.getId());

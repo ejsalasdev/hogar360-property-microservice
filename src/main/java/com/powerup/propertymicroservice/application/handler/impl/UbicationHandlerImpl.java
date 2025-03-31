@@ -1,7 +1,6 @@
 package com.powerup.propertymicroservice.application.handler.impl;
 
 import com.powerup.propertymicroservice.application.dto.request.SaveUbicationRequest;
-import com.powerup.propertymicroservice.application.dto.response.SaveDepartmentResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveUbicationResponse;
 import com.powerup.propertymicroservice.application.handler.UbicationHandler;
 import com.powerup.propertymicroservice.application.mappers.UbicationRequestMapper;

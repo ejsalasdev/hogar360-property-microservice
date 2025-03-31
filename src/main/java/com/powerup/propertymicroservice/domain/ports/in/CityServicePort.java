@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface CityServicePort {
     
-    Optional<CityModel> getCityByName(String name);
+    CityModel getCityByName(String name);
 }

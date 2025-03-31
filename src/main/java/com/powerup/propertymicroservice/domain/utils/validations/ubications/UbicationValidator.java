@@ -12,13 +12,13 @@ import static com.powerup.propertymicroservice.domain.utils.validations.Validati
 
 public class UbicationValidator {
 
-    public void validateSectorName(String name) {
-        if (name == null) {
-            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_NULL_MESSAGE);
+    public void validateSectorName(String sectorName) {
+        if (sectorName == null) {
+            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_SECTOR_NAME_NULL_MESSAGE);
         }
-        String trimmedName = name.trim();
+        String trimmedName = sectorName.trim();
         if (trimmedName.isEmpty()){
-            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_EMPTY_MESSAGE);
+            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_SECTOR_NAME_EMPTY_MESSAGE);
         }
         if (trimmedName.length() > UbicationConstants.NAME_MAX_LENGTH) {
             throw new NameMaxSizeExceededException(UbicationExceptionMessagesConstants.UBICATION_NAME_MAX_SIZE_MESSAGE);
