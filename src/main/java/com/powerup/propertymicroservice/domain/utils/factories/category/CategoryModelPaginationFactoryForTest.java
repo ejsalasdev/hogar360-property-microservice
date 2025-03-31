@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.domain.utils.factories;
+package com.powerup.propertymicroservice.domain.utils.factories.category;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;

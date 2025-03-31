@@ -1,13 +1,11 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
-import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
 import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.domain.model.UbicationModel;
 import com.powerup.propertymicroservice.domain.ports.in.CityServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.UbicationPersistencePort;
-import com.powerup.propertymicroservice.domain.utils.constants.cities.CitiesExceptionsMessagesConstants;
 import com.powerup.propertymicroservice.domain.utils.constants.ubications.UbicationExceptionMessagesConstants;
 import com.powerup.propertymicroservice.domain.utils.validations.ubications.UbicationValidator;
 

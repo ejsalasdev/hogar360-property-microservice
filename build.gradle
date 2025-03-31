@@ -53,9 +53,30 @@ test {
 }
 
 jacocoTestReport {
+    dependsOn test
+
     reports {
+        html.required = true
         xml.required = true
         csv.required = true
-        html.required = true
     }
+
+    classDirectories.setFrom(files(classDirectories.files.collect {
+        fileTree(dir: it, exclude: [
+                'com/powerup/propertymicroservice/PropertymicroserviceApplication.class',
+                'com/powerup/propertymicroservice/config/**',
+                'com/powerup/propertymicroservice/infrastructure/entrypoint/**',
+                'com/powerup/propertymicroservice/infrastructure/output/jpa/entity/**',
+                'com/powerup/propertymicroservice/infrastructure/output/jpa/adapter/**',
+                'com/powerup/propertymicroservice/infrastructure/output/jpa/mapper/**',
+                'com/powerup/propertymicroservice/domain/utils/factories/**',
+                'com/powerup/propertymicroservice/domain/utils/pagination/**',
+                'com/powerup/propertymicroservice/domain/utils/validations/**',
+                '**/*Test.*',
+                '**/*Kt.*'
+        ])
+    }))
+
+    sourceDirectories.setFrom(files('src/main/java'))
+    executionData.setFrom(fileTree(dir: project.buildDir, includes: ['jacoco/test.exec']))
 }

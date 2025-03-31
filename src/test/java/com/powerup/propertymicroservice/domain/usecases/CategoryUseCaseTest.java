@@ -1,8 +1,8 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
-import com.powerup.propertymicroservice.domain.utils.factories.CategoryModelFactoryForTest;
-import com.powerup.propertymicroservice.domain.utils.factories.CategoryModelPaginationFactoryForTest;
+import com.powerup.propertymicroservice.domain.utils.factories.category.CategoryModelFactoryForTest;
+import com.powerup.propertymicroservice.domain.utils.factories.category.CategoryModelPaginationFactoryForTest;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
@@ -35,8 +35,6 @@ class CategoryUseCaseTest {
 
     @InjectMocks
     private CategoryUseCase categoryUseCase;
-
-    // Test for create categories
     
     @Test
     void When_CategoryDoesNotExist_Expect_CategoryToBeSavedSuccessfully() {
@@ -62,9 +60,6 @@ class CategoryUseCaseTest {
         verify(categoryPersistencePort, never()).save(existingCategory);
 
     }
-    
-    
-    // Test for pagination
 
     @Test
     void getCategories_shouldReturnPageInfo_whenValidPageAndSize() {
