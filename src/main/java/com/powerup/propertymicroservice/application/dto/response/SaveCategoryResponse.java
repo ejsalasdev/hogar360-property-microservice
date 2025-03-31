@@ -1,4 +1,6 @@
 package com.powerup.propertymicroservice.application.dto.response;
 
-public record SaveCategoryResponse(String message, java.time.LocalDateTime timeStamp) {
+import java.time.LocalDateTime;
+
+public record SaveCategoryResponse(String message, LocalDateTime timeStamp) {
 }

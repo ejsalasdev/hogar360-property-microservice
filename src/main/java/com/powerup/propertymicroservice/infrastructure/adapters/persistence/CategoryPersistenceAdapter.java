@@ -1,7 +1,7 @@
 package com.powerup.propertymicroservice.infrastructure.adapters.persistence;
 
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
 import com.powerup.propertymicroservice.infrastructure.entities.CategoryEntity;
 import com.powerup.propertymicroservice.infrastructure.mappers.CategoryEntityMapper;
@@ -11,15 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 
-@Service
-@Transactional
+@Repository
 @RequiredArgsConstructor
 public class CategoryPersistenceAdapter implements CategoryPersistencePort {
 

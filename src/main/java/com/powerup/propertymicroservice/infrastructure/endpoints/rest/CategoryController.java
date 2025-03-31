@@ -3,8 +3,8 @@ package com.powerup.propertymicroservice.infrastructure.endpoints.rest;
 import com.powerup.propertymicroservice.application.dto.request.SaveCategoryRequest;
 import com.powerup.propertymicroservice.application.dto.response.CategoryResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
-import com.powerup.propertymicroservice.application.services.CategoryHandler;
-import com.powerup.propertymicroservice.domain.model.PageInfo;
+import com.powerup.propertymicroservice.application.handler.CategoryHandler;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.infrastructure.exceptionshandler.ExceptionResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/category")
 @RequiredArgsConstructor
+@Tag(name = "Category", description = "Operations related to category")
 public class CategoryController {
 
     private final CategoryHandler categoryHandler;
@@ -67,8 +69,8 @@ public class CategoryController {
                             )
                     }
             ))
-    public ResponseEntity<SaveCategoryResponse> save(@RequestBody SaveCategoryRequest saveCategoryRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryHandler.save(saveCategoryRequest));
+    public ResponseEntity<SaveCategoryResponse> save(@RequestBody SaveCategoryRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryHandler.save(request));
     }
 
     @GetMapping("/")
