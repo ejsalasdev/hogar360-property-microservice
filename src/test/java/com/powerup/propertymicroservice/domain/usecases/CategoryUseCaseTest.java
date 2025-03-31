@@ -6,7 +6,7 @@ import com.powerup.propertymicroservice.domain.utils.factories.category.Category
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
-import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryPaginationValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,7 +31,7 @@ class CategoryUseCaseTest {
     private CategoryValidator categoryValidator;
     
     @Mock
-    private CategoryPaginationValidator categoryPaginationValidator;
+    private PaginationValidator paginationValidator;
 
     @InjectMocks
     private CategoryUseCase categoryUseCase;

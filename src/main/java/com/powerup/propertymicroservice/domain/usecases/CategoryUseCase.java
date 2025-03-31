@@ -6,7 +6,7 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
 import com.powerup.propertymicroservice.domain.utils.constants.categories.CategoriesExceptionsMessagesConstants;
-import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryPaginationValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 
 import java.util.Optional;
@@ -16,13 +16,13 @@ public class CategoryUseCase implements CategoryServicePort {
 
     private final CategoryPersistencePort categoryPersistencePort;
     private final CategoryValidator categoryValidator;
-    private final CategoryPaginationValidator categoryPaginationValidator;
+    private final PaginationValidator paginationValidator;
 
 
-    public CategoryUseCase(CategoryPersistencePort categoryPersistencePort, CategoryValidator categoryValidator, CategoryPaginationValidator categoryPaginationValidator) {
+    public CategoryUseCase(CategoryPersistencePort categoryPersistencePort, CategoryValidator categoryValidator, PaginationValidator paginationValidator) {
         this.categoryPersistencePort = categoryPersistencePort;
         this.categoryValidator = categoryValidator;
-        this.categoryPaginationValidator = categoryPaginationValidator;
+        this.paginationValidator = paginationValidator;
     }
 
     @Override
@@ -38,11 +38,11 @@ public class CategoryUseCase implements CategoryServicePort {
 
     @Override
     public PageInfo<CategoryModel> getCategories(Integer page, Integer size, boolean orderAsc) {
-        categoryPaginationValidator.validatePage(page);
-        categoryPaginationValidator.validateSize(size);
-        String sortField = "name";
+        paginationValidator.validatePage(page);
+        paginationValidator.validateSize(size);
+        String sortBy = "name";
         String sortDirection = orderAsc ? "asc" : "desc";
-        return categoryPersistencePort.getCategories(page, size, sortField, sortDirection);
+        return categoryPersistencePort.getCategories(page, size, sortBy, sortDirection);
     }
 
 

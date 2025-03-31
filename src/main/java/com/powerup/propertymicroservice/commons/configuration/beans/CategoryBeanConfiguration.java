@@ -3,7 +3,7 @@ package com.powerup.propertymicroservice.commons.configuration.beans;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.CategoryUseCase;
-import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryPaginationValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 import com.powerup.propertymicroservice.infrastructure.adapters.persistence.CategoryPersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.CategoryEntityMapper;
@@ -30,12 +30,12 @@ public class CategoryBeanConfiguration {
     }
 
     @Bean
-    public CategoryPaginationValidator categoryPaginationValidator() {
-        return new CategoryPaginationValidator();
+    public PaginationValidator paginationValidator() {
+        return new PaginationValidator();
     }
 
     @Bean
     public CategoryServicePort categoryServicePort() {
-        return new CategoryUseCase(categoryPersistencePort(), categoryValidator(), categoryPaginationValidator());
+        return new CategoryUseCase(categoryPersistencePort(), categoryValidator(), paginationValidator());
     }
 }

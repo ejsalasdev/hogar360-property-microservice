@@ -5,6 +5,7 @@ import com.powerup.propertymicroservice.application.dto.response.CategoryRespons
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
 import com.powerup.propertymicroservice.application.handler.CategoryHandler;
 import com.powerup.propertymicroservice.application.mappers.CategoryRequestMapper;
+import com.powerup.propertymicroservice.application.mappers.CategoryResponseMapper;
 import com.powerup.propertymicroservice.application.utils.constants.ApplicationConstants;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
@@ -21,6 +22,7 @@ public class CategoryHandlerImpl implements CategoryHandler {
 
     private final CategoryServicePort categoryServicePort;
     private final CategoryRequestMapper categoryRequestMapper;
+    private final CategoryResponseMapper categoryResponseMapper;
 
     @Override
     public SaveCategoryResponse save(SaveCategoryRequest request) {
@@ -32,7 +34,7 @@ public class CategoryHandlerImpl implements CategoryHandler {
     public PageInfo<CategoryResponse> getCategories(Integer page, Integer size, boolean orderAsc) {
         PageInfo<CategoryModel> categoryPageInfo = categoryServicePort.getCategories(page, size, orderAsc);
         List<CategoryResponse> categoryResponses = categoryPageInfo.getContent().stream()
-                .map(categoryRequestMapper::modelToResponse)
+                .map(categoryResponseMapper::modelToResponse)
                 .toList();
 
         return new PageInfo<>(

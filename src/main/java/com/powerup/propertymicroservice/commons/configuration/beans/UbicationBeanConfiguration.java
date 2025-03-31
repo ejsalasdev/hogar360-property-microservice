@@ -3,6 +3,7 @@ package com.powerup.propertymicroservice.commons.configuration.beans;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.UbicationPersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.UbicationUseCase;
+import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.ubications.UbicationValidator;
 import com.powerup.propertymicroservice.infrastructure.adapters.persistence.UbicationPersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.UbicationEntityMapper;
@@ -28,9 +29,14 @@ public class UbicationBeanConfiguration {
     public UbicationValidator ubicationValidator() {
         return new UbicationValidator();
     }
+    
+    @Bean
+    public PaginationValidator paginationValidator() {
+        return new PaginationValidator();
+    }
 
     @Bean
     public UbicationServicePort ubicationServicePort() {
-        return new UbicationUseCase(ubicationPersistencePort(), cityBeanConfiguration.cityServicePort(), ubicationValidator());
+        return new UbicationUseCase(ubicationPersistencePort(), cityBeanConfiguration.cityServicePort(), ubicationValidator(), paginationValidator());
     }
 }

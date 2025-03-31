@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.domain.utils.constants;
+package com.powerup.propertymicroservice.domain.utils.constants.pagination;
 
 public final class PaginationConstants {
 
