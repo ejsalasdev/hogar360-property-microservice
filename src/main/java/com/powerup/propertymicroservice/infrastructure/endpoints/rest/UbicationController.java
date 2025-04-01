@@ -35,12 +35,12 @@ public class UbicationController {
             @ApiResponse(responseCode = "409", description = "Ubication already exists in the specified city"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<SaveUbicationResponse> save(@RequestBody @Schema(description = "Ubication information to save") SaveUbicationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(ubicationHandler.save(request));
     }
 
-    @GetMapping
+    @GetMapping("/")
     @Operation(summary = "Search paginated list of ubications by city or department name, with optional sorting")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved paginated list of ubications",

@@ -11,9 +11,11 @@ import com.powerup.propertymicroservice.infrastructure.repositories.mysql.Catego
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 @Configuration
 @RequiredArgsConstructor
+@Import(CommonBeanConfiguration.class)
 public class CategoryBeanConfiguration {
 
     private final CategoryRepository categoryRepository;
@@ -23,19 +25,18 @@ public class CategoryBeanConfiguration {
     public CategoryPersistencePort categoryPersistencePort() {
         return new CategoryPersistenceAdapter(categoryRepository, categoryEntityMapper);
     }
-    
+
     @Bean
     public CategoryValidator categoryValidator() {
         return new CategoryValidator();
     }
 
     @Bean
-    public PaginationValidator paginationValidator() {
-        return new PaginationValidator();
-    }
-
-    @Bean
-    public CategoryServicePort categoryServicePort() {
-        return new CategoryUseCase(categoryPersistencePort(), categoryValidator(), paginationValidator());
+    public CategoryServicePort categoryServicePort(
+            CategoryPersistencePort categoryPersistencePort,
+            CategoryValidator categoryValidator,
+            PaginationValidator paginationValidator
+    ) {
+        return new CategoryUseCase(categoryPersistencePort, categoryValidator, paginationValidator);
     }
 }

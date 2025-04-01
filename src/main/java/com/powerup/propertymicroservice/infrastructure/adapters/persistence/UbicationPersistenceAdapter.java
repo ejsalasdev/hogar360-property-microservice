@@ -6,6 +6,7 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.infrastructure.entities.UbicationEntity;
 import com.powerup.propertymicroservice.infrastructure.mappers.UbicationEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.UbicationRepository;
+import com.powerup.propertymicroservice.infrastructure.utils.validation.UbicationSortHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ public class UbicationPersistenceAdapter implements UbicationPersistencePort {
 
     private final UbicationRepository ubicationRepository;
     private final UbicationEntityMapper ubicationEntityMapper;
+    private final UbicationSortHelper ubicationSortHelper;
 
     @Override
     public void save(UbicationModel ubicationModel) {
@@ -37,10 +39,8 @@ public class UbicationPersistenceAdapter implements UbicationPersistencePort {
 
     @Override
     public PageInfo<UbicationModel> getUbications(String searchText, Integer page, Integer size, String sortBy, String sortDirection) {
-        Sort sort = Sort.by(sortBy);
-        if (sortDirection.equalsIgnoreCase("desc")) {
-            sort = sort.descending();
-        }
+        Sort sort = ubicationSortHelper.createSort(sortBy, sortDirection);       
+        
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<UbicationEntity> ubicationEntityPage;
 

@@ -13,7 +13,7 @@ public class DepartmentValidator {
         validateDescription(departmentModel.getDescription());
     }
 
-    public void validateName(String name) {
+    private void validateName(String name) {
         if (name == null) {
             throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_NULL_MESSAGE);
         }
@@ -29,7 +29,7 @@ public class DepartmentValidator {
         }
     }
 
-    public void validateDescription(String description) {
+    private void validateDescription(String description) {
         if (description == null) {
             throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
         }
