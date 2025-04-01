@@ -9,6 +9,5 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 public interface CategoryHandler {
 
     SaveCategoryResponse save(SaveCategoryRequest saveCategoryRequest);
-
     PageInfo<CategoryResponse> getCategories(Integer page, Integer size, boolean orderAsc);
 }

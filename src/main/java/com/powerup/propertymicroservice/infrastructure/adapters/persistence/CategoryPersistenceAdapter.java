@@ -35,8 +35,8 @@ public class CategoryPersistenceAdapter implements CategoryPersistencePort {
     }
 
     @Override
-    public PageInfo<CategoryModel> getCategories(Integer page, Integer size, String sortField, String sortDirection) {
-        Sort sort = Sort.by(sortField);
+    public PageInfo<CategoryModel> getCategories(Integer page, Integer size, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(sortBy);
         if (sortDirection.equalsIgnoreCase("desc")) {
             sort = sort.descending();
         }

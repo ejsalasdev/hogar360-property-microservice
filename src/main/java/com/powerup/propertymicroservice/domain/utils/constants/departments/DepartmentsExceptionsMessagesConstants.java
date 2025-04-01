@@ -1,6 +1,6 @@
 package com.powerup.propertymicroservice.domain.utils.constants.departments;
 
-public class DepartmentsExceptionMessagesConstants {
+public class DepartmentsExceptionsMessagesConstants {
 
     // Messages for department
     public static final String DEPARTMENT_NAME_MAX_SIZE_MESSAGE = "The name of the department can not exceed 50 characters";
@@ -10,7 +10,7 @@ public class DepartmentsExceptionMessagesConstants {
     public static final String INVALID_DEPARTMENT_NAME_FORMAT_MESSAGE = "Department name '%s' contains invalid characters. Only letters and space are allowed.";
     public static final String INVALID_DEPARTMENT_DESCRIPTION_FORMAT_MESSAGE = "Department description '%s' contains invalid characters. Only letters and space are allowed.";
 
-    private DepartmentsExceptionMessagesConstants() {
+    private DepartmentsExceptionsMessagesConstants() {
         throw new IllegalStateException("Utility Class");
     }
 }
