@@ -37,14 +37,6 @@ public class UbicationModelPaginationFactoryForTest {
         return ubications;
     }
 
-    public static PageInfo<UbicationModel> createSinglePageInfo(int size, int currentPage, int pageSize) {
-        List<UbicationModel> ubications = createUbicationModelList(size);
-        int totalPages = (int) Math.ceil((double) size / pageSize);
-        boolean hasNext = currentPage < totalPages - 1;
-        boolean hasPrevious = currentPage > 0;
-        return createPageInfo(ubications, size, totalPages, currentPage, pageSize, hasNext, hasPrevious);
-    }
-
     public static PageInfo<UbicationModel> createEmptyPageInfo(int currentPage, int pageSize) {
         return createPageInfo(new ArrayList<>(), 0, 0, currentPage, pageSize, false, false);
     }

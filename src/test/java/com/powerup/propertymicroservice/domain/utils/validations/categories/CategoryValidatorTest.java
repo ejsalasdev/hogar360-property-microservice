@@ -1,33 +1,34 @@
-package com.powerup.propertymicroservice.domain.validations;
+package com.powerup.propertymicroservice.domain.utils.validations.categories;
 
 import com.powerup.propertymicroservice.domain.exceptions.DescriptionMaxSizeExceededException;
 import com.powerup.propertymicroservice.domain.exceptions.InvalidNameFormatException;
 import com.powerup.propertymicroservice.domain.exceptions.NameMaxSizeExceededException;
 import com.powerup.propertymicroservice.domain.exceptions.RequiredFieldNullOrEmptyException;
 import com.powerup.propertymicroservice.domain.utils.constants.categories.CategoryConstants;
-import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.InjectMocks;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
 class CategoryValidatorTest {
     
-    @InjectMocks
-    private CategoryValidator categoryValidator;
+    private CategoryValidator validator;
+    
+    @BeforeEach
+    void setUp() {
+        validator = new CategoryValidator();
+    }
 
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {"   "})
     void Expect_RequiredFieldNullOrEmptyException_When_NameIsNullOrEmpty(String name) {
         // Arrange & Act & Assert
-        assertThrows(RequiredFieldNullOrEmptyException.class, () -> categoryValidator.validateName(name));
+        assertThrows(RequiredFieldNullOrEmptyException.class, () -> validator.validateName(name));
     }
 
     @Test
@@ -36,14 +37,14 @@ class CategoryValidatorTest {
         String longName = "a".repeat(CategoryConstants.NAME_MAX_LENGTH + 1);
 
         // Act & Assert
-        assertThrows(NameMaxSizeExceededException.class, () -> categoryValidator.validateName(longName));
+        assertThrows(NameMaxSizeExceededException.class, () -> validator.validateName(longName));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"Invalid Name!", " Invalid Name. "})
     void Expect_InvalidCategoryNameFormatException_When_NameHasInvalidFormat(String name) {
         // Arrange & Act & Assert
-        assertThrows(InvalidNameFormatException.class, () -> categoryValidator.validateName(name));
+        assertThrows(InvalidNameFormatException.class, () -> validator.validateName(name));
     }
 
     @Test
@@ -52,7 +53,7 @@ class CategoryValidatorTest {
         String validName = "ValidName";
 
         // Act & Assert
-        assertDoesNotThrow(() -> categoryValidator.validateName(validName));
+        assertDoesNotThrow(() -> validator.validateName(validName));
     }
 
     @ParameterizedTest
@@ -60,7 +61,7 @@ class CategoryValidatorTest {
     @ValueSource(strings = {"   "})
     void Expect_RequiredFieldNullOrEmptyException_When_DescriptionIsNullOrEmpty(String description) {
         // Arrange & Act & Assert
-        assertThrows(RequiredFieldNullOrEmptyException.class, () -> categoryValidator.validateDescription(description));
+        assertThrows(RequiredFieldNullOrEmptyException.class, () -> validator.validateDescription(description));
     }
 
     @Test
@@ -69,7 +70,7 @@ class CategoryValidatorTest {
         String longDescription = "a".repeat(CategoryConstants.DESCRIPTION_MAX_LENGTH + 1);
 
         // Act & Assert
-        assertThrows(DescriptionMaxSizeExceededException.class, () -> categoryValidator.validateDescription(longDescription));
+        assertThrows(DescriptionMaxSizeExceededException.class, () -> validator.validateDescription(longDescription));
     }
 
     @Test
@@ -78,13 +79,13 @@ class CategoryValidatorTest {
         String validDescription = "Valid Description";
 
         // Act & Assert
-        assertDoesNotThrow(() -> categoryValidator.validateDescription(validDescription));
+        assertDoesNotThrow(() -> validator.validateDescription(validDescription));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"Invalid Description!", " Invalid Description. "})
     void Expect_InvalidCategoryDescriptionFormatException_When_DescriptionHasInvalidFormat(String description) {
         // Arrange & Act & Assert
-        assertThrows(InvalidNameFormatException.class, () -> categoryValidator.validateName(description));
+        assertThrows(InvalidNameFormatException.class, () -> validator.validateName(description));
     }
 }
