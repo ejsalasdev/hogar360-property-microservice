@@ -19,8 +19,4 @@ public class UbicationModelFactoryForTest {
     public static UbicationModel createExistingUbicationModel(Long id, String sector, CityModel city) {
         return createUbicationModel(id, sector, city);
     }
-
-    public static UbicationModel createNewUbicationModelWithSectorAndCity(String sector, CityModel city) {
-        return createUbicationModel(null, sector, city);
-    }
 }

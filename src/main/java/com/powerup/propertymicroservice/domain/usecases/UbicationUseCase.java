@@ -29,10 +29,17 @@ public class UbicationUseCase implements UbicationServicePort {
     }
 
     @Override
-    public void save(UbicationModel ubicationModel, String cityName) {
+    public void save(UbicationModel ubicationModel, String cityName, String departmentName) {
         ubicationValidator.validateSectorName(ubicationModel.getSector());
 
-        CityModel city = cityServicePort.getCityByName(cityName);
+        CityModel city;
+
+        if (departmentName == null || departmentName.trim().isEmpty()) {
+            city = cityServicePort.getUniqueCityByName(cityName);
+        } else {
+            city = cityServicePort.getCityByNameAndDepartmentName(cityName, departmentName);
+        }
+
 
         Optional<UbicationModel> existingUbication = ubicationPersistencePort
                 .getUbicationBySectorAndCityId(ubicationModel.getSector(), city.getId());

@@ -7,7 +7,9 @@ import com.powerup.propertymicroservice.infrastructure.repositories.mysql.CityRe
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,12 +19,19 @@ public class CityPersistenceAdapter implements CityPersistencePort {
     private final CityEntityMapper cityEntityMapper;
 
     @Override
-    public Optional<CityModel> getCityById(Long id) {
-        return cityRepository.findById(id).map(cityEntityMapper::entityToModel);
+    public Optional<CityModel> getCityByName(String name) {
+        return cityRepository.findByName(name).map(cityEntityMapper::entityToModel);
     }
 
     @Override
-    public Optional<CityModel> getCityByName(String name) {
-        return cityRepository.findByName(name).map(cityEntityMapper::entityToModel);
+    public List<CityModel> getAllCitiesByName(String name) {
+        return cityRepository.findAllByName(name).stream()
+                .map(cityEntityMapper::entityToModel)
+                .toList();
+    }
+
+    @Override
+    public Optional<CityModel> getCityAndDepartmentByName(String cityName, String departmentName) {
+        return cityRepository.findByNameIgnoreCaseAndDepartment_NameIgnoreCase(cityName, departmentName).map(cityEntityMapper::entityToModel);
     }
 }

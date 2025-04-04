@@ -1,6 +1,8 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
+import com.powerup.propertymicroservice.domain.exceptions.ElementAmbiguousNameException;
+import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
 import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.domain.model.DepartmentModel;
 import com.powerup.propertymicroservice.domain.model.UbicationModel;
@@ -44,49 +46,113 @@ class UbicationUseCaseTest {
     private UbicationUseCase ubicationUseCase;
 
     @Test
-    void When_NewUbicationAndExistingCity_Expect_UbicationToBeSavedSuccessfully() {
+    void save_shouldSaveUbication_whenCityExistsAndDepartmentNameNotProvided() {
         // Arrange
-        String cityName = "SimpleCity";
-        String sector = "SimpleSector";
-        Long cityId = 1L;
-        DepartmentModel department = new DepartmentModel(1L, "SimpleDepartment", null);
-        CityModel existingCity = CityModelFactoryForTest.createExistingCityModel(cityId, cityName, "Simple Description", department);
-        UbicationModel newUbicationAttempt = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(existingCity);
-
-        when(cityServicePort.getCityByName(cityName)).thenReturn(existingCity);
-        doNothing().when(ubicationValidator).validateSectorName(sector);
-        when(ubicationPersistencePort.getUbicationBySectorAndCityId(sector, cityId)).thenReturn(Optional.empty());
+        DepartmentModel antioquia = new DepartmentModel(1L, "Antioquia", "Departamento de Colombia");
+        CityModel city = CityModelFactoryForTest.createExistingCityModel(1L, "Medellín", "Ciudad de la eterna primavera", antioquia);
+        UbicationModel newUbication = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(city);
+        when(cityServicePort.getUniqueCityByName("Medellín")).thenReturn(city);
+        when(ubicationPersistencePort.getUbicationBySectorAndCityId("SimpleSector", 1L)).thenReturn(Optional.empty());
+        doNothing().when(ubicationPersistencePort).save(newUbication);
 
         // Act
-        ubicationUseCase.save(newUbicationAttempt, cityName);
+        ubicationUseCase.save(newUbication, "Medellín", null);
 
         // Assert
-        verify(cityServicePort, times(1)).getCityByName(cityName);
-        verify(ubicationValidator, times(1)).validateSectorName(sector);
-        verify(ubicationPersistencePort, times(1)).getUbicationBySectorAndCityId(sector, cityId);
-        verify(ubicationPersistencePort, times(1)).save(new UbicationModel(null, sector, existingCity));
+        verify(ubicationValidator, times(1)).validateSectorName("SimpleSector");
+        verify(cityServicePort, times(1)).getUniqueCityByName("Medellín");
+        verify(ubicationPersistencePort, times(1)).getUbicationBySectorAndCityId("SimpleSector", 1L);
+        verify(ubicationPersistencePort, times(1)).save(newUbication);
     }
 
     @Test
-    void Expect_ElementAlreadyExistsException_When_UbicationAlreadyExistsInCity() {
+    void save_shouldSaveUbication_whenCityAndDepartmentNameProvidedAndExist() {
         // Arrange
-        String cityName = "ExistingCity";
-        String sector = "ExistingSector";
-        Long cityId = 2L;
-        DepartmentModel department = new DepartmentModel(2L, "ExistingDepartment", null);
-        CityModel existingCity = CityModelFactoryForTest.createExistingCityModel(cityId, cityName, "Existing Description", department);
-        UbicationModel existingUbication = UbicationModelFactoryForTest.createExistingUbicationModel(15L, sector, existingCity);
-        UbicationModel newUbicationAttempt = UbicationModelFactoryForTest.createNewUbicationModelWithSectorAndCity(sector, existingCity); // Usando el sector correcto
+        DepartmentModel antioquia = new DepartmentModel(1L, "Antioquia", "Departamento de Colombia");
+        CityModel city = CityModelFactoryForTest.createExistingCityModel(1L, "Medellín", "Ciudad de la eterna primavera", antioquia);
+        UbicationModel newUbication = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(city);
+        when(cityServicePort.getCityByNameAndDepartmentName("Medellín", "Antioquia")).thenReturn(city);
+        when(ubicationPersistencePort.getUbicationBySectorAndCityId("SimpleSector", 1L)).thenReturn(Optional.empty());
+        doNothing().when(ubicationPersistencePort).save(newUbication);
 
-        when(cityServicePort.getCityByName(cityName)).thenReturn(existingCity);
-        doNothing().when(ubicationValidator).validateSectorName(sector);
-        when(ubicationPersistencePort.getUbicationBySectorAndCityId(sector, cityId)).thenReturn(Optional.of(existingUbication));
-
-        // Act & Assert
-        assertThrows(ElementAlreadyExistsException.class, () -> ubicationUseCase.save(newUbicationAttempt, cityName));
+        // Act
+        ubicationUseCase.save(newUbication, "Medellín", "Antioquia");
 
         // Assert
-        verify(ubicationPersistencePort, never()).save(any(UbicationModel.class));
+        verify(ubicationValidator, times(1)).validateSectorName("SimpleSector");
+        verify(cityServicePort, times(1)).getCityByNameAndDepartmentName("Medellín", "Antioquia");
+        verify(ubicationPersistencePort, times(1)).getUbicationBySectorAndCityId("SimpleSector", 1L);
+        verify(ubicationPersistencePort, times(1)).save(newUbication);
+    }
+
+    @Test
+    void save_shouldThrowElementAlreadyExistsException_whenUbicationWithSameSectorAndCityExists() {
+        // Arrange
+        DepartmentModel antioquia = new DepartmentModel(1L, "Antioquia", "Departamento de Colombia");
+        CityModel city = CityModelFactoryForTest.createExistingCityModel(1L, "Medellín", "Ciudad de la eterna primavera", antioquia);
+        UbicationModel existingUbication = UbicationModelFactoryForTest.createExistingUbicationModel(1L, "SimpleSector", city);
+        UbicationModel newUbication = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(city);
+        when(cityServicePort.getUniqueCityByName("Medellín")).thenReturn(city);
+        when(ubicationPersistencePort.getUbicationBySectorAndCityId("SimpleSector", 1L)).thenReturn(Optional.of(existingUbication));
+
+        // Act & Assert
+        assertThrows(ElementAlreadyExistsException.class, () -> ubicationUseCase.save(newUbication, "Medellín", null));
+
+        verify(ubicationValidator, times(1)).validateSectorName("SimpleSector");
+        verify(cityServicePort, times(1)).getUniqueCityByName("Medellín");
+        verify(ubicationPersistencePort, times(1)).getUbicationBySectorAndCityId("SimpleSector", 1L);
+        verify(ubicationPersistencePort, never()).save(any());
+    }
+
+    @Test
+    void save_shouldThrowElementNotFoundException_whenCityDoesNotExistAndDepartmentNameNotProvided() {
+        // Arrange
+        UbicationModel newUbication = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(null);
+        when(cityServicePort.getUniqueCityByName("NonExistentCity"))
+                .thenThrow(new ElementNotFoundException("-CityUseCase- No se encontró ninguna ciudad con el nombre 'NonExistentCity'."));
+
+        // Act & Assert
+        assertThrows(ElementNotFoundException.class, () -> ubicationUseCase.save(newUbication, "NonExistentCity", null));
+
+        verify(ubicationValidator, times(1)).validateSectorName("SimpleSector");
+        verify(cityServicePort, times(1)).getUniqueCityByName("NonExistentCity");
+        verify(cityServicePort, never()).getCityByNameAndDepartmentName(any(), any());
+        verify(ubicationPersistencePort, never()).getUbicationBySectorAndCityId(any(), any());
+        verify(ubicationPersistencePort, never()).save(any());
+    }
+
+    @Test
+    void save_shouldThrowElementNotFoundException_whenCityDoesNotExistWithDepartmentNameProvided() {
+        // Arrange
+        UbicationModel newUbication = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(null);
+        when(cityServicePort.getCityByNameAndDepartmentName("NonExistentCity", "NonExistentDepartment"))
+                .thenThrow(new ElementNotFoundException("-CityUseCase- No se encontró ninguna ciudad con el nombre 'NonExistentCity' en el departamento 'NonExistentDepartment'."));
+
+        // Act & Assert
+        assertThrows(ElementNotFoundException.class, () -> ubicationUseCase.save(newUbication, "NonExistentCity", "NonExistentDepartment"));
+
+        verify(ubicationValidator, times(1)).validateSectorName("SimpleSector");
+        verify(cityServicePort, times(1)).getCityByNameAndDepartmentName("NonExistentCity", "NonExistentDepartment");
+        verify(cityServicePort, never()).getUniqueCityByName(any());
+        verify(ubicationPersistencePort, never()).getUbicationBySectorAndCityId(any(), any());
+        verify(ubicationPersistencePort, never()).save(any());
+    }
+
+    @Test
+    void save_shouldThrowElementAmbiguousNameException_whenMultipleCitiesFoundByNameAndDepartmentNameNotProvided() {
+        // Arrange
+        UbicationModel newUbication = UbicationModelFactoryForTest.createUbicationModelWithNewUbication(null);
+        when(cityServicePort.getUniqueCityByName("CommonCity"))
+                .thenThrow(new ElementAmbiguousNameException("-CityUseCase- Se encontraron 2 ciudades con el nombre 'CommonCity'. Intente nuevamente proporcionando el campo departmentName."));
+
+        // Act & Assert
+        assertThrows(ElementAmbiguousNameException.class, () -> ubicationUseCase.save(newUbication, "CommonCity", null));
+
+        verify(ubicationValidator, times(1)).validateSectorName("SimpleSector");
+        verify(cityServicePort, times(1)).getUniqueCityByName("CommonCity");
+        verify(cityServicePort, never()).getCityByNameAndDepartmentName(any(), any());
+        verify(ubicationPersistencePort, never()).getUbicationBySectorAndCityId(any(), any());
+        verify(ubicationPersistencePort, never()).save(any());
     }
 
     @Test

@@ -5,8 +5,6 @@ import com.powerup.propertymicroservice.domain.model.UbicationModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UbicationResponseMapper {
@@ -19,6 +17,4 @@ public interface UbicationResponseMapper {
                 ubicationModel.getCity().getDepartmentModel().getName()
                 );
     }
-
-    List<UbicationResponse> modelListToResponseList(List<UbicationModel> ubications);
 }

@@ -4,6 +4,7 @@ import com.powerup.propertymicroservice.domain.ports.in.CityServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CityPersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.CityUseCase;
 import com.powerup.propertymicroservice.domain.utils.validations.cities.CityValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.departments.DepartmentValidator;
 import com.powerup.propertymicroservice.infrastructure.adapters.persistence.CityPersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.CityEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.CityRepository;
@@ -17,6 +18,7 @@ public class CityBeanConfiguration {
 
     private final CityRepository cityRepository;
     private final CityEntityMapper cityEntityMapper;
+    private final DepartmentValidator departmentValidator;
 
     @Bean
     public CityPersistencePort cityPersistencePort() {
@@ -30,6 +32,6 @@ public class CityBeanConfiguration {
 
     @Bean
     public CityServicePort cityServicePort() {
-        return new CityUseCase(cityPersistencePort(), cityValidator());
+        return new CityUseCase(cityPersistencePort(), cityValidator(), departmentValidator);
     }
 }
