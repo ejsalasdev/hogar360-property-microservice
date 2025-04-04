@@ -8,12 +8,8 @@ import com.powerup.propertymicroservice.domain.utils.constants.departments.Depar
 import com.powerup.propertymicroservice.domain.utils.validations.ValidationUtils;
 
 public class DepartmentValidator {
-    public void validateDepartment(DepartmentModel departmentModel) {
-        validateName(departmentModel.getName());
-        validateDescription(departmentModel.getDescription());
-    }
 
-    private void validateName(String name) {
+    public void validateDepartmentName(String name) {
         if (name == null) {
             throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_NAME_NULL_MESSAGE);
         }
@@ -26,22 +22,6 @@ public class DepartmentValidator {
         }
         if (ValidationUtils.isInvalidFormat(trimmedName, CommonConstants.VALID_FORMAT_REGEX)) {
             throw new InvalidNameFormatException(DepartmentsExceptionsMessagesConstants.INVALID_DEPARTMENT_NAME_FORMAT_MESSAGE);
-        }
-    }
-
-    private void validateDescription(String description) {
-        if (description == null) {
-            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_DESCRIPTION_NULL_MESSAGE);
-        }
-        String trimmedDescription = description.trim();
-        if (trimmedDescription.isEmpty()) {
-            throw new RequiredFieldNullOrEmptyException(CommonConstants.FIELD_DESCRIPTION_EMPTY_MESSAGE);
-        }
-        if (trimmedDescription.length() > DepartmentConstants.DESCRIPTION_MAX_LENGTH) {
-            throw new NameMaxSizeExceededException(DepartmentsExceptionsMessagesConstants.DEPARTMENT_DESCRIPTION_MAX_SIZE_MESSAGE);
-        }
-        if (ValidationUtils.isInvalidFormat(trimmedDescription, CommonConstants.VALID_FORMAT_REGEX)) {
-            throw new InvalidDescriptionFormatException(DepartmentsExceptionsMessagesConstants.INVALID_DEPARTMENT_DESCRIPTION_FORMAT_MESSAGE);
         }
     }
 }

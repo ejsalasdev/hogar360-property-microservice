@@ -27,7 +27,7 @@ public class UbicationHandlerImpl implements UbicationHandler {
     @Override
     public SaveUbicationResponse save(SaveUbicationRequest request) {
         UbicationModel ubicationModel = ubicationRequestMapper.requestToModel(request);
-        ubicationServicePort.save(ubicationModel, request.cityName());
+        ubicationServicePort.save(ubicationModel, request.cityName(), request.departmentName());
         return new SaveUbicationResponse(ApplicationConstants.SAVE_UBICATION_RESPONSE_MESSAGE, LocalDateTime.now());
     }
 

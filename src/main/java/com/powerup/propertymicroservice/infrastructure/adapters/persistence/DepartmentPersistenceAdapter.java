@@ -18,18 +18,7 @@ public class DepartmentPersistenceAdapter implements DepartmentPersistencePort {
     private final DepartmentEntityMapper departmentEntityMapper;
 
     @Override
-    public void save(DepartmentModel departmentModel) {
-        DepartmentEntity departmentEntity = departmentEntityMapper.modelToEntity(departmentModel);
-        departmentRepository.save(departmentEntity);
-    }
-
-    @Override
-    public Optional<DepartmentModel> getDepartmentById(Long id) {
-        return departmentRepository.findById(id).map(departmentEntityMapper::entityToModel);
-    }
-
-    @Override
-    public Optional<DepartmentModel> getDepartmentByName(String departmentName) {
-        return departmentRepository.findByName(departmentName).map(departmentEntityMapper::entityToModel);
+    public Optional<DepartmentModel> getDepartmentByName(String name) {
+        return departmentRepository.findByName(name).map(departmentEntityMapper::entityToModel);
     }
 }

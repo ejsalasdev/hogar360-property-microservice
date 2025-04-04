@@ -6,7 +6,5 @@ import java.util.Optional;
 
 public interface DepartmentPersistencePort {
     
-    void save(DepartmentModel departmentModel);
-    Optional<DepartmentModel> getDepartmentById(Long id);
-    Optional<DepartmentModel> getDepartmentByName(String departmentName);
+    Optional<DepartmentModel> getDepartmentByName(String name);
 }

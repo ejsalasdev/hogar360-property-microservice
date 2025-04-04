@@ -4,5 +4,5 @@ import com.powerup.propertymicroservice.domain.model.DepartmentModel;
 
 public interface DepartmentServicePort {
     
-    void save(DepartmentModel departmentModel);
+    DepartmentModel getDepartmentByName(String name);
 }
