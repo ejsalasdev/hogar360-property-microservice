@@ -9,4 +9,6 @@ public interface CategoryServicePort {
     void save(CategoryModel categoryModel);
 
     PageInfo<CategoryModel> getCategories(Integer page, Integer size, boolean orderAsc);
+    
+    CategoryModel getCategoryByname(String categoryName);
 }
