@@ -34,7 +34,7 @@ public class HouseEntity {
     private Integer numberOfRooms;
 
     @Column(nullable = false)
-    private BigDecimal numberOfBathrooms;
+    private Integer numberOfBathrooms;
 
     @Column(nullable = false)
     private BigDecimal price;

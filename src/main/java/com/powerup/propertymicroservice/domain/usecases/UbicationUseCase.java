@@ -64,11 +64,11 @@ public class UbicationUseCase implements UbicationServicePort {
     }
 
     @Override
-    public UbicationModel getUbicationByName(String ubicationName) {
-        Optional<UbicationModel> ubication = ubicationPersistencePort.getCategoryByname(ubicationName);
+    public UbicationModel getUbicationById(Long id) {
+        Optional<UbicationModel> ubication = ubicationPersistencePort.getUbicationById(id);
         if (ubication.isEmpty()) {
             throw new ElementNotFoundException(
-                    String.format(UbicationExceptionMessagesConstants.UBICATION_NOT_FOUND_EXCEPTION, ubicationName)
+                    String.format(UbicationExceptionMessagesConstants.UBICATION_NOT_FOUND_EXCEPTION, id)
             );
         }
         return ubication.get();

@@ -10,6 +10,6 @@ public interface UbicationPersistencePort {
     void save(UbicationModel ubicationModel);
     Optional<UbicationModel> getUbicationBySectorAndCityId(String sector, Long cityId);
     PageInfo<UbicationModel> getUbications(String searchText, Integer page, Integer size, String sortBy, String sortDirection);
+    Optional<UbicationModel> getUbicationById(Long id);
     
-    Optional<UbicationModel> getCategoryByname(String ubicationName);
 }

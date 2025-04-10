@@ -18,6 +18,10 @@ public class UbicationModel {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getSector() {
         return sector;
     }

@@ -8,5 +8,5 @@ public interface UbicationServicePort {
     void save(UbicationModel ubicationModel, String cityName, String departmentName);
     PageInfo<UbicationModel> getUbications(String searchText, Integer page, Integer size, String sortBy, boolean orderAsc);
     
-    UbicationModel getUbicationByName(String ubicationName);
+    UbicationModel getUbicationById(Long ubicationId);
 }

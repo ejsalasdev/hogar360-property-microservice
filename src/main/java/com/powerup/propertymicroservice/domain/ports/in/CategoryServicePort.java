@@ -10,5 +10,5 @@ public interface CategoryServicePort {
 
     PageInfo<CategoryModel> getCategories(Integer page, Integer size, boolean orderAsc);
     
-    CategoryModel getCategoryByname(String categoryName);
+    CategoryModel getCategoryById(Long id);
 }

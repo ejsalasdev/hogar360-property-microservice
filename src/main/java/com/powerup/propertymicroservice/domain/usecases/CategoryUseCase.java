@@ -47,11 +47,11 @@ public class CategoryUseCase implements CategoryServicePort {
     }
 
     @Override
-    public CategoryModel getCategoryByname(String categoryName) {
-        Optional<CategoryModel> category = categoryPersistencePort.getCategoryByName(categoryName);
+    public CategoryModel getCategoryById(Long id) {
+        Optional<CategoryModel> category = categoryPersistencePort.getCategoryById(id);
         if (category.isEmpty()) {
             throw new ElementNotFoundException(
-                    String.format(CategoriesExceptionsMessagesConstants.CATEGORY_NOT_FOUND_EXCEPTION, categoryName)
+                    String.format(CategoriesExceptionsMessagesConstants.CATEGORY_NOT_FOUND_EXCEPTION, id)
             );
         }
         return category.get();

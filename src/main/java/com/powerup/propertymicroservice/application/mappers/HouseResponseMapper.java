@@ -18,8 +18,10 @@ public interface HouseResponseMapper {
                 houseModel.getNumberOfRooms(),
                 houseModel.getNumberOfBathrooms(),
                 houseModel.getPrice(),
-                houseModel.getUbication().getSector(),
                 houseModel.getAddress(),
+                houseModel.getUbication().getSector(),
+                houseModel.getUbication().getCity().getName(),
+                houseModel.getUbication().getCity().getDepartmentModel().getName(),
                 houseModel.getActivePublicationDate(),
                 houseModel.getPublicationStatus(),
                 houseModel.getPublicationDate()

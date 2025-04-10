@@ -4,5 +4,5 @@ import com.powerup.propertymicroservice.domain.model.HouseModel;
 
 public interface HouseServicePort {
     
-    void save(HouseModel houseModel, String categoryName, String ubicationName);
+    void save(HouseModel houseModel);
 }

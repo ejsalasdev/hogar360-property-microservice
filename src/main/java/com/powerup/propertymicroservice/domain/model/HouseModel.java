@@ -12,7 +12,7 @@ public class HouseModel {
     private String description;
     private CategoryModel category;
     private Integer numberOfRooms;
-    private BigDecimal numberOfBathrooms;
+    private Integer numberOfBathrooms;
     private BigDecimal price;
     private UbicationModel ubication;
     private String address;
@@ -20,9 +20,10 @@ public class HouseModel {
     private PublicationStatus publicationStatus;
     private LocalDate publicationDate;
 
-    public HouseModel(Long id, String name, String description, CategoryModel category, Integer numberOfRooms,
-                      BigDecimal numberOfBathrooms, BigDecimal price, UbicationModel ubication, String address,
-                      LocalDate activePublicationDate, PublicationStatus publicationStatus, LocalDate publicationDate) {
+    public HouseModel(Long id, String name, String description, CategoryModel category,
+                      Integer numberOfRooms, Integer numberOfBathrooms, BigDecimal price,
+                      UbicationModel ubication, String address, LocalDate activePublicationDate,
+                      PublicationStatus publicationStatus, LocalDate publicationDate) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -73,11 +74,11 @@ public class HouseModel {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public BigDecimal getNumberOfBathrooms() {
+    public Integer getNumberOfBathrooms() {
         return numberOfBathrooms;
     }
 
-    public void setNumberOfBathrooms(BigDecimal numberOfBathrooms) {
+    public void setNumberOfBathrooms(Integer numberOfBathrooms) {
         this.numberOfBathrooms = numberOfBathrooms;
     }
 

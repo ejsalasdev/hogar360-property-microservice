@@ -66,7 +66,7 @@ public class UbicationPersistenceAdapter implements UbicationPersistencePort {
     }
 
     @Override
-    public Optional<UbicationModel> getCategoryByname(String ubicationName) {
-        return ubicationRepository.findByName(ubicationName).map(ubicationEntityMapper::entityToModel);
+    public Optional<UbicationModel> getUbicationById(Long id) {
+        return ubicationRepository.findById(id).map(ubicationEntityMapper::entityToModel);
     }
 }

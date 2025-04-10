@@ -7,12 +7,12 @@ public record SaveHouseRequest(
         
         String name,
         String description,
-        String category,
+        Long categoryId,
         Integer numberOfRooms,
-        BigDecimal numberOfBathrooms,
+        Integer numberOfBathrooms,
         BigDecimal price,
-        String ubication,
-        String adress,
+        Long ubicationId,
+        String address,
         LocalDate activePublicationDate
 ) {
 }
