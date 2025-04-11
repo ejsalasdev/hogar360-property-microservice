@@ -1,5 +1,6 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
+import com.powerup.propertymicroservice.commons.constants.CommonConstants;
 import com.powerup.propertymicroservice.domain.enums.PublicationStatus;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.model.HouseModel;
@@ -8,22 +9,23 @@ import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.HousePersistencePort;
+import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 
 public class HouseUseCase implements HouseServicePort {
-
-    private static final long MAX_DAYS_FUTURE_PUBLICATION = 30;
+    
     private final HousePersistencePort housePersistencePort;
     private final CategoryServicePort categoryServicePort;
     private final UbicationServicePort ubicationServicePort;
+    private final HouseValidator houseValidator;
 
-    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort) {
+    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort, HouseValidator houseValidator) {
         this.housePersistencePort = housePersistencePort;
         this.categoryServicePort = categoryServicePort;
         this.ubicationServicePort = ubicationServicePort;
+        this.houseValidator = houseValidator;
     }
 
     @Override
@@ -34,25 +36,15 @@ public class HouseUseCase implements HouseServicePort {
         houseModel.setCategory(category);
         houseModel.setUbication(ubication);
         
-        LocalDate currentDate = LocalDate.now(ZoneId.of("America/Bogota"));
+        LocalDate currentDate = LocalDate.now(ZoneId.of(CommonConstants.TIME_ZONE));
         
-        if (houseModel.getActivePublicationDate().isBefore(currentDate)) {
-            throw new RuntimeException("La fecha de publicacion activa no puede ser inferior a la fecha actual.");
-        }
-
-        long daysDifference = ChronoUnit.DAYS.between(currentDate, houseModel.getActivePublicationDate());
-
-        if (daysDifference > MAX_DAYS_FUTURE_PUBLICATION) {
-            throw new RuntimeException("La fecha de publicación activa no puede ser superior a " + MAX_DAYS_FUTURE_PUBLICATION + " días desde la fecha actual.");
-        }
-
+        houseValidator.validatePublicationDate(houseModel.getActivePublicationDate(), currentDate);
         
         if (houseModel.getActivePublicationDate().isEqual(currentDate)) {
             houseModel.setPublicationStatus(PublicationStatus.PUBLISHED);
         } else {
             houseModel.setPublicationStatus(PublicationStatus.PUBLICATION_PAUSED);
         }
-        
         
         houseModel.setPublicationDate(currentDate);
         housePersistencePort.save(houseModel);

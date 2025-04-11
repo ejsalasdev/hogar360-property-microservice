@@ -5,6 +5,7 @@ import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.HousePersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.HouseUseCase;
+import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
 import com.powerup.propertymicroservice.infrastructure.adapters.persistence.HousePersistenceAdapter;
 import com.powerup.propertymicroservice.infrastructure.mappers.HouseEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.HouseRepository;
@@ -27,7 +28,12 @@ public class HouseBeanConfiguration {
     }
     
     @Bean
+    public HouseValidator houseValidator() {
+        return new HouseValidator();
+    }
+    
+    @Bean
     public HouseServicePort houseServicePort() {
-        return new HouseUseCase(housePersistencePort(), categoryServicePort, ubicationServicePort);
+        return new HouseUseCase(housePersistencePort(), categoryServicePort, ubicationServicePort, houseValidator());
     }
 }

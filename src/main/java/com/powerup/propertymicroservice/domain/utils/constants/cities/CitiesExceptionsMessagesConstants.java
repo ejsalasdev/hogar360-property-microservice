@@ -1,7 +1,5 @@
 package com.powerup.propertymicroservice.domain.utils.constants.cities;
 
-import java.util.Locale;
-
 public final class CitiesExceptionsMessagesConstants {
 
     // Messages for city
