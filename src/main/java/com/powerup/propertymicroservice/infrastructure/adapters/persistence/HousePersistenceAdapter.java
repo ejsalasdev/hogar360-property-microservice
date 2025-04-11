@@ -8,6 +8,9 @@ import com.powerup.propertymicroservice.infrastructure.repositories.mysql.HouseR
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class HousePersistenceAdapter implements HousePersistencePort {
@@ -18,5 +21,13 @@ public class HousePersistenceAdapter implements HousePersistencePort {
     public void save(HouseModel houseModel) {
         HouseEntity houseEntity = houseEntityMapper.modelToEntity(houseModel);
         houseRepository.save(houseEntity);
+    }
+
+    @Override
+    public List<HouseModel> findHousesByActivePublicationDate(LocalDate date) {
+        List<HouseEntity> houseEntities = houseRepository.findByActivePublicationDate(date);
+        return houseEntities.stream()
+                .map(houseEntityMapper::entityToModel)
+                .toList();
     }
 }

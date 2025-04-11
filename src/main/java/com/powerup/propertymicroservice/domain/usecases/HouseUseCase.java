@@ -35,6 +35,10 @@ public class HouseUseCase implements HouseServicePort {
         houseModel.setUbication(ubication);
         
         LocalDate currentDate = LocalDate.now(ZoneId.of("America/Bogota"));
+        
+        if (houseModel.getActivePublicationDate().isBefore(currentDate)) {
+            throw new RuntimeException("La fecha de publicacion activa no puede ser inferior a la fecha actual.");
+        }
 
         long daysDifference = ChronoUnit.DAYS.between(currentDate, houseModel.getActivePublicationDate());
 
@@ -43,14 +47,14 @@ public class HouseUseCase implements HouseServicePort {
         }
 
         
-        if (houseModel.getActivePublicationDate().isEqual(currentDate) || houseModel.getActivePublicationDate().isBefore(currentDate)) {
+        if (houseModel.getActivePublicationDate().isEqual(currentDate)) {
             houseModel.setPublicationStatus(PublicationStatus.PUBLISHED);
         } else {
             houseModel.setPublicationStatus(PublicationStatus.PUBLICATION_PAUSED);
         }
         
         
-        houseModel.setPublicationDate(LocalDate.now());
+        houseModel.setPublicationDate(currentDate);
         housePersistencePort.save(houseModel);
     }
 }
