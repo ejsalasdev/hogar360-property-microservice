@@ -15,6 +15,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 
+import static com.powerup.propertymicroservice.infrastructure.utils.constants.InfrastructureConstants.*;
+
 @Component
 @RequiredArgsConstructor
 public class HousePublicationScheduler {
@@ -26,7 +28,7 @@ public class HousePublicationScheduler {
     @Scheduled(cron = "0 0 0 * * *")
     public void updatePublicationStatuses() {
         LocalDate currentDate = LocalDate.now(ZoneId.of(CommonConstants.TIME_ZONE));
-        LOGGER.info("Iniciando la actualización de estados de publicación para la fecha: {}", currentDate);
+        LOGGER.info(LOGGER_START_UPDATE_PUBLICATIONS_MESSAGE, currentDate);
 
         List<HouseModel> houseToPublish = housePersistencePort.findHousesByActivePublicationDate(currentDate);
 
@@ -34,12 +36,11 @@ public class HousePublicationScheduler {
             if (!PublicationStatus.PUBLISHED.equals(house.getPublicationStatus())){
                 house.setPublicationStatus(PublicationStatus.PUBLISHED);
                 housePersistencePort.save(house);
-                LOGGER.info("Publicación {} actualizada a PUBLISHED.", house.getId());
+                LOGGER.info(LOGGER_UPDATED_PUBLICATION_MESSAGE, house.getId());
             }
         }
         
-        LOGGER.info("Finalizada la actualización de estados de publicación.");
-
+        LOGGER.info(LOGGER_FINISH_UPDATE_PUBLICATION_MESSAGE);
     }
 
 

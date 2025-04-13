@@ -30,15 +30,15 @@ public class HouseUseCase implements HouseServicePort {
 
     @Override
     public void save(HouseModel houseModel) {
+        LocalDate currentDate = LocalDate.now(ZoneId.of(CommonConstants.TIME_ZONE));
+        
+        houseValidator.validate(houseModel, currentDate);
+        
         CategoryModel category = categoryServicePort.getCategoryById(houseModel.getCategory().getId());
         UbicationModel ubication = ubicationServicePort.getUbicationById(houseModel.getUbication().getId());
         
         houseModel.setCategory(category);
         houseModel.setUbication(ubication);
-        
-        LocalDate currentDate = LocalDate.now(ZoneId.of(CommonConstants.TIME_ZONE));
-        
-        houseValidator.validatePublicationDate(houseModel.getActivePublicationDate(), currentDate);
         
         if (houseModel.getActivePublicationDate().isEqual(currentDate)) {
             houseModel.setPublicationStatus(PublicationStatus.PUBLISHED);
