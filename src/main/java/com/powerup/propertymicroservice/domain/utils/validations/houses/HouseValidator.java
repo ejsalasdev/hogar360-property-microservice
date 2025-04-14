@@ -24,21 +24,6 @@ public class HouseValidator {
         validatePublicationDate(houseModel.getActivePublicationDate(), currentDate);
     }
 
-    private void validatePublicationDate(LocalDate activePublicationDate, LocalDate currentDate) {
-
-        if (activePublicationDate.isBefore(currentDate)) {
-            throw new InvalidPublicationDateExcepcion(HousesExceptionMessagesConstants.DATE_PAST_ERROR_MESSAGE);
-        }
-
-        long daysDifference = ChronoUnit.DAYS.between(currentDate, activePublicationDate);
-
-        if (daysDifference > MAX_DAYS_FUTURE_PUBLICATION) {
-            throw new InvalidPublicationDateExcepcion(
-                    String.format(HousesExceptionMessagesConstants.DATE_FUTURE_LIMIT_MESSAGE, MAX_DAYS_FUTURE_PUBLICATION)
-            );
-        }
-    }
-
     private void validateName(String name) {
         if (name == null) {
             throw new RequiredFieldNullOrEmptyException(DomainConstants.FIELD_NAME_NULL_MESSAGE);
@@ -116,6 +101,21 @@ public class HouseValidator {
         if (isInvalidFormat(trimmedAddress, STRING_ALPHANUMERIC_ADDRESS_VALID_FORMAT_REGEX)) {
             throw new InvalidFormatExcepcion(
                     String.format(HousesExceptionMessagesConstants.INVALID_ADDRESS_FORMAT_MESSAGE, trimmedAddress)
+            );
+        }
+    }
+
+    private void validatePublicationDate(LocalDate activePublicationDate, LocalDate currentDate) {
+
+        if (activePublicationDate.isBefore(currentDate)) {
+            throw new InvalidPublicationDateExcepcion(HousesExceptionMessagesConstants.DATE_PAST_ERROR_MESSAGE);
+        }
+
+        long daysDifference = ChronoUnit.DAYS.between(currentDate, activePublicationDate);
+
+        if (daysDifference > MAX_DAYS_FUTURE_PUBLICATION) {
+            throw new InvalidPublicationDateExcepcion(
+                    String.format(HousesExceptionMessagesConstants.DATE_FUTURE_LIMIT_MESSAGE, MAX_DAYS_FUTURE_PUBLICATION)
             );
         }
     }
