@@ -64,4 +64,9 @@ public class UbicationPersistenceAdapter implements UbicationPersistencePort {
                 ubicationEntityPage.hasPrevious()
         );
     }
+
+    @Override
+    public Optional<UbicationModel> getUbicationById(Long id) {
+        return ubicationRepository.findById(id).map(ubicationEntityMapper::entityToModel);
+    }
 }

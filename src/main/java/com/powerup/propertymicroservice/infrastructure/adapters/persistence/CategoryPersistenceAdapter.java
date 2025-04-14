@@ -57,4 +57,9 @@ public class CategoryPersistenceAdapter implements CategoryPersistencePort {
                 categoryEntityPage.hasPrevious()
         );
     }
+
+    @Override
+    public Optional<CategoryModel> getCategoryById(Long id) {
+        return categoryRepository.findById(id).map(categoryEntityMapper::entityToModel);
+    }
 }

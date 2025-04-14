@@ -1,6 +1,7 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
+import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
@@ -43,6 +44,17 @@ public class CategoryUseCase implements CategoryServicePort {
         String sortBy = "name";
         String sortDirection = orderAsc ? "asc" : "desc";
         return categoryPersistencePort.getCategories(page, size, sortBy, sortDirection);
+    }
+
+    @Override
+    public CategoryModel getCategoryById(Long id) {
+        Optional<CategoryModel> category = categoryPersistencePort.getCategoryById(id);
+        if (category.isEmpty()) {
+            throw new ElementNotFoundException(
+                    String.format(CategoriesExceptionsMessagesConstants.CATEGORY_NOT_FOUND_EXCEPTION, id)
+            );
+        }
+        return category.get();
     }
 
 

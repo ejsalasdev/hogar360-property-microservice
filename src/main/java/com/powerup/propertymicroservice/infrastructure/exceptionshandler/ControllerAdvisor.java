@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class ControllerAdvisor {
+
+    @ExceptionHandler(InvalidFormatExcepcion.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidFormatExcepcion(InvalidFormatExcepcion exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
+    }
     
     @ExceptionHandler(NameMaxSizeExceededException.class)
     public ResponseEntity<ExceptionResponse> handleNameMaxSizeExceededException(NameMaxSizeExceededException exception) {
@@ -41,7 +46,6 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
     
-    // Exception Handler for Get Pagination
     @ExceptionHandler(InvalidPageNumberException.class)
     public ResponseEntity<ExceptionResponse> handleInvalidPageNumberException(InvalidPageNumberException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));

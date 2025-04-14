@@ -1,6 +1,7 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
+import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
 import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.domain.model.UbicationModel;
 import com.powerup.propertymicroservice.domain.ports.in.CityServicePort;
@@ -60,5 +61,16 @@ public class UbicationUseCase implements UbicationServicePort {
         paginationValidator.validatePage(size);
         String sortDirection = orderAsc ? "asc" : "desc";
         return ubicationPersistencePort.getUbications(searchText, page, size, sortBy, sortDirection);
+    }
+
+    @Override
+    public UbicationModel getUbicationById(Long id) {
+        Optional<UbicationModel> ubication = ubicationPersistencePort.getUbicationById(id);
+        if (ubication.isEmpty()) {
+            throw new ElementNotFoundException(
+                    String.format(UbicationExceptionMessagesConstants.UBICATION_NOT_FOUND_EXCEPTION, id)
+            );
+        }
+        return ubication.get();
     }
 }

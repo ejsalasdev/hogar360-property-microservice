@@ -2,7 +2,6 @@ package com.powerup.propertymicroservice.infrastructure.adapters.persistence;
 
 import com.powerup.propertymicroservice.domain.model.DepartmentModel;
 import com.powerup.propertymicroservice.domain.ports.out.DepartmentPersistencePort;
-import com.powerup.propertymicroservice.infrastructure.entities.DepartmentEntity;
 import com.powerup.propertymicroservice.infrastructure.mappers.DepartmentEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
