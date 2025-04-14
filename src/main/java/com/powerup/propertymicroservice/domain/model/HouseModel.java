@@ -20,6 +20,9 @@ public class HouseModel {
     private PublicationStatus publicationStatus;
     private LocalDate publicationDate;
 
+    public HouseModel() {
+    }
+
     public HouseModel(Long id, String name, String description, CategoryModel category,
                       Integer numberOfRooms, Integer numberOfBathrooms, BigDecimal price,
                       UbicationModel ubication, String address, LocalDate activePublicationDate,
