@@ -16,8 +16,8 @@ public class HouseSpecification {
     }
 
     public static Specification<HouseEntity> withFilters(
-            Long ubicationId,
             Long categoryId,
+            Long ubicationId,
             Integer minRooms,
             Integer maxRooms,
             Integer minBathrooms,
@@ -25,15 +25,15 @@ public class HouseSpecification {
             BigDecimal minPrice,
             BigDecimal maxPrice,
             PublicationStatus publicationStatus
-    ){
+    ) {
         return (Root<HouseEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
             
-            if (ubicationId != null) {
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.join("ubication").get("id"), ubicationId));
-            }
             if (categoryId != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.join("category").get("id"), categoryId));
+            }
+            if (ubicationId != null) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.join("ubication").get("id"), ubicationId));
             }
             if (minRooms != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.greaterThanOrEqualTo(root.get("numberOfRooms"), minRooms));

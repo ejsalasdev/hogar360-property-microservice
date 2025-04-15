@@ -25,7 +25,8 @@ public class HouseUseCase implements HouseServicePort {
     private final HouseValidator houseValidator;
     private final PaginationValidator paginationValidator;
 
-    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort, HouseValidator houseValidator, PaginationValidator paginationValidator) {
+    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort,
+                        HouseValidator houseValidator, PaginationValidator paginationValidator) {
         this.housePersistencePort = housePersistencePort;
         this.categoryServicePort = categoryServicePort;
         this.ubicationServicePort = ubicationServicePort;
