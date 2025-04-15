@@ -41,6 +41,10 @@ public class HouseModel {
         this.publicationDate = publicationDate;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
