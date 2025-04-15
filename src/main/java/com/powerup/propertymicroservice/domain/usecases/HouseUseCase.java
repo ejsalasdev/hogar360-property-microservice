@@ -9,44 +9,83 @@ import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.HousePersistencePort;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
+import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
 public class HouseUseCase implements HouseServicePort {
-    
+
     private final HousePersistencePort housePersistencePort;
     private final CategoryServicePort categoryServicePort;
     private final UbicationServicePort ubicationServicePort;
     private final HouseValidator houseValidator;
+    private final PaginationValidator paginationValidator;
 
-    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort, HouseValidator houseValidator) {
+    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort, HouseValidator houseValidator, PaginationValidator paginationValidator) {
         this.housePersistencePort = housePersistencePort;
         this.categoryServicePort = categoryServicePort;
         this.ubicationServicePort = ubicationServicePort;
         this.houseValidator = houseValidator;
+        this.paginationValidator = paginationValidator;
     }
 
     @Override
     public void save(HouseModel houseModel) {
         LocalDate currentDate = LocalDate.now(ZoneId.of(CommonConstants.TIME_ZONE));
-        
+
         houseValidator.validate(houseModel, currentDate);
-        
+
         CategoryModel category = categoryServicePort.getCategoryById(houseModel.getCategory().getId());
         UbicationModel ubication = ubicationServicePort.getUbicationById(houseModel.getUbication().getId());
-        
+
         houseModel.setCategory(category);
         houseModel.setUbication(ubication);
-        
+
         if (houseModel.getActivePublicationDate().isEqual(currentDate)) {
             houseModel.setPublicationStatus(PublicationStatus.PUBLISHED);
         } else {
             houseModel.setPublicationStatus(PublicationStatus.PUBLICATION_PAUSED);
         }
-        
+
         houseModel.setPublicationDate(currentDate);
         housePersistencePort.save(houseModel);
+    }
+
+    @Override
+    public PageInfo<HouseModel> getHouses(
+            Integer page,
+            Integer size,
+            String sortBy,
+            Long categoryId,
+            Long ubicationId,
+            Integer minRooms,
+            Integer maxRooms,
+            Integer minBathrooms,
+            Integer maxBathrooms,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            boolean orderAsc
+    ) {
+        paginationValidator.validatePage(page);
+        paginationValidator.validateSize(size);
+        String sortDirection = orderAsc ? "asc" : "desc";
+        return housePersistencePort.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                ubicationId,
+                minRooms,
+                maxRooms,
+                minBathrooms,
+                maxBathrooms,
+                minPrice,
+                maxPrice,
+                sortDirection
+        );
     }
 }

@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.infrastructure.utils.validation;
+package com.powerup.propertymicroservice.infrastructure.utils.sort;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;

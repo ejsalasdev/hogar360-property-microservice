@@ -37,6 +37,10 @@ public class CategoryBeanConfiguration {
             CategoryValidator categoryValidator,
             PaginationValidator paginationValidator
     ) {
-        return new CategoryUseCase(categoryPersistencePort, categoryValidator, paginationValidator);
+        return new CategoryUseCase(
+                categoryPersistencePort,
+                categoryValidator,
+                paginationValidator
+        );
     }
 }

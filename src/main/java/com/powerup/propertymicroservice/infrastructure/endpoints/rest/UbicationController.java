@@ -51,12 +51,12 @@ public class UbicationController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public ResponseEntity<PageInfo<UbicationResponse>> getAllUbications(
-            @Parameter(description = "Text to search in city or department name (case-insensitive)", required = false)
+            @Parameter(description = "Text to search in city or department name (case-insensitive)")
             @RequestParam(value = "searchText", required = false) String searchText,
             @Parameter(description = "Page number (default: 0)")
-            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
             @Parameter(description = "Number of items per page (default: 10)")
-            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
             @Parameter(description = "Field to sort by (default: cityName, options: cityName, departmentName)")
             @RequestParam(value = "sortBy", defaultValue = "cityName") String sortBy,
             @Parameter(description = "Sort order (default: true for ascending, false for descending)")
