@@ -27,7 +27,7 @@ public class CategoryController {
 
     private final CategoryHandler categoryHandler;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     @Operation(summary = "Create a new category", description = "Creates a new category with the provided name and description.")
     @ApiResponse(responseCode = "201", description = "Category created successfully.",
             content = @Content(schema = @Schema(implementation = SaveCategoryResponse.class)))
@@ -73,7 +73,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryHandler.save(request));
     }
 
-    @GetMapping("/")
+    @GetMapping("/read")
     @Operation(summary = "Get all categories with pagination", description = "Retrieves a paginated list of categories.")
     @ApiResponse(responseCode = "200", description = "List of categories retrieved successfully.",
             content = @Content(schema = @Schema(implementation = PageInfo.class)))
