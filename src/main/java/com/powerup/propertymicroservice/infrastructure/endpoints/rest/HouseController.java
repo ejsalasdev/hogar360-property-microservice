@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping("api/v1/house")
+@RequestMapping("/api/v1/house")
 @RequiredArgsConstructor
 @Tag(name = "House", description = "Operations related to houses")
 public class HouseController {
 
     private final HouseHandler houseHandler;
 
-    @PostMapping("/")
+    @PostMapping("/create")
     ResponseEntity<SaveHouseResponse> save(@RequestBody @Schema(description = "House information to save") SaveHouseRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(houseHandler.save(request));
     }
 
-    @GetMapping("/")
+    @GetMapping("/read")
     public ResponseEntity<PageInfo<HouseResponse>> getAllHouses(
             @Parameter(description = "Page number (0-based)") @RequestParam(defaultValue = "0") Integer page,
             @Parameter(description = "Number of homes per page") @RequestParam(defaultValue = "10") Integer size,

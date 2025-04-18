@@ -19,6 +19,7 @@ public record HouseResponse(
         String department,
         LocalDate activePublicationDate,
         PublicationStatus publicationStatus,
-        LocalDate publicationDate
+        LocalDate publicationDate,
+        Long sellerId
 ) {
 }

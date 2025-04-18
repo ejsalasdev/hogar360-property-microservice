@@ -55,4 +55,7 @@ public class HouseEntity {
 
     @Column(nullable = false)
     private LocalDate publicationDate;
+
+    @Column(nullable = false)
+    private Long sellerId;
 }
