@@ -24,8 +24,8 @@ public interface HouseResponseMapper {
                 houseModel.getUbication().getCity().getDepartmentModel().getName(),
                 houseModel.getActivePublicationDate(),
                 houseModel.getPublicationStatus(),
-                houseModel.getPublicationDate()
-                
+                houseModel.getPublicationDate(),
+                houseModel.getSellerId()                
         );
     }
 }

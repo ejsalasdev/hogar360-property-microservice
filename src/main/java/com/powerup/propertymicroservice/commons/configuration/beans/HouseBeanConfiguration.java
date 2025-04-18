@@ -3,6 +3,7 @@ package com.powerup.propertymicroservice.commons.configuration.beans;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
+import com.powerup.propertymicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.propertymicroservice.domain.ports.out.HousePersistencePort;
 import com.powerup.propertymicroservice.domain.usecases.HouseUseCase;
 import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
@@ -39,14 +40,16 @@ public class HouseBeanConfiguration {
             CategoryServicePort categoryServicePort,
             UbicationServicePort ubicationServicePort,
             HouseValidator houseValidator,
-            PaginationValidator paginationValidator
+            PaginationValidator paginationValidator,
+            AuthenticatedUserPort authenticatedUserPort
     ) {
         return new HouseUseCase(
                 housePersistencePort,
                 categoryServicePort,
                 ubicationServicePort,
                 houseValidator,
-                paginationValidator
+                paginationValidator,
+                authenticatedUserPort
         );
     }
 }

@@ -19,6 +19,7 @@ public class HouseModel {
     private LocalDate activePublicationDate;
     private PublicationStatus publicationStatus;
     private LocalDate publicationDate;
+    private Long sellerId;
 
     public HouseModel() {
     }
@@ -26,7 +27,7 @@ public class HouseModel {
     public HouseModel(Long id, String name, String description, CategoryModel category,
                       Integer numberOfRooms, Integer numberOfBathrooms, BigDecimal price,
                       UbicationModel ubication, String address, LocalDate activePublicationDate,
-                      PublicationStatus publicationStatus, LocalDate publicationDate) {
+                      PublicationStatus publicationStatus, LocalDate publicationDate, Long sellerId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -39,6 +40,7 @@ public class HouseModel {
         this.activePublicationDate = activePublicationDate;
         this.publicationStatus = publicationStatus;
         this.publicationDate = publicationDate;
+        this.sellerId = sellerId;
     }
 
     public void setId(Long id) {
@@ -135,5 +137,13 @@ public class HouseModel {
 
     public void setPublicationDate(LocalDate publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
     }
 }

@@ -9,6 +9,7 @@ import com.powerup.propertymicroservice.domain.exceptions.InvalidPageSizeExcepti
 import com.powerup.propertymicroservice.domain.model.*;
 import com.powerup.propertymicroservice.domain.ports.in.CategoryServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
+import com.powerup.propertymicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.propertymicroservice.domain.ports.out.HousePersistencePort;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
@@ -48,6 +49,9 @@ class HouseUseCaseTest {
     
     @Mock
     private PaginationValidator paginationValidator;
+    
+    @Mock
+    private AuthenticatedUserPort authenticatedUserPort;
 
     private HouseUseCase houseUseCase;
 
@@ -55,8 +59,6 @@ class HouseUseCaseTest {
     private LocalDate currentDate;
     private CategoryModel categoryModel;
     private UbicationModel ubicationModel;
-    private HouseModel houseModel1;
-    private HouseModel houseModel2;
     private PageInfo<HouseModel> mockPageInfo;
 
     @BeforeEach
@@ -90,11 +92,11 @@ class HouseUseCaseTest {
         houseModel.setAddress("Fake Street 123");
         houseModel.setActivePublicationDate(currentDate);
 
-        
-        houseModel1 = new HouseModel();
+
+        HouseModel houseModel1 = new HouseModel();
         houseModel1.setId(1L);
         houseModel1.setName("House Test 1");
-        houseModel2 = new HouseModel();
+        HouseModel houseModel2 = new HouseModel();
         houseModel2.setId(2L);
         houseModel2.setName("House Test 2");
 
@@ -102,14 +104,18 @@ class HouseUseCaseTest {
         List<HouseModel> content = Arrays.asList(houseModel1, houseModel2);
         mockPageInfo = new PageInfo<>(content, 2, 1, 0, 10, false, false);
 
-        houseUseCase = new HouseUseCase(housePersistencePort, categoryServicePort, ubicationServicePort, houseValidator, paginationValidator);
+        houseUseCase = new HouseUseCase(
+                housePersistencePort, categoryServicePort, ubicationServicePort,
+                houseValidator, paginationValidator, authenticatedUserPort);
     }
 
     @Test
     void When_ValidHouseProvidedAndActiveDateIsToday_Expect_HouseSavedWithPublishedStatus() {
         // Arrange
+        Long expectedSellerId = 123L;
         when(categoryServicePort.getCategoryById(1L)).thenReturn(categoryModel);
         when(ubicationServicePort.getUbicationById(1L)).thenReturn(ubicationModel);
+        when(authenticatedUserPort.getCurrentUserId()).thenReturn(expectedSellerId);
 
         // Act
         houseUseCase.save(houseModel);
@@ -121,6 +127,7 @@ class HouseUseCaseTest {
         assertEquals(currentDate, houseModel.getPublicationDate());
         assertEquals(categoryModel, houseModel.getCategory());
         assertEquals(ubicationModel, houseModel.getUbication());
+        assertEquals(expectedSellerId, houseModel.getSellerId());
     }
 
     @Test
