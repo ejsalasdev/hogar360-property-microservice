@@ -12,8 +12,8 @@ public class AuthenticatedUserAdapter implements AuthenticatedUserPort {
     @Override
     public Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof DecodedJwtHolder) {
-            return ((DecodedJwtHolder) authentication.getPrincipal()).getUserId();
+        if (authentication != null && authentication.getPrincipal() instanceof DecodedJwtHolder decodedJwtHolder) {
+            return decodedJwtHolder.getUserId();
         }
         throw new RuntimeException("No se pudo obtener el ID del usuario autenticado.");
     }

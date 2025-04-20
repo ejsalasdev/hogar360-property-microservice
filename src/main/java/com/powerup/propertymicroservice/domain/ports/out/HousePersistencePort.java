@@ -6,6 +6,7 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface HousePersistencePort {
 
@@ -25,4 +26,6 @@ public interface HousePersistencePort {
             BigDecimal maxPrice,
             String sortDirection
     );
+    
+    Optional<HouseModel> getHouseById(Long id);
 }
