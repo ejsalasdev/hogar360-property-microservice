@@ -62,7 +62,7 @@ public class HouseController {
 
     @GetMapping("/read/{id}")
     ResponseEntity<HouseResponse> read(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.FOUND).body(houseHandler.getHouseById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(houseHandler.getHouseById(id));
     }
 
 
