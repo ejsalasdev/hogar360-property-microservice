@@ -74,4 +74,9 @@ public class HouseHandlerImpl implements HouseHandler {
                 housePageInfo.isHasPrevious()
         );
     }
+
+    @Override
+    public HouseResponse getHouseById(Long id) {
+        return houseResponseMapper.modelToResponse(houseServicePort.getHouseById(id));
+    }
 }

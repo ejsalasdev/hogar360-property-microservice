@@ -24,4 +24,6 @@ public interface HouseHandler {
             BigDecimal maxPrice,
             boolean orderAsc
     );
+    
+    HouseResponse getHouseById(Long id);
 }

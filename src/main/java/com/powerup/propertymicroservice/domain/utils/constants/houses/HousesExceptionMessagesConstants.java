@@ -15,6 +15,7 @@ public final class HousesExceptionMessagesConstants {
     public static final String FIELD_ADDRES_NULL_MESSAGE = "Field address cannot be null";
     public static final String FIELD_ADDRES_EMPTY_MESSAGE = "Field address cannot be empty";
     public static final String INVALID_ADDRESS_FORMAT_MESSAGE = "Address '%s' contains invalid characters. Only letters, numbers, space, and a single '#' are allowed";
+    public static final String HOUSE_NOT_FOUND = "House with id '%d' not was found.";
 
     private HousesExceptionMessagesConstants() {
         throw new IllegalStateException("Utility Class");

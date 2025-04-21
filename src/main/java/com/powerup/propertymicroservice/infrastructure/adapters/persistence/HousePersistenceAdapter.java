@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -88,5 +89,10 @@ public class HousePersistenceAdapter implements HousePersistencePort {
                 houseEntityPage.hasNext(),
                 houseEntityPage.hasPrevious()
         );
+    }
+
+    @Override
+    public Optional<HouseModel> getHouseById(Long id) {
+        return houseRepository.findById(id).map(houseEntityMapper::entityToModel);
     }
 }

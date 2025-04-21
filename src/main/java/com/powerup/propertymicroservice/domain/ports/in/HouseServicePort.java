@@ -22,4 +22,6 @@ public interface HouseServicePort {
             BigDecimal maxPrice,
             boolean orderAsc
     );
+    
+    HouseModel getHouseById(Long id);
 }

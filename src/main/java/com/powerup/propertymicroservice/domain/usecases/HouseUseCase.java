@@ -2,6 +2,7 @@ package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.commons.constants.CommonConstants;
 import com.powerup.propertymicroservice.domain.enums.PublicationStatus;
+import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.model.HouseModel;
 import com.powerup.propertymicroservice.domain.model.UbicationModel;
@@ -10,6 +11,7 @@ import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.ports.in.UbicationServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.propertymicroservice.domain.ports.out.HousePersistencePort;
+import com.powerup.propertymicroservice.domain.utils.constants.houses.HousesExceptionMessagesConstants;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
@@ -17,6 +19,7 @@ import com.powerup.propertymicroservice.domain.utils.validations.pagination.Pagi
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Optional;
 
 public class HouseUseCase implements HouseServicePort {
 
@@ -92,5 +95,16 @@ public class HouseUseCase implements HouseServicePort {
                 maxPrice,
                 sortDirection
         );
+    }
+
+    @Override
+    public HouseModel getHouseById(Long id) {
+        Optional<HouseModel> house = housePersistencePort.getHouseById(id);
+        if (house.isEmpty()){
+            throw new ElementNotFoundException(String.format(
+                    HousesExceptionMessagesConstants.HOUSE_NOT_FOUND, id
+            ));
+        }
+        return house.get();
     }
 }
