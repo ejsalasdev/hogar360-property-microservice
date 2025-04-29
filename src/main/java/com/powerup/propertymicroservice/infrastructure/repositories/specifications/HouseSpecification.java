@@ -1,4 +1,4 @@
-package com.powerup.propertymicroservice.infrastructure.specifications;
+package com.powerup.propertymicroservice.infrastructure.repositories.specifications;
 
 import com.powerup.propertymicroservice.domain.enums.PublicationStatus;
 import com.powerup.propertymicroservice.infrastructure.entities.HouseEntity;

@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs*/**").permitAll();
-                    http.requestMatchers(HttpMethod.POST, "/api/v1/category/create").hasAuthority("ADMIN");
+//                    http.requestMatchers(HttpMethod.POST, "/api/v1/category/create").hasAuthority("ADMIN");
                     http.requestMatchers(HttpMethod.POST, "/api/v1/ubication/create").hasAuthority("ADMIN");
                     http.requestMatchers(HttpMethod.POST, "/api/v1/house/create").hasAuthority("SELLER");
 
@@ -46,7 +46,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

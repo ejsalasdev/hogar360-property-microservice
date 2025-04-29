@@ -7,7 +7,7 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.infrastructure.entities.HouseEntity;
 import com.powerup.propertymicroservice.infrastructure.mappers.HouseEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.HouseRepository;
-import com.powerup.propertymicroservice.infrastructure.specifications.HouseSpecification;
+import com.powerup.propertymicroservice.infrastructure.repositories.specifications.HouseSpecification;
 import com.powerup.propertymicroservice.infrastructure.utils.sort.HouseSortHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
