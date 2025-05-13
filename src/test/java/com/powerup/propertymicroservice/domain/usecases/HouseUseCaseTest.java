@@ -27,9 +27,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -418,5 +421,61 @@ class HouseUseCaseTest {
         verify(paginationValidator, times(1)).validateSize(size);
         verify(paginationValidator, times(1)).validatePage(page);
         verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
+    }
+
+    @Test
+    void When_CategoryHasHouses_Expect_True() {
+        // Arrange
+        Long categoryId = 1L;
+        when(housePersistencePort.existByCategoryId(categoryId)).thenReturn(true);
+
+        // Act
+        boolean result = houseUseCase.existsByCategoryId(categoryId);
+
+        // Assert
+        assertTrue(result);
+        verify(housePersistencePort, times(1)).existByCategoryId(categoryId);
+    }
+
+    @Test
+    void When_CategoryHasNoHouses_Expect_False() {
+        // Arrange
+        Long categoryId = 1L;
+        when(housePersistencePort.existByCategoryId(categoryId)).thenReturn(false);
+
+        // Act
+        boolean result = houseUseCase.existsByCategoryId(categoryId);
+
+        // Assert
+        assertFalse(result);
+        verify(housePersistencePort, times(1)).existByCategoryId(categoryId);
+    }
+
+    @Test
+    void When_HouseExists_Expect_HouseToBeReturned() {
+        // Arrange
+        Long houseId = 1L;
+        HouseModel expectedHouse = new HouseModel();
+        expectedHouse.setId(houseId);
+        expectedHouse.setName("Test House");
+        when(housePersistencePort.getHouseById(houseId)).thenReturn(Optional.of(expectedHouse));
+
+        // Act
+        HouseModel actualHouse = houseUseCase.getHouseById(houseId);
+
+        // Assert
+        assertEquals(expectedHouse, actualHouse);
+        verify(housePersistencePort, times(1)).getHouseById(houseId);
+    }
+
+    @Test
+    void When_HouseDoesNotExist_Expect_ElementNotFoundException() {
+        // Arrange
+        Long houseId = 1L;
+        when(housePersistencePort.getHouseById(houseId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(ElementNotFoundException.class, () -> houseUseCase.getHouseById(houseId));
+        verify(housePersistencePort, times(1)).getHouseById(houseId);
     }
 }
