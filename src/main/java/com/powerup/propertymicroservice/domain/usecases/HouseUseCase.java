@@ -107,4 +107,9 @@ public class HouseUseCase implements HouseServicePort {
         }
         return house.get();
     }
+
+    @Override
+    public boolean existsByCategoryId(Long id) {
+        return housePersistencePort.existByCategoryId(id);
+    }
 }

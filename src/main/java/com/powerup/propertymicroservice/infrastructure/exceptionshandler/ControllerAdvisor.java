@@ -61,4 +61,9 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(CategoryInUseException.class)
+    public ResponseEntity<ExceptionResponse> handleCategoryInUseException(CategoryInUseException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ExceptionResponse(exception.getMessage(), LocalDateTime.now()));
+    }
+
 }

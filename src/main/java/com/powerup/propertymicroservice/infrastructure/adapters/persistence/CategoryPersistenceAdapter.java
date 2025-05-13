@@ -62,4 +62,9 @@ public class CategoryPersistenceAdapter implements CategoryPersistencePort {
     public Optional<CategoryModel> getCategoryById(Long id) {
         return categoryRepository.findById(id).map(categoryEntityMapper::entityToModel);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        categoryRepository.deleteById(id);
+    }
 }

@@ -95,4 +95,9 @@ public class HousePersistenceAdapter implements HousePersistencePort {
     public Optional<HouseModel> getHouseById(Long id) {
         return houseRepository.findById(id).map(houseEntityMapper::entityToModel);
     }
+
+    @Override
+    public boolean existByCategoryId(Long id) {
+        return houseRepository.existsByCategory_Id(id);
+    }
 }

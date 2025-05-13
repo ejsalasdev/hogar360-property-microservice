@@ -2,6 +2,7 @@ package com.powerup.propertymicroservice.infrastructure.endpoints.rest;
 
 import com.powerup.propertymicroservice.application.dto.request.SaveCategoryRequest;
 import com.powerup.propertymicroservice.application.dto.response.CategoryResponse;
+import com.powerup.propertymicroservice.application.dto.response.DeleteCategoryResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
 import com.powerup.propertymicroservice.application.handler.CategoryHandler;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
@@ -110,6 +111,37 @@ public class CategoryController {
             @RequestParam(defaultValue = "true") @Parameter(description = "Sort order (true for ascending, false for descending).") boolean orderAsc) {
         PageInfo<CategoryResponse> categoryPageInfo = categoryHandler.getCategories(page, size, orderAsc);
         return ResponseEntity.ok(categoryPageInfo);
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a category", description = "Deletes a category by its ID if it has no associated houses.")
+    @ApiResponse(responseCode = "200", description = "Category deleted successfully.",
+            content = @Content(schema = @Schema(implementation = DeleteCategoryResponse.class)))
+    @ApiResponse(responseCode = "404", description = "Category not found.",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ExceptionResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "Category not found",
+                                    value = "{\"message\": \"Category with id {id} not found\"}"
+                            )
+                    }
+            ))
+    @ApiResponse(responseCode = "409", description = "Category cannot be deleted because it has associated houses.",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ExceptionResponse.class),
+                    examples = {
+                            @ExampleObject(
+                                    name = "Category in use",
+                                    value = "{\"message\": \"Category with id {id} cannot be deleted because it is in use\"}"
+                            )
+                    }
+            ))
+    public ResponseEntity<DeleteCategoryResponse> delete(
+            @PathVariable @Parameter(description = "ID of the category to delete") Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(categoryHandler.delete(id));
     }
 
 }
