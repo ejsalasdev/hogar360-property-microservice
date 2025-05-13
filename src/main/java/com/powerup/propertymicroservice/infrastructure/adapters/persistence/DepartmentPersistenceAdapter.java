@@ -7,6 +7,7 @@ import com.powerup.propertymicroservice.infrastructure.repositories.mysql.Depart
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,5 +20,12 @@ public class DepartmentPersistenceAdapter implements DepartmentPersistencePort {
     @Override
     public Optional<DepartmentModel> getDepartmentByName(String name) {
         return departmentRepository.findByName(name).map(departmentEntityMapper::entityToModel);
+    }
+
+    @Override
+    public List<DepartmentModel> findAll() {
+        return departmentRepository.findAll().stream()
+                .map(departmentEntityMapper::entityToModel)
+                .toList();
     }
 }

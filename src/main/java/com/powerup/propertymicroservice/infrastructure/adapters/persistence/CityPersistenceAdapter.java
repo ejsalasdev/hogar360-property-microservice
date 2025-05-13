@@ -33,4 +33,11 @@ public class CityPersistenceAdapter implements CityPersistencePort {
     public Optional<CityModel> getCityAndDepartmentByName(String cityName, String departmentName) {
         return cityRepository.findByNameIgnoreCaseAndDepartment_NameIgnoreCase(cityName, departmentName).map(cityEntityMapper::entityToModel);
     }
+
+    @Override
+    public List<CityModel> findAll() {
+        return cityRepository.findAll().stream()
+                .map(cityEntityMapper::entityToModel)
+                .toList();
+    }
 }

@@ -6,9 +6,11 @@ import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.domain.ports.in.CityServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CityPersistencePort;
 import com.powerup.propertymicroservice.domain.utils.constants.cities.CitiesExceptionsMessagesConstants;
+import com.powerup.propertymicroservice.domain.utils.constants.cities.CityConstants;
 import com.powerup.propertymicroservice.domain.utils.validations.cities.CityValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.departments.DepartmentValidator;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +54,20 @@ public class CityUseCase implements CityServicePort {
             throw new ElementNotFoundException(String.format(CitiesExceptionsMessagesConstants.CITY_NOT_FOUND_IN_DEPARTMENT_EXCEPTION, cityName, departmentName));
         }
         return city.get();
+    }
+
+    @Override
+    public List<CityModel> getAllCities(boolean orderAsc) {
+        List<CityModel> cities = cityPersistencePort.findAll();
+        
+        Comparator<CityModel> comparator = Comparator.comparing(CityModel::getName);
+
+        if (!orderAsc) {
+            comparator = comparator.reversed();
+        }
+
+        return cities.stream()
+                .sorted(comparator)
+                .toList();
     }
 }
