@@ -1,11 +1,14 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
 import com.powerup.propertymicroservice.domain.exceptions.ElementAlreadyExistsException;
+import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
+import com.powerup.propertymicroservice.domain.exceptions.CategoryInUseException;
 import com.powerup.propertymicroservice.domain.utils.factories.category.CategoryModelFactoryForTest;
 import com.powerup.propertymicroservice.domain.utils.factories.category.CategoryModelPaginationFactoryForTest;
 import com.powerup.propertymicroservice.domain.model.CategoryModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.ports.out.CategoryPersistencePort;
+import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.categories.CategoryValidator;
 import org.junit.jupiter.api.Test;
@@ -32,6 +35,9 @@ class CategoryUseCaseTest {
     
     @Mock
     private PaginationValidator paginationValidator;
+
+    @Mock
+    private HouseServicePort houseServicePort;
 
     @InjectMocks
     private CategoryUseCase categoryUseCase;
@@ -113,5 +119,76 @@ class CategoryUseCaseTest {
 
         // Assert
         assertEquals(expectedPageInfo, actualPageInfo);
+    }
+
+    @Test
+    void When_CategoryExists_Expect_CategoryToBeReturned() {
+        // Arrange
+        Long categoryId = 1L;
+        CategoryModel expectedCategory = CategoryModelFactoryForTest.createCategoryModel(categoryId, "Test Category", "Test Description");
+        when(categoryPersistencePort.getCategoryById(categoryId)).thenReturn(Optional.of(expectedCategory));
+
+        // Act
+        CategoryModel actualCategory = categoryUseCase.getCategoryById(categoryId);
+
+        // Assert
+        assertEquals(expectedCategory, actualCategory);
+        verify(categoryPersistencePort, times(1)).getCategoryById(categoryId);
+    }
+
+    @Test
+    void When_CategoryDoesNotExist_Expect_ElementNotFoundException() {
+        // Arrange
+        Long categoryId = 1L;
+        when(categoryPersistencePort.getCategoryById(categoryId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(ElementNotFoundException.class, () -> categoryUseCase.getCategoryById(categoryId));
+        verify(categoryPersistencePort, times(1)).getCategoryById(categoryId);
+    }
+
+    @Test
+    void When_CategoryExistsAndNotInUse_Expect_CategoryToBeDeleted() {
+        // Arrange
+        Long categoryId = 1L;
+        CategoryModel category = CategoryModelFactoryForTest.createCategoryModel(categoryId, "Test Category", "Test Description");
+        when(categoryPersistencePort.getCategoryById(categoryId)).thenReturn(Optional.of(category));
+        when(houseServicePort.existsByCategoryId(categoryId)).thenReturn(false);
+
+        // Act
+        categoryUseCase.deleteById(categoryId);
+
+        // Assert
+        verify(categoryPersistencePort, times(1)).getCategoryById(categoryId);
+        verify(houseServicePort, times(1)).existsByCategoryId(categoryId);
+        verify(categoryPersistencePort, times(1)).deleteById(categoryId);
+    }
+
+    @Test
+    void When_CategoryDoesNotExist_Expect_ElementNotFoundExceptionOnDelete() {
+        // Arrange
+        Long categoryId = 1L;
+        when(categoryPersistencePort.getCategoryById(categoryId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(ElementNotFoundException.class, () -> categoryUseCase.deleteById(categoryId));
+        verify(categoryPersistencePort, times(1)).getCategoryById(categoryId);
+        verify(houseServicePort, never()).existsByCategoryId(anyLong());
+        verify(categoryPersistencePort, never()).deleteById(anyLong());
+    }
+
+    @Test
+    void When_CategoryInUse_Expect_CategoryInUseException() {
+        // Arrange
+        Long categoryId = 1L;
+        CategoryModel category = CategoryModelFactoryForTest.createCategoryModel(categoryId, "Test Category", "Test Description");
+        when(categoryPersistencePort.getCategoryById(categoryId)).thenReturn(Optional.of(category));
+        when(houseServicePort.existsByCategoryId(categoryId)).thenReturn(true);
+
+        // Act & Assert
+        assertThrows(CategoryInUseException.class, () -> categoryUseCase.deleteById(categoryId));
+        verify(categoryPersistencePort, times(1)).getCategoryById(categoryId);
+        verify(houseServicePort, times(1)).existsByCategoryId(categoryId);
+        verify(categoryPersistencePort, never()).deleteById(anyLong());
     }
 }

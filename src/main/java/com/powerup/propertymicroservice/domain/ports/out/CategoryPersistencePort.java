@@ -10,7 +10,7 @@ public interface CategoryPersistencePort {
     void save(CategoryModel categoryModel);
     Optional<CategoryModel> getCategoryByName(String categoryName);
     PageInfo<CategoryModel> getCategories(Integer page, Integer size, String sortBy, String sortDirection);
-    
     Optional<CategoryModel> getCategoryById(Long id);
+    void deleteById(Long id);
     
 }

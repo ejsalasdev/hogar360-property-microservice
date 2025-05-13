@@ -24,4 +24,6 @@ public interface HouseServicePort {
     );
     
     HouseModel getHouseById(Long id);
+    
+    boolean existsByCategoryId(Long id);
 }

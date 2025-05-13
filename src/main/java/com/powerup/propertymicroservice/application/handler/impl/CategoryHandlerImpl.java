@@ -2,6 +2,7 @@ package com.powerup.propertymicroservice.application.handler.impl;
 
 import com.powerup.propertymicroservice.application.dto.request.SaveCategoryRequest;
 import com.powerup.propertymicroservice.application.dto.response.CategoryResponse;
+import com.powerup.propertymicroservice.application.dto.response.DeleteCategoryResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveCategoryResponse;
 import com.powerup.propertymicroservice.application.handler.CategoryHandler;
 import com.powerup.propertymicroservice.application.mappers.CategoryRequestMapper;
@@ -46,5 +47,11 @@ public class CategoryHandlerImpl implements CategoryHandler {
                 categoryPageInfo.isHasNext(),
                 categoryPageInfo.isHasPrevious()
         );
+    }
+
+    @Override
+    public DeleteCategoryResponse delete(Long id) {
+        categoryServicePort.deleteById(id);
+        return new DeleteCategoryResponse(ApplicationConstants.DELETE_CATEGORY_RESPONSE_MESSAGE, LocalDateTime.now());
     }
 }

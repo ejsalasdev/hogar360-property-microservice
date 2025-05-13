@@ -28,4 +28,6 @@ public interface HousePersistencePort {
     );
     
     Optional<HouseModel> getHouseById(Long id);
+
+    boolean existByCategoryId(Long id);
 }

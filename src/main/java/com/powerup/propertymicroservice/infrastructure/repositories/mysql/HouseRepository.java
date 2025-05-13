@@ -15,4 +15,6 @@ public interface HouseRepository extends JpaRepository<HouseEntity, Long>, JpaSp
     List<HouseEntity> findByActivePublicationDate(LocalDate activePublicationDate);
     
     Page<HouseEntity> findAll(Specification<HouseEntity> spec, Pageable pageable);
+
+    boolean existsByCategory_Id(Long categoryId);
 }
