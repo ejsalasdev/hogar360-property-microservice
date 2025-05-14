@@ -17,8 +17,8 @@ public class CityHandlerImpl implements CityHandler {
     private final CityResponseMapper cityResponseMapper;
 
     @Override
-    public List<CityResponse> getAllCities(boolean orderAsc) {
-        return cityServicePort.getAllCities(orderAsc).stream()
+    public List<CityResponse> getAllCitiesByDepartmentId(Long departmentId, boolean orderAsc) {
+        return cityServicePort.getAllCitiesByDepartmentId(departmentId, orderAsc).stream()
                 .map(cityResponseMapper::modelToResponse)
                 .toList();
     }

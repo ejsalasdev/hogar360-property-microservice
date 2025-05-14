@@ -9,5 +9,5 @@ public interface CityServicePort {
 
     CityModel getCityByNameAndDepartmentName(String cityName, String departmentName);
 
-    List<CityModel> getAllCities(boolean orderAsc);
+    List<CityModel> getAllCitiesByDepartmentId(Long departmentId, boolean orderAsc);
 }

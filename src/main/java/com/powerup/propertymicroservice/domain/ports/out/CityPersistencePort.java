@@ -10,5 +10,5 @@ public interface CityPersistencePort {
     Optional<CityModel> getCityByName(String name);
     List<CityModel> getAllCitiesByName(String name);
     Optional<CityModel> getCityAndDepartmentByName(String cityName, String departmentName);
-    List<CityModel> findAll();
+    List<CityModel> findAllByDepartmentId(Long departmentId);
 }
