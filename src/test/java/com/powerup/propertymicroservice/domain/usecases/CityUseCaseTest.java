@@ -132,38 +132,36 @@ class CityUseCaseTest {
     }
 
     @Test
-    void getAllCities_WhenOrderAsc_ShouldReturnOrderedList() {
+    void getAllCitiesByDepartmentId_WhenOrderAsc_ShouldReturnOrderedList() {
         // Arrange
-        List<CityModel> cities = Arrays.asList(city2, city1, city3);
-        when(cityPersistencePort.findAll()).thenReturn(cities);
+        List<CityModel> cities = Arrays.asList(city2, city3);
+        when(cityPersistencePort.findAllByDepartmentId(2L)).thenReturn(cities);
 
         // Act
-        List<CityModel> result = cityUseCase.getAllCities(true);
+        List<CityModel> result = cityUseCase.getAllCitiesByDepartmentId(2L, true);
 
         // Assert
         assertNotNull(result);
-        assertEquals(3, result.size());
+        assertEquals(2, result.size());
         assertEquals("Bogotá", result.get(0).getName());
         assertEquals("Medellín", result.get(1).getName());
-        assertEquals("Medellín", result.get(2).getName());
-        verify(cityPersistencePort).findAll();
+        verify(cityPersistencePort).findAllByDepartmentId(2L);
     }
 
     @Test
-    void getAllCities_WhenOrderDesc_ShouldReturnReversedList() {
+    void getAllCitiesByDepartmentId_WhenOrderDesc_ShouldReturnReversedList() {
         // Arrange
-        List<CityModel> cities = Arrays.asList(city1, city2, city3);
-        when(cityPersistencePort.findAll()).thenReturn(cities);
+        List<CityModel> cities = Arrays.asList(city2, city3);
+        when(cityPersistencePort.findAllByDepartmentId(2L)).thenReturn(cities);
 
         // Act
-        List<CityModel> result = cityUseCase.getAllCities(false);
+        List<CityModel> result = cityUseCase.getAllCitiesByDepartmentId(2L, false);
 
         // Assert
         assertNotNull(result);
-        assertEquals(3, result.size());
+        assertEquals(2, result.size());
         assertEquals("Medellín", result.get(0).getName());
-        assertEquals("Medellín", result.get(1).getName());
-        assertEquals("Bogotá", result.get(2).getName());
-        verify(cityPersistencePort).findAll();
+        assertEquals("Bogotá", result.get(1).getName());
+        verify(cityPersistencePort).findAllByDepartmentId(2L);
     }
 }
