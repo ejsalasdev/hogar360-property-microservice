@@ -1,18 +1,17 @@
 package com.powerup.propertymicroservice.domain.usecases;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+
 import com.powerup.propertymicroservice.domain.exceptions.ElementAmbiguousNameException;
 import com.powerup.propertymicroservice.domain.exceptions.ElementNotFoundException;
 import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.domain.ports.in.CityServicePort;
 import com.powerup.propertymicroservice.domain.ports.out.CityPersistencePort;
 import com.powerup.propertymicroservice.domain.utils.constants.cities.CitiesExceptionsMessagesConstants;
-import com.powerup.propertymicroservice.domain.utils.constants.cities.CityConstants;
 import com.powerup.propertymicroservice.domain.utils.validations.cities.CityValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.departments.DepartmentValidator;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 public class CityUseCase implements CityServicePort {
 
@@ -57,15 +56,15 @@ public class CityUseCase implements CityServicePort {
     }
 
     @Override
-    public List<CityModel> getAllCities(boolean orderAsc) {
-        List<CityModel> cities = cityPersistencePort.findAll();
+    public List<CityModel> getAllCitiesByDepartmentId(Long departmentId, boolean orderAsc) {
+        List<CityModel> cities = cityPersistencePort.findAllByDepartmentId(departmentId);
         
         Comparator<CityModel> comparator = Comparator.comparing(CityModel::getName);
-
+        
         if (!orderAsc) {
             comparator = comparator.reversed();
         }
-
+        
         return cities.stream()
                 .sorted(comparator)
                 .toList();

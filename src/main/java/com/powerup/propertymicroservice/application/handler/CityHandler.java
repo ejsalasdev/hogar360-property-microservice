@@ -1,11 +1,10 @@
 package com.powerup.propertymicroservice.application.handler;
 
-import com.powerup.propertymicroservice.application.dto.response.CityResponse;
-import com.powerup.propertymicroservice.domain.model.CityModel;
-
 import java.util.List;
+
+import com.powerup.propertymicroservice.application.dto.response.CityResponse;
 
 public interface CityHandler {
     
-    List<CityResponse> getAllCities(boolean orderAsc);
+    List<CityResponse> getAllCitiesByDepartmentId(Long departmentId, boolean orderAsc);
 }

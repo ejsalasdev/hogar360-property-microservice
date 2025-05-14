@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,16 +23,17 @@ public class CityController {
 
     private final CityHandler cityHandler;
 
-    @GetMapping
-    @Operation(summary = "Get all cities", description = "Retrieves a list of all cities with optional sorting.")
+    @GetMapping("/departments/{departmentId}")
+    @Operation(summary = "Get cities by department", description = "Retrieves a list of cities filtered by department ID with optional sorting.")
     @ApiResponse(responseCode = "200", description = "List of cities retrieved successfully.")
     @ApiResponse(responseCode = "400", description = "Invalid sorting parameters.",
             content = @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = ExceptionResponse.class)
             ))
-    public ResponseEntity<List<CityResponse>> getAllCities(
+    public ResponseEntity<List<CityResponse>> getAllCitiesByDepartmentId(
+            @PathVariable @Parameter(description = "ID of the department to filter cities", required = true) Long departmentId,
             @RequestParam(defaultValue = "true") @Parameter(description = "Sort order (true for ascending, false for descending.") boolean orderAsc) {
-        return ResponseEntity.ok(cityHandler.getAllCities(orderAsc));
+        return ResponseEntity.ok(cityHandler.getAllCitiesByDepartmentId(departmentId, orderAsc));
     }
 }

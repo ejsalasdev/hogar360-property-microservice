@@ -35,8 +35,8 @@ public class CityPersistenceAdapter implements CityPersistencePort {
     }
 
     @Override
-    public List<CityModel> findAll() {
-        return cityRepository.findAll().stream()
+    public List<CityModel> findAllByDepartmentId(Long departmentId) {
+        return cityRepository.findAllByDepartment_Id(departmentId).stream()
                 .map(cityEntityMapper::entityToModel)
                 .toList();
     }

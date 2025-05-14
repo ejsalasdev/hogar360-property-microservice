@@ -1,5 +1,6 @@
 package com.powerup.propertymicroservice.infrastructure.repositories.mysql;
 
+import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.infrastructure.entities.CityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,6 @@ public interface CityRepository extends JpaRepository<CityEntity, Long> {
     Optional<CityEntity> findByName(String name);
     List<CityEntity> findAllByName(String name);
     Optional<CityEntity> findByNameIgnoreCaseAndDepartment_NameIgnoreCase(String name, String departmentName);
+
+    List<CityEntity> findAllByDepartment_Id(Long departmentId);
 }
