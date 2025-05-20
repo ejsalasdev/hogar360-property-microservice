@@ -51,14 +51,15 @@ public class HousePersistenceAdapter implements HousePersistencePort {
             String sortBy,
             Long categoryId,
             String ubicationSearchText,
-            String sortDirection
+            String sortDirection,
+            PublicationStatus publicationStatus
     ) {
         Sort sort = houseSortHelper.createSort(sortBy, sortDirection);
         Pageable pageable = PageRequest.of(page, size, sort);
         Specification<HouseEntity> spec = HouseSpecification.withFilters(
                 categoryId,
                 ubicationSearchText,
-                PublicationStatus.PUBLISHED
+                publicationStatus
         );
         Page<HouseEntity> houseEntityPage = houseRepository.findAll(spec, pageable);
         List<HouseModel> houses = houseEntityPage.getContent().stream()

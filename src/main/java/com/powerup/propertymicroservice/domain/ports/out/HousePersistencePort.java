@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.powerup.propertymicroservice.domain.enums.PublicationStatus;
 import com.powerup.propertymicroservice.domain.model.HouseModel;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 
@@ -17,7 +18,8 @@ public interface HousePersistencePort {
             String sortBy,
             Long categoryId,
             String ubicationSearchText,
-            String sortDirection
+            String sortDirection,
+            PublicationStatus publicationStatus
     );
     
     Optional<HouseModel> getHouseById(Long id);

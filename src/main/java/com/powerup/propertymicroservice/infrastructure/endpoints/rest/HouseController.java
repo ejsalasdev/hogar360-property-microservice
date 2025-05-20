@@ -7,6 +7,7 @@ import com.powerup.propertymicroservice.application.handler.HouseHandler;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/house")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 @Tag(name = "House", description = "Operations related to houses")
 public class HouseController {

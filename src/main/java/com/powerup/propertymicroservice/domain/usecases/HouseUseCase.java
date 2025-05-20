@@ -18,6 +18,7 @@ import com.powerup.propertymicroservice.domain.utils.validations.pagination.Pagi
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 public class HouseUseCase implements HouseServicePort {
@@ -29,8 +30,10 @@ public class HouseUseCase implements HouseServicePort {
     private final PaginationValidator paginationValidator;
     private final AuthenticatedUserPort authenticatedUserPort;
 
-    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort, UbicationServicePort ubicationServicePort,
-                        HouseValidator houseValidator, PaginationValidator paginationValidator, AuthenticatedUserPort authenticatedUserPort) {
+    public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort,
+            UbicationServicePort ubicationServicePort,
+            HouseValidator houseValidator, PaginationValidator paginationValidator,
+            AuthenticatedUserPort authenticatedUserPort) {
         this.housePersistencePort = housePersistencePort;
         this.categoryServicePort = categoryServicePort;
         this.ubicationServicePort = ubicationServicePort;
@@ -69,28 +72,36 @@ public class HouseUseCase implements HouseServicePort {
             String sortBy,
             Long categoryId,
             String ubicationSearchText,
-            boolean orderAsc
-    ) {
+            boolean orderAsc) {
         paginationValidator.validatePage(page);
         paginationValidator.validateSize(size);
         String sortDirection = orderAsc ? "asc" : "desc";
+
+        List<String> userRoles;
+        try {
+            userRoles = authenticatedUserPort.getCurrentUserRoles();
+        } catch (Exception e) {
+            userRoles = List.of();
+        }
+        boolean isAdminOrSeller = userRoles.contains("ADMIN") || userRoles.contains("SELLER");
+        PublicationStatus statusFilter = isAdminOrSeller ? null : PublicationStatus.PUBLISHED;
+
         return housePersistencePort.getHouses(
                 page,
                 size,
                 sortBy,
                 categoryId,
                 ubicationSearchText,
-                sortDirection
-        );
+                sortDirection,
+                statusFilter);
     }
 
     @Override
     public HouseModel getHouseById(Long id) {
         Optional<HouseModel> house = housePersistencePort.getHouseById(id);
-        if (house.isEmpty()){
+        if (house.isEmpty()) {
             throw new ElementNotFoundException(String.format(
-                    HousesExceptionMessagesConstants.HOUSE_NOT_FOUND, id
-            ));
+                    HousesExceptionMessagesConstants.HOUSE_NOT_FOUND, id));
         }
         return house.get();
     }
