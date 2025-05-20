@@ -243,29 +243,19 @@ class HouseUseCaseTest {
         Integer size = 10;
         String sortBy = "price";
         Long categoryId = 1L;
-        Long ubicationId = 2L;
-        Integer minRooms = 2;
-        Integer maxRooms = 4;
-        Integer minBathrooms = 1;
-        Integer maxBathrooms = 2;
-        BigDecimal minPrice = BigDecimal.valueOf(100000000);
-        BigDecimal maxPrice = BigDecimal.valueOf(300000000);
-        boolean orderAsc = true;
+        String locationText = "city";
         String sortDirection = "asc";
+        List<String> roles = List.of("USER");
 
+        when(authenticatedUserPort.getCurrentUserRoles()).thenReturn(roles);
         when(housePersistencePort.getHouses(
                 page,
                 size,
                 sortBy,
                 categoryId,
-                ubicationId,
-                minRooms,
-                maxRooms,
-                minBathrooms,
-                maxBathrooms,
-                minPrice,
-                maxPrice,
-                sortDirection
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED
         )).thenReturn(mockPageInfo);
 
         // Act
@@ -274,14 +264,8 @@ class HouseUseCaseTest {
                 size,
                 sortBy,
                 categoryId,
-                ubicationId,
-                minRooms,
-                maxRooms,
-                minBathrooms,
-                maxBathrooms,
-                minPrice,
-                maxPrice,
-                orderAsc
+                locationText,
+                true
         );
 
         // Assert
@@ -293,14 +277,99 @@ class HouseUseCaseTest {
                 size,
                 sortBy,
                 categoryId,
-                ubicationId,
-                minRooms,
-                maxRooms,
-                minBathrooms,
-                maxBathrooms,
-                minPrice,
-                maxPrice,
-                sortDirection
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED
+        );
+    }
+
+    @Test
+    void When_GetHousesIsCalledWithAdminRole_Expect_AllStatusesReturned() {
+        // Arrange
+        Integer page = 0;
+        Integer size = 10;
+        String sortBy = "price";
+        Long categoryId = 1L;
+        String locationText = "city";
+        String sortDirection = "asc";
+        List<String> roles = List.of("ADMIN");
+
+        when(authenticatedUserPort.getCurrentUserRoles()).thenReturn(roles);
+        when(housePersistencePort.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                sortDirection,
+                null
+        )).thenReturn(mockPageInfo);
+
+        // Act
+        PageInfo<HouseModel> result = houseUseCase.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                true
+        );
+
+        // Assert
+        assertEquals(mockPageInfo, result);
+        verify(housePersistencePort, times(1)).getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                sortDirection,
+                null
+        );
+    }
+
+    @Test
+    void When_GetHousesIsCalledWithNoAuthenticatedUser_Expect_OnlyPublished() {
+        // Arrange
+        Integer page = 0;
+        Integer size = 10;
+        String sortBy = "price";
+        Long categoryId = 1L;
+        String locationText = "city";
+        String sortDirection = "asc";
+
+        // Cambiar null por lista vacía para evitar NPE
+        when(authenticatedUserPort.getCurrentUserRoles()).thenReturn(List.of());
+        when(housePersistencePort.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED
+        )).thenReturn(mockPageInfo);
+
+        // Act
+        PageInfo<HouseModel> result = houseUseCase.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                true
+        );
+
+        // Assert
+        assertEquals(mockPageInfo, result);
+        verify(housePersistencePort, times(1)).getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED
         );
     }
 
@@ -310,22 +379,20 @@ class HouseUseCaseTest {
         Integer page = 0;
         Integer size = 10;
         String sortBy = "numberOfRooms";
+        String locationText = "city";
         boolean orderAsc = false;
         String sortDirection = "desc";
+        List<String> roles = List.of("USER");
 
+        when(authenticatedUserPort.getCurrentUserRoles()).thenReturn(roles);
         when(housePersistencePort.getHouses(
                 eq(page),
                 eq(size),
                 eq(sortBy),
                 isNull(),
-                isNull(),
-                isNull(),
-                isNull(),
-                isNull(),
-                isNull(),
-                isNull(),
-                isNull(),
-                eq(sortDirection)
+                eq(locationText),
+                eq(sortDirection),
+                eq(PublicationStatus.PUBLISHED)
         )).thenReturn(mockPageInfo);
 
         // Act
@@ -334,13 +401,7 @@ class HouseUseCaseTest {
                 size,
                 sortBy,
                 null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                locationText,
                 orderAsc
         );
 
@@ -350,14 +411,9 @@ class HouseUseCaseTest {
                 size,
                 sortBy,
                 null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                sortDirection
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED
         );
     }
 
@@ -368,6 +424,7 @@ class HouseUseCaseTest {
         Integer size = 10;
         String sortBy = "price";
         boolean orderAsc = true;
+        String locationText = "city";
 
         doThrow(new InvalidPageNumberException("Invalid page number")).when(paginationValidator).validatePage(page);
 
@@ -377,19 +434,13 @@ class HouseUseCaseTest {
                 size,
                 sortBy,
                 null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                locationText,
                 orderAsc
         ));
 
         verify(paginationValidator, times(1)).validatePage(page);
         verify(paginationValidator, never()).validateSize(anyInt());
-        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
+        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any());
     }
 
     @Test
@@ -399,6 +450,7 @@ class HouseUseCaseTest {
         Integer size = 0;
         String sortBy = "price";
         boolean orderAsc = true;
+        String locationText = "city";
 
         doThrow(new InvalidPageSizeException("Invalid page size")).when(paginationValidator).validateSize(size);
 
@@ -408,19 +460,13 @@ class HouseUseCaseTest {
                 size,
                 sortBy,
                 null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                locationText,
                 orderAsc
         ));
 
         verify(paginationValidator, times(1)).validateSize(size);
         verify(paginationValidator, times(1)).validatePage(page);
-        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
+        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any());
     }
 
     @Test
