@@ -16,7 +16,6 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.propertymicroservice.domain.utils.validations.houses.HouseValidator;
 import com.powerup.propertymicroservice.domain.utils.validations.pagination.PaginationValidator;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Optional;
@@ -69,13 +68,7 @@ public class HouseUseCase implements HouseServicePort {
             Integer size,
             String sortBy,
             Long categoryId,
-            Long ubicationId,
-            Integer minRooms,
-            Integer maxRooms,
-            Integer minBathrooms,
-            Integer maxBathrooms,
-            BigDecimal minPrice,
-            BigDecimal maxPrice,
+            String ubicationSearchText,
             boolean orderAsc
     ) {
         paginationValidator.validatePage(page);
@@ -86,13 +79,7 @@ public class HouseUseCase implements HouseServicePort {
                 size,
                 sortBy,
                 categoryId,
-                ubicationId,
-                minRooms,
-                maxRooms,
-                minBathrooms,
-                maxBathrooms,
-                minPrice,
-                maxPrice,
+                ubicationSearchText,
                 sortDirection
         );
     }

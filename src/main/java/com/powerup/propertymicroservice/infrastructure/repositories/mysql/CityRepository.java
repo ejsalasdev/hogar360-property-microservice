@@ -1,11 +1,11 @@
 package com.powerup.propertymicroservice.infrastructure.repositories.mysql;
 
-import com.powerup.propertymicroservice.domain.model.CityModel;
-import com.powerup.propertymicroservice.infrastructure.entities.CityEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.powerup.propertymicroservice.infrastructure.entities.CityEntity;
 
 public interface CityRepository extends JpaRepository<CityEntity, Long> {
     

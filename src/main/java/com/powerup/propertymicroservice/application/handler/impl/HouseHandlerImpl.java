@@ -1,5 +1,10 @@
 package com.powerup.propertymicroservice.application.handler.impl;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.powerup.propertymicroservice.application.dto.request.SaveHouseRequest;
 import com.powerup.propertymicroservice.application.dto.response.HouseResponse;
 import com.powerup.propertymicroservice.application.dto.response.SaveHouseResponse;
@@ -10,12 +15,8 @@ import com.powerup.propertymicroservice.application.utils.constants.ApplicationC
 import com.powerup.propertymicroservice.domain.model.HouseModel;
 import com.powerup.propertymicroservice.domain.ports.in.HouseServicePort;
 import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -37,13 +38,7 @@ public class HouseHandlerImpl implements HouseHandler {
             Integer size,
             String sortBy,
             Long categoryId,
-            Long ubicationId,
-            Integer minRooms,
-            Integer maxRooms,
-            Integer minBathrooms,
-            Integer maxBathrooms,
-            BigDecimal minPrice,
-            BigDecimal maxPrice,
+            String ubicationSearchText,
             boolean orderAsc
     ) {
         PageInfo<HouseModel> housePageInfo = houseServicePort.getHouses(
@@ -51,19 +46,12 @@ public class HouseHandlerImpl implements HouseHandler {
                 size,
                 sortBy,
                 categoryId,
-                ubicationId,
-                minRooms,
-                maxRooms,
-                minBathrooms,
-                maxBathrooms,
-                minPrice,
-                maxPrice,
+                ubicationSearchText,
                 orderAsc
         );
         List<HouseResponse> housesResponses = housePageInfo.getContent().stream()
                 .map(houseResponseMapper::modelToResponse)
                 .toList();
-
         return new PageInfo<>(
                 housesResponses,
                 housePageInfo.getTotalElements(),

@@ -23,6 +23,7 @@ public class DepartmentUseCase implements DepartmentServicePort {
 
     @Override
     public DepartmentModel getDepartmentByName(String name) {
+        departmentValidator.validateDepartmentName(name);
         Optional<DepartmentModel> department = departmentPersistencePort.getDepartmentByName(name);
         if (department.isEmpty()) {
             throw new ElementNotFoundException(String.format(DepartmentsExceptionsMessagesConstants.DEPARTMENT_NOT_FOUND_EXCEPTION, name));

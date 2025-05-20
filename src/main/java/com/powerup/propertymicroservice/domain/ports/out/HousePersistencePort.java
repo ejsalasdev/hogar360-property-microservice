@@ -1,12 +1,11 @@
 package com.powerup.propertymicroservice.domain.ports.out;
 
-import com.powerup.propertymicroservice.domain.model.HouseModel;
-import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
-
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import com.powerup.propertymicroservice.domain.model.HouseModel;
+import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 
 public interface HousePersistencePort {
 
@@ -17,13 +16,7 @@ public interface HousePersistencePort {
             Integer size,
             String sortBy,
             Long categoryId,
-            Long ubicationId,
-            Integer minRooms,
-            Integer maxRooms,
-            Integer minBathrooms,
-            Integer maxBathrooms,
-            BigDecimal minPrice,
-            BigDecimal maxPrice,
+            String ubicationSearchText,
             String sortDirection
     );
     

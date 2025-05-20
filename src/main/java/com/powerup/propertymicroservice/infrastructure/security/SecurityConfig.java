@@ -34,8 +34,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs*/**").permitAll();
 //                    http.requestMatchers(HttpMethod.POST, "/api/v1/category/create").hasAuthority("ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/api/v1/ubication/create").hasAuthority("ADMIN");
-                    http.requestMatchers(HttpMethod.POST, "/api/v1/house/create").hasAuthority("SELLER");
+//                    http.requestMatchers(HttpMethod.POST, "/api/v1/ubication/create").hasAuthority("ADMIN");
+//                    http.requestMatchers(HttpMethod.POST, "/api/v1/house/create").hasAuthority("SELLER");
 
                     http.anyRequest().permitAll();
                 })
@@ -46,7 +46,10 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:4200",
+                "https://4200-firebase-hogar360-frontend-1747667856799.cluster-pgviq6mvsncnqxx6kr7pbz65v6.cloudworkstations.dev"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
