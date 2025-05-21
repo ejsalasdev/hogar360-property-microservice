@@ -32,7 +32,7 @@ public class HouseController {
     public ResponseEntity<PageInfo<HouseResponse>> getAllHouses(
             @Parameter(description = "Page number (0-based)") @RequestParam(defaultValue = "0") Integer page,
             @Parameter(description = "Number of homes per page") @RequestParam(defaultValue = "10") Integer size,
-            @Parameter(description = "Field to sort by (price, numberOfRooms, numberOfBathrooms, ubicationSearchText, categoryId)") @RequestParam(defaultValue = "price") String sortBy,
+            @Parameter(description = "Field to sort by (price, numberOfRooms, numberOfBathrooms, ubicationSearchText, categoryId)") String sortBy,
             @Parameter(description = "Category ID for filtering homes") @RequestParam(required = false) Long categoryId,
             @Parameter(description = "Search text for ubication (city or department)") @RequestParam(required = false) String ubicationSearchText,
             @Parameter(description = "Sort order (true for ascending, false for descending).") @RequestParam(defaultValue = "true") boolean orderAsc
