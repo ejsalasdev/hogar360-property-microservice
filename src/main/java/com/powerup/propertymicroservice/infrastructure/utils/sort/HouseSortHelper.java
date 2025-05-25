@@ -16,10 +16,9 @@ public class HouseSortHelper {
             sortFieldToUse = switch (normalizedSortBy) {
                 case "ubication" -> "ubication";
                 case "category" -> "category";
-                case "numberofrooms" -> "numberofrooms";
-                case "numberofbathrooms" -> "numberofbathrooms";
-                case "maxprice" -> "maxprice";
-                case "minprice" -> "minprice";
+                case "numberofrooms" -> "numberOfRooms";
+                case "numberofbathrooms" -> "numberOfBathrooms";
+                case "price" -> "price";
                 case "id" -> "id";
                 default -> sortBy;
             };

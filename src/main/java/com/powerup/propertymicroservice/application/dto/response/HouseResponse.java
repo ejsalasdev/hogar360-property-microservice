@@ -13,7 +13,7 @@ public record HouseResponse(
         Integer numberOfRooms,
         Integer numberOfBathrooms,
         BigDecimal price,
-        String adress,
+        String address,
         String ubication,
         String city,
         String department,
