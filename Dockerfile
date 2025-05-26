@@ -1,5 +1,5 @@
 # Multi-stage build para optimizar el tamaño de la imagen
-FROM openjdk:17-jdk-slim AS builder
+FROM eclipse-temurin:17.0.15_6-jdk-alpine AS builder
 
 # Establecer directorio de trabajo
 WORKDIR /app
@@ -18,7 +18,7 @@ COPY src/ src/
 RUN ./gradlew build -x test
 
 # Imagen final
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17.0.15_6-jre-alpine
 
 # Crear usuario no-root para seguridad
 RUN addgroup --system spring && adduser --system spring --ingroup spring
