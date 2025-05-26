@@ -24,15 +24,21 @@ public class HouseSpecification {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.join("category").get("id"), categoryId));
             }
             if (ubicationSearchText != null && !ubicationSearchText.trim().isEmpty()) {
+                Predicate sectorPredicate = criteriaBuilder.like(
+                        criteriaBuilder.lower(root.join("ubication").get("sector")),
+                        "%" + ubicationSearchText.trim().toLowerCase() + "%"
+                );
+
                 Predicate cityPredicate = criteriaBuilder.like(
-                    criteriaBuilder.lower(root.join("ubication").join("city").get("name")),
-                    "%" + ubicationSearchText.trim().toLowerCase() + "%"
+                        criteriaBuilder.lower(root.join("ubication").join("city").get("name")),
+                        "%" + ubicationSearchText.trim().toLowerCase() + "%"
                 );
                 Predicate departmentPredicate = criteriaBuilder.like(
-                    criteriaBuilder.lower(root.join("ubication").join("city").join("department").get("name")),
-                    "%" + ubicationSearchText.trim().toLowerCase() + "%"
+                        criteriaBuilder.lower(root.join("ubication").join("city").join("department").get("name")),
+                        "%" + ubicationSearchText.trim().toLowerCase() + "%"
                 );
-                predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(cityPredicate, departmentPredicate));
+
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.or(sectorPredicate, cityPredicate, departmentPredicate));
             }
             if (publicationStatus != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("publicationStatus"), publicationStatus));

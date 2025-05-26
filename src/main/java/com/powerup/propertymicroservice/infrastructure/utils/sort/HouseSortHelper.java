@@ -6,27 +6,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class HouseSortHelper {
     
-    public Sort createSort(String sortBy, String sortDirection){
-        Sort sort = Sort.by("id");
-        if (sortBy.equalsIgnoreCase("ubication")){
-            sort = Sort.by("ubication");
-        } else if (sortBy.equalsIgnoreCase("category")) {
-            sort = Sort.by("category");
-        } else if (sortBy.equalsIgnoreCase("numberOfRooms")) {
-            sort = Sort.by("numberofrooms");
-        } else if (sortBy.equalsIgnoreCase("numberOfBathrooms")) {
-            sort = Sort.by("numberofbathrooms");
-        } else if (sortBy.equalsIgnoreCase("maxPrice")) {
-            sort = Sort.by("maxprice");
-        } else if (sortBy.equalsIgnoreCase("minPrice")) {
-            sort = Sort.by("minprice");
-        } else if (!sortBy.equalsIgnoreCase("id")) {
-            sort = Sort.by(sortBy);
+    public Sort createSort(String sortBy, String sortDirection) {
+        String sortFieldToUse;
+
+        if (sortBy == null || sortBy.trim().isEmpty()) {
+            sortFieldToUse = "id";
+        } else {
+            String normalizedSortBy = sortBy.toLowerCase();
+            sortFieldToUse = switch (normalizedSortBy) {
+                case "ubication" -> "ubication";
+                case "category" -> "category";
+                case "numberofrooms" -> "numberOfRooms";
+                case "numberofbathrooms" -> "numberOfBathrooms";
+                case "price" -> "price";
+                case "id" -> "id";
+                default -> sortBy;
+            };
         }
 
-        if (sortDirection.equalsIgnoreCase("desc")) {
+        Sort sort = Sort.by(sortFieldToUse);
+
+        if (sortDirection != null && sortDirection.equalsIgnoreCase("desc")) {
             sort = sort.descending();
         }
+        
         return sort;
     }
 }
