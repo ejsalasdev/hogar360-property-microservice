@@ -14,6 +14,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  sql:
+    init:
+      mode: embedded
+      data-locations: classpath:data.sql
 jwt:
   secret: ${JWT_SECRET}
   user: ${JWT_USER:AUTH0JWT_BACKEND}
