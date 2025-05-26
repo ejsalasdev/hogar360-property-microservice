@@ -38,9 +38,5 @@ USER spring
 # Exponer puerto
 EXPOSE 8081
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-  CMD ["sh", "-c", "curl -f http://localhost:8081/actuator/health || exit 1"]
-
 # Comando de inicio
 ENTRYPOINT ["java", "-jar", "app.jar"]
