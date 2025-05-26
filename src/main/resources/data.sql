@@ -1,5 +1,5 @@
 -- Insertar los 32 departamentos de Colombia
-INSERT INTO departments (id, name) VALUES 
+INSERT IGNORE INTO departments (id, name) VALUES 
 (1, 'Antioquia'),
 (2, 'Atlántico'),
 (3, 'Bolívar'),
@@ -35,7 +35,7 @@ INSERT INTO departments (id, name) VALUES
 (33, 'Bogotá D.C.');
 
 -- Insertar ciudades principales por departamento
-INSERT INTO cities (id, name, department_id) VALUES 
+INSERT IGNORE INTO cities (id, name, department_id) VALUES 
 -- Antioquia
 (1, 'Medellín', 1),
 (2, 'Bello', 1),
@@ -216,7 +216,7 @@ INSERT INTO cities (id, name, department_id) VALUES
 (113, 'Bogotá', 33);
 
 -- Insertar categorías completas
-INSERT INTO categories (id, name, description) VALUES 
+INSERT IGNORE INTO categories (id, name, description) VALUES 
 (1, 'Apartamentos en Venta', 'Apartamentos disponibles para compra'),
 (2, 'Apartamentos en Arriendo', 'Apartamentos disponibles para alquiler'),
 (3, 'Casas en Venta', 'Casas independientes disponibles para compra'),
@@ -239,7 +239,7 @@ INSERT INTO categories (id, name, description) VALUES
 (20, 'Edificios', 'Edificios completos para inversión o uso comercial');
 
 -- Insertar ubicaciones (sectores) por ciudades principales
-INSERT INTO ubications (id, sector, city_id) VALUES 
+INSERT IGNORE INTO ubications (id, sector, city_id) VALUES 
 -- Medellín (1)
 (1, 'El Poblado', 1),
 (2, 'Laureles', 1),

@@ -16,7 +16,7 @@ spring:
         format_sql: true
   sql:
     init:
-      mode: embedded
+      mode: always
       data-locations: classpath:data.sql
 jwt:
   secret: ${JWT_SECRET}
