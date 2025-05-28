@@ -3,9 +3,31 @@ name: Build and Push Property Microservice Docker Image
 on:
   push:
     branches: ["develop"]
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_DATABASE: testdb
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_NAME: testdb
+      DB_USERNAME: root
+      DB_PASSWORD: root
 
     steps:
       - name: Checkout repository
@@ -27,6 +49,19 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h127.0.0.1 -uroot -proot --silent; then
+              echo "MySQL is up!"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Error: MySQL did not become ready after 30 attempts."
+          exit 1
+
       - name: Build with Gradle
         run: ./gradlew build
 
