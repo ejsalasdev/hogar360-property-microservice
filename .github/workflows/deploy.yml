@@ -55,10 +55,12 @@ jobs:
           for i in {1..30}; do
             if mysqladmin ping -h127.0.0.1 -uroot -proot --silent; then
               echo "MySQL is up!"
-              break
+              exit 0
             fi
             sleep 2
           done
+          echo "Error: MySQL did not become ready after 30 attempts."
+          exit 1
 
       - name: Build with Gradle
         run: ./gradlew build
