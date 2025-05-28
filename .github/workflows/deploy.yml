@@ -42,5 +42,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/property-microservice:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/property-microservice:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/property-microservice:${{ github.sha }}
           platforms: linux/amd64
