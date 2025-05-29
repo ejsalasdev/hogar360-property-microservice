@@ -10,8 +10,10 @@ import com.powerup.propertymicroservice.domain.utils.pagination.PageInfo;
 
 public interface HousePersistencePort {
 
-    void save(HouseModel houseModel);    
+    void save(HouseModel houseModel);
+
     List<HouseModel> findHousesByActivePublicationDate(LocalDate date);
+
     PageInfo<HouseModel> getHouses(
             Integer page,
             Integer size,
@@ -19,9 +21,10 @@ public interface HousePersistencePort {
             Long categoryId,
             String ubicationSearchText,
             String sortDirection,
-            PublicationStatus publicationStatus
+            PublicationStatus publicationStatus,
+            Long sellerId
     );
-    
+
     Optional<HouseModel> getHouseById(Long id);
 
     boolean existByCategoryId(Long id);

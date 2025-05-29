@@ -31,9 +31,9 @@ public class HouseUseCase implements HouseServicePort {
     private final AuthenticatedUserPort authenticatedUserPort;
 
     public HouseUseCase(HousePersistencePort housePersistencePort, CategoryServicePort categoryServicePort,
-            UbicationServicePort ubicationServicePort,
-            HouseValidator houseValidator, PaginationValidator paginationValidator,
-            AuthenticatedUserPort authenticatedUserPort) {
+                        UbicationServicePort ubicationServicePort,
+                        HouseValidator houseValidator, PaginationValidator paginationValidator,
+                        AuthenticatedUserPort authenticatedUserPort) {
         this.housePersistencePort = housePersistencePort;
         this.categoryServicePort = categoryServicePort;
         this.ubicationServicePort = ubicationServicePort;
@@ -83,8 +83,14 @@ public class HouseUseCase implements HouseServicePort {
         } catch (Exception e) {
             userRoles = List.of();
         }
-        boolean isAdminOrSeller = userRoles.contains("ADMIN") || userRoles.contains("SELLER");
-        PublicationStatus statusFilter = isAdminOrSeller ? null : PublicationStatus.PUBLISHED;
+        boolean isAdmin = userRoles.contains("ADMIN");
+        PublicationStatus statusFilter = isAdmin ? null : PublicationStatus.PUBLISHED;
+
+        Long sellerId = null;
+
+        if (userRoles.contains("SELLER")) {
+            sellerId = authenticatedUserPort.getCurrentUserId();
+        }
 
         return housePersistencePort.getHouses(
                 page,
@@ -93,7 +99,9 @@ public class HouseUseCase implements HouseServicePort {
                 categoryId,
                 ubicationSearchText,
                 sortDirection,
-                statusFilter);
+                statusFilter,
+                sellerId
+        );
     }
 
     @Override

@@ -49,10 +49,10 @@ class HouseUseCaseTest {
 
     @Mock
     private HouseValidator houseValidator;
-    
+
     @Mock
     private PaginationValidator paginationValidator;
-    
+
     @Mock
     private AuthenticatedUserPort authenticatedUserPort;
 
@@ -79,10 +79,7 @@ class HouseUseCaseTest {
                         new DepartmentModel(
                                 1L,
                                 "department",
-                                "description"
-                        )
-                )
-        );
+                                "description")));
 
         houseModel = new HouseModel();
         houseModel.setName("House Test");
@@ -95,7 +92,6 @@ class HouseUseCaseTest {
         houseModel.setAddress("Fake Street 123");
         houseModel.setActivePublicationDate(currentDate);
 
-
         HouseModel houseModel1 = new HouseModel();
         houseModel1.setId(1L);
         houseModel1.setName("House Test 1");
@@ -103,7 +99,6 @@ class HouseUseCaseTest {
         houseModel2.setId(2L);
         houseModel2.setName("House Test 2");
 
-        
         List<HouseModel> content = Arrays.asList(houseModel1, houseModel2);
         mockPageInfo = new PageInfo<>(content, 2, 1, 0, 10, false, false);
 
@@ -136,7 +131,8 @@ class HouseUseCaseTest {
     @Test
     void When_ValidationFails_Expect_ValidationExceptionIsThrownAndNoFurtherActions() {
         // Arrange
-        Mockito.doThrow(new InvalidFormatExcepcion("Invalid data House")).when(houseValidator).validate(houseModel, currentDate);
+        Mockito.doThrow(new InvalidFormatExcepcion("Invalid data House")).when(houseValidator).validate(houseModel,
+                currentDate);
 
         // Act & Assert
         assertThrows(InvalidFormatExcepcion.class, () -> houseUseCase.save(houseModel));
@@ -255,8 +251,9 @@ class HouseUseCaseTest {
                 categoryId,
                 locationText,
                 sortDirection,
-                PublicationStatus.PUBLISHED
-        )).thenReturn(mockPageInfo);
+                PublicationStatus.PUBLISHED,
+                null
+            )).thenReturn(mockPageInfo);
 
         // Act
         PageInfo<HouseModel> result = houseUseCase.getHouses(
@@ -265,8 +262,7 @@ class HouseUseCaseTest {
                 sortBy,
                 categoryId,
                 locationText,
-                true
-        );
+                true);
 
         // Assert
         assertEquals(mockPageInfo, result);
@@ -279,8 +275,8 @@ class HouseUseCaseTest {
                 categoryId,
                 locationText,
                 sortDirection,
-                PublicationStatus.PUBLISHED
-        );
+                PublicationStatus.PUBLISHED,
+                null);
     }
 
     @Test
@@ -302,8 +298,8 @@ class HouseUseCaseTest {
                 categoryId,
                 locationText,
                 sortDirection,
-                null
-        )).thenReturn(mockPageInfo);
+                null,
+                null)).thenReturn(mockPageInfo);
 
         // Act
         PageInfo<HouseModel> result = houseUseCase.getHouses(
@@ -312,8 +308,7 @@ class HouseUseCaseTest {
                 sortBy,
                 categoryId,
                 locationText,
-                true
-        );
+                true);
 
         // Assert
         assertEquals(mockPageInfo, result);
@@ -324,8 +319,8 @@ class HouseUseCaseTest {
                 categoryId,
                 locationText,
                 sortDirection,
-                null
-        );
+                null,
+                null);
     }
 
     @Test
@@ -347,8 +342,8 @@ class HouseUseCaseTest {
                 categoryId,
                 locationText,
                 sortDirection,
-                PublicationStatus.PUBLISHED
-        )).thenReturn(mockPageInfo);
+                PublicationStatus.PUBLISHED,
+                null)).thenReturn(mockPageInfo);
 
         // Act
         PageInfo<HouseModel> result = houseUseCase.getHouses(
@@ -357,8 +352,7 @@ class HouseUseCaseTest {
                 sortBy,
                 categoryId,
                 locationText,
-                true
-        );
+                true);
 
         // Assert
         assertEquals(mockPageInfo, result);
@@ -369,8 +363,55 @@ class HouseUseCaseTest {
                 categoryId,
                 locationText,
                 sortDirection,
-                PublicationStatus.PUBLISHED
-        );
+                PublicationStatus.PUBLISHED,
+                null);
+    }
+
+    @Test
+    void When_GetHousesIsCalledWithSellerRole_Expect_OnlySellerHousesReturned() {
+        // Arrange
+        Integer page = 0;
+        Integer size = 10;
+        String sortBy = "price";
+        Long categoryId = 1L;
+        String locationText = "city";
+        String sortDirection = "asc";
+        List<String> roles = List.of("SELLER");
+        Long sellerId = 123L;
+
+        when(authenticatedUserPort.getCurrentUserRoles()).thenReturn(roles);
+        when(authenticatedUserPort.getCurrentUserId()).thenReturn(sellerId);
+        when(housePersistencePort.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED,
+                sellerId)).thenReturn(mockPageInfo);
+
+        // Act
+        PageInfo<HouseModel> result = houseUseCase.getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                true);
+
+        // Assert
+        assertEquals(mockPageInfo, result);
+        verify(authenticatedUserPort, times(1)).getCurrentUserId();
+        verify(housePersistencePort, times(1)).getHouses(
+                page,
+                size,
+                sortBy,
+                categoryId,
+                locationText,
+                sortDirection,
+                PublicationStatus.PUBLISHED,
+                sellerId);
     }
 
     @Test
@@ -392,8 +433,8 @@ class HouseUseCaseTest {
                 isNull(),
                 eq(locationText),
                 eq(sortDirection),
-                eq(PublicationStatus.PUBLISHED)
-        )).thenReturn(mockPageInfo);
+                eq(PublicationStatus.PUBLISHED),
+                isNull())).thenReturn(mockPageInfo);
 
         // Act
         houseUseCase.getHouses(
@@ -402,8 +443,7 @@ class HouseUseCaseTest {
                 sortBy,
                 null,
                 locationText,
-                orderAsc
-        );
+                orderAsc);
 
         // Assert
         verify(housePersistencePort, times(1)).getHouses(
@@ -413,12 +453,12 @@ class HouseUseCaseTest {
                 null,
                 locationText,
                 sortDirection,
-                PublicationStatus.PUBLISHED
-        );
+                PublicationStatus.PUBLISHED,
+                null);
     }
 
     @Test
-    void When_GetHousesIsCalledWithInvalidPage_Expect_CallsPaginationValidatorAndThrowsException(){
+    void When_GetHousesIsCalledWithInvalidPage_Expect_CallsPaginationValidatorAndThrowsException() {
         // Arrange
         Integer page = -1;
         Integer size = 10;
@@ -435,12 +475,11 @@ class HouseUseCaseTest {
                 sortBy,
                 null,
                 locationText,
-                orderAsc
-        ));
+                orderAsc));
 
         verify(paginationValidator, times(1)).validatePage(page);
         verify(paginationValidator, never()).validateSize(anyInt());
-        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any());
+        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any(), any());
     }
 
     @Test
@@ -461,12 +500,11 @@ class HouseUseCaseTest {
                 sortBy,
                 null,
                 locationText,
-                orderAsc
-        ));
+                orderAsc));
 
         verify(paginationValidator, times(1)).validateSize(size);
         verify(paginationValidator, times(1)).validatePage(page);
-        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any());
+        verify(housePersistencePort, never()).getHouses(any(), any(), any(), any(), any(), any(), any(), any());
     }
 
     @Test

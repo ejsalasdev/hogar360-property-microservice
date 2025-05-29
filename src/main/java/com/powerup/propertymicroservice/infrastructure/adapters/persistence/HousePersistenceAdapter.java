@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Repository;
 
 import com.powerup.propertymicroservice.domain.enums.PublicationStatus;
 import com.powerup.propertymicroservice.domain.model.HouseModel;
@@ -23,7 +22,6 @@ import com.powerup.propertymicroservice.infrastructure.utils.sort.HouseSortHelpe
 
 import lombok.RequiredArgsConstructor;
 
-@Repository
 @RequiredArgsConstructor
 public class HousePersistenceAdapter implements HousePersistencePort {
     
@@ -52,14 +50,16 @@ public class HousePersistenceAdapter implements HousePersistencePort {
             Long categoryId,
             String ubicationSearchText,
             String sortDirection,
-            PublicationStatus publicationStatus
+            PublicationStatus publicationStatus,
+            Long sellerId
     ) {
         Sort sort = houseSortHelper.createSort(sortBy, sortDirection);
         Pageable pageable = PageRequest.of(page, size, sort);
         Specification<HouseEntity> spec = HouseSpecification.withFilters(
                 categoryId,
                 ubicationSearchText,
-                publicationStatus
+                publicationStatus,
+                sellerId
         );
         Page<HouseEntity> houseEntityPage = houseRepository.findAll(spec, pageable);
         List<HouseModel> houses = houseEntityPage.getContent().stream()

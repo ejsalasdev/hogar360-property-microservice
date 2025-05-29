@@ -16,7 +16,8 @@ public class HouseSpecification {
     public static Specification<HouseEntity> withFilters(
             Long categoryId,
             String ubicationSearchText,
-            PublicationStatus publicationStatus
+            PublicationStatus publicationStatus,
+            Long sellerId
     ) {
         return (Root<HouseEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
@@ -42,6 +43,9 @@ public class HouseSpecification {
             }
             if (publicationStatus != null) {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("publicationStatus"), publicationStatus));
+            }
+            if (sellerId != null){
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("sellerId"), sellerId));
             }
             return predicate;
         };
