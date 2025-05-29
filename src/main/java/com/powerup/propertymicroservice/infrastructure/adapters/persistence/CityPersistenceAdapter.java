@@ -1,16 +1,15 @@
 package com.powerup.propertymicroservice.infrastructure.adapters.persistence;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.powerup.propertymicroservice.domain.model.CityModel;
 import com.powerup.propertymicroservice.domain.ports.out.CityPersistencePort;
 import com.powerup.propertymicroservice.infrastructure.mappers.CityEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.CityRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
-@Repository
 @RequiredArgsConstructor
 public class CityPersistenceAdapter implements CityPersistencePort {
     

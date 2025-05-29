@@ -5,12 +5,10 @@ import com.powerup.propertymicroservice.domain.ports.out.DepartmentPersistencePo
 import com.powerup.propertymicroservice.infrastructure.mappers.DepartmentEntityMapper;
 import com.powerup.propertymicroservice.infrastructure.repositories.mysql.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 @RequiredArgsConstructor
 public class DepartmentPersistenceAdapter implements DepartmentPersistencePort {
     
