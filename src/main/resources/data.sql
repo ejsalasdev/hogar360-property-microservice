@@ -436,3 +436,124 @@ INSERT IGNORE INTO ubications (id, sector, city_id) VALUES
 
 -- Arauca (107)
 (133, 'Centro', 107);
+
+-- Insertar casas de ejemplo para testing y demostración
+INSERT IGNORE INTO houses (id, name, description, price, address, number_of_rooms, number_of_bathrooms, active_publication_date, publication_status, publication_date, seller_id, category_id, ubication_id) VALUES 
+-- Apartamentos en El Poblado, Medellín (Categoría 1)
+(1, 'Apartamento de Lujo El Poblado', 'Apartamento de 3 habitaciones con vista panorámica, acabados de lujo, parqueadero y depósito. Ubicado en el corazón de El Poblado cerca de centros comerciales y restaurantes.', 850000000, 'Carrera 43A #15-25, El Poblado', 3, 2, '2025-06-01', 'PUBLISHED', '2025-04-15', 2, 1, 1),
+(2, 'Moderno Apartamento Zona Rosa', 'Apartamento contemporáneo de 2 habitaciones, cocina integral, balcón, gimnasio y piscina en el edificio. Excelente ubicación y transporte público.', 650000000, 'Calle 10 #43-18, El Poblado', 2, 2, '2025-06-02', 'PUBLISHED', '2025-04-16', 3, 1, 1),
+
+-- Casas en Laureles, Medellín (Categoría 3)
+(3, 'Casa Familiar Laureles', 'Casa de 4 habitaciones con jardín, garaje para 2 carros, sala comedor amplia y cocina equipada. Barrio tranquilo y seguro con todos los servicios.', 1200000000, 'Carrera 75 #45-123, Laureles', 4, 3, '2025-06-03', 'PUBLISHED', '2025-04-17', 4, 3, 2),
+(4, 'Casa Esquinera Laureles', 'Casa esquinera de 3 habitaciones, 2 pisos, terraza, patio trasero y parqueadero. Ideal para familia pequeña, cerca de colegios y centros médicos.', 980000000, 'Calle 44B #76-45, Laureles', 3, 2, '2025-06-04', 'PUBLISHED', '2025-04-18', 5, 3, 2),
+
+-- Apartamentos en Zona Rosa, Bogotá (Categoría 1)
+(5, 'Penthouses Zona Rosa', 'Espectacular penthouse de 4 habitaciones con terraza privada, jacuzzi, cocina gourmet y 3 parqueaderos. Vista 360° de la ciudad.', 2500000000, 'Carrera 13 #85-32, Zona Rosa', 4, 4, '2025-06-05', 'PUBLISHED', '2025-04-19', 2, 11, 11),
+(6, 'Apartamento Ejecutivo Chapinero', 'Apartamento de 2 habitaciones, estudio, balcón francés, acabados modernos. Edificio con portería 24/7, gimnasio y salón social.', 750000000, 'Calle 63 #11-45, Chapinero', 2, 2, '2025-06-06', 'PUBLISHED', '2025-04-20', 3, 1, 12),
+
+-- Casas en Usaquén, Bogotá (Categoría 3)
+(7, 'Casa Colonial Usaquén', 'Hermosa casa colonial de 5 habitaciones, biblioteca, chimenea, jardín con BBQ y garaje para 3 carros. Arquitectura tradicional restaurada.', 1800000000, 'Carrera 7 #116-28, Usaquén', 5, 3, '2025-06-07', 'PUBLISHED', '2025-04-21', 4, 3, 14),
+(8, 'Casa Moderna Usaquén', 'Casa contemporánea de 3 habitaciones, cocina americana, sala de TV, terraza con jardín vertical y paneles solares. Construcción sostenible.', 1350000000, 'Calle 116 #15-67, Usaquén', 3, 3, '2025-06-08', 'PUBLISHED', '2025-04-22', 5, 3, 14),
+
+-- Apartamentos en Granada, Cali (Categoría 2)
+(9, 'Apartamento en Arriendo Granada', 'Apartamento amoblado de 2 habitaciones, aire acondicionado, cocina equipada, balcón con vista al río Cali. Incluye servicios públicos.', 2800000, 'Avenida 6 Norte #23-45, Granada', 2, 2, '2025-06-09', 'PUBLISHED', '2025-04-23', 2, 2, 27),
+(10, 'Estudio Amoblado Centro Cali', 'Moderno apartaestudio completamente amoblado, cocina integral, baño completo, aire acondicionado. Ideal para profesionales o estudiantes.', 1500000, 'Carrera 5 #12-89, Centro', 1, 1, '2025-06-10', 'PUBLISHED', '2025-04-24', 3, 10, 26),
+
+-- Casas en Ciudad Jardín, Cali (Categoría 3)
+(11, 'Casa con Piscina Ciudad Jardín', 'Casa de 4 habitaciones, sala comedor, cocina integral, piscina, kiosco, garaje para 2 carros y cuarto de servicio. Excelente clima.', 1100000000, 'Calle 5 Oeste #25-14, Ciudad Jardín', 4, 3, '2025-06-11', 'PUBLISHED', '2025-04-25', 4, 3, 29),
+
+-- Oficinas en Centro, Barranquilla (Categoría 5)
+(12, 'Oficina Ejecutiva Centro', 'Oficina de 120 m² en edificio empresarial, 4 oficinas privadas, sala de juntas, recepción, 2 baños y 2 parqueaderos. Excelente ubicación comercial.', 450000000, 'Carrera 44 #35-78, Centro', 4, 2, '2025-06-12', 'PUBLISHED', '2025-04-26', 5, 5, 36),
+(13, 'Oficina El Prado', 'Moderna oficina de 80 m², 3 oficinas, sala de espera, cocina, baño y parqueadero. Edificio con seguridad 24/7 y generador eléctrico.', 320000000, 'Calle 76 #52-123, El Prado', 3, 1, '2025-06-13', 'PUBLISHED', '2025-04-27', 2, 5, 37),
+
+-- Locales Comerciales (Categoría 6)
+(14, 'Local Comercial Bocagrande', 'Local comercial de 200 m² en primera planta, gran vitrina, 2 baños, bodega y parqueadero. Excelente flujo peatonal y turístico.', 800000000, 'Avenida San Martín #4-56, Bocagrande', 1, 2, '2025-06-14', 'PUBLISHED', '2025-04-28', 3, 6, 45),
+(15, 'Local Centro Histórico Cartagena', 'Local colonial restaurado de 150 m², techos altos, ventilación natural, baño y acceso independiente. Ideal para restaurante o galería.', 650000000, 'Calle de la Moneda #33-18, Centro', 1, 1, '2025-06-15', 'PUBLISHED', '2025-04-29', 4, 6, 44),
+
+-- Fincas (Categoría 8)
+(16, 'Finca Cafetera Risaralda', 'Hermosa finca de 3 hectáreas con casa de 4 habitaciones, beneficiadero de café, establos, huerta orgánica y nacimiento de agua.', 580000000, 'Vereda La María, Santa Rosa de Cabal', 4, 2, '2025-06-16', 'PUBLISHED', '2025-04-30', 5, 8, 84),
+(17, 'Finca Ganadera Meta', 'Finca de 25 hectáreas con casa principal de 3 habitaciones, galpones, establos, pozo profundo, pastos mejorados y ganado incluido.', 950000000, 'Vereda Apiay, Villavicencio', 3, 2, '2025-06-17', 'PUBLISHED', '2025-05-01', 2, 8, 85),
+
+-- Lotes (Categoría 7)
+(18, 'Lote Urbanizable Chía', 'Lote de 800 m² en conjunto cerrado, servicios públicos, vías pavimentadas, cerca al centro comercial. Ideal para casa de descanso.', 380000000, 'Conjunto Sabana Verde, Chía', 0, 0, '2025-06-18', 'PUBLISHED', '2025-05-02', 3, 7, 50),
+(19, 'Lote Industrial Yumbo', 'Lote industrial de 2.000 m² con acceso directo a vía principal, servicios públicos instalados, cerca al puerto de Buenaventura.', 720000000, 'Zona Industrial Yumbo, Yumbo', 0, 0, '2025-06-19', 'PUBLISHED', '2025-05-03', 4, 7, 106),
+
+-- Apartaestudios (Categoría 10)
+(20, 'Apartaestudio Universitario Bucaramanga', 'Apartaestudio cerca a universidades, amoblado, cocina integral, baño completo, internet incluido. Ideal para estudiantes.', 180000000, 'Calle 42 #27-89, Cabecera', 1, 1, '2025-06-20', 'PUBLISHED', '2025-05-04', 5, 10, 52),
+
+-- Casas Campestres (Categoría 9)
+(21, 'Casa Campestre La Calera', 'Casa campestre de 3 habitaciones, chimenea, BBQ, jardín de 1.000 m², garaje y caballerizas. Clima frío, aire puro.', 650000000, 'Vereda Mundo Nuevo, La Calera', 3, 2, '2025-06-21', 'PUBLISHED', '2025-05-05', 2, 9, 48),
+(22, 'Cabaña Turística Melgar', 'Cabaña de 2 habitaciones con piscina privada, kiosco, zona BBQ, aire acondicionado. Perfecta para alquiler turístico o descanso.', 420000000, 'Conjunto Las Palmeras, Melgar', 2, 2, '2025-06-22', 'PUBLISHED', '2025-05-06', 3, 9, 97),
+
+-- Bodegas (Categoría 14)
+(23, 'Bodega Industrial Fontibón', 'Bodega de 500 m² con oficina administrativa, 2 baños, rampa de carga, altura de 8 metros y parqueadero para tractomulas.', 680000000, 'Zona Industrial Fontibón, Bogotá', 1, 2, '2025-06-23', 'PUBLISHED', '2025-05-07', 4, 14, 18),
+
+-- Propiedades con diferentes estados
+(24, 'Apartamento Temporal Kennedy', 'Apartamento de 3 habitaciones en conjunto cerrado, parque infantil, salón comunal, portería 24/7. Temporalmente pausado para remodelación.', 420000000, 'Carrera 78 #42-15, Kennedy', 3, 2, '2025-06-24', 'PUBLICATION_PAUSED', '2025-05-08', 5, 1, 17),
+
+-- Apartamentos de diferentes precios
+(25, 'Apartamento Económico Suba', 'Apartamento de 2 habitaciones, sala comedor, cocina independiente, balcón, conjunto cerrado con zonas verdes. Excelente oportunidad.', 280000000, 'Carrera 91 #128-45, Suba', 2, 1, '2025-06-25', 'PUBLISHED', '2025-05-09', 2, 1, 15),
+(26, 'Apartamento Premium Rosales', 'Exclusivo apartamento de 4 habitaciones, doble altura, terraza privada, 3 parqueaderos, depósito. Edificio boutique con pocas unidades.', 3200000000, 'Calle 70A #5-18, Rosales', 4, 4, '2025-06-26', 'PUBLISHED', '2025-05-10', 3, 1, 11),
+
+-- Más propiedades en diferentes ciudades
+(27, 'Casa Familiar Pereira', 'Casa de 3 habitaciones, patio, garaje, cerca a universidades y centros comerciales. Barrio tradicional y seguro de Pereira.', 380000000, 'Carrera 13 #18-67, Centro', 3, 2, '2025-06-27', 'PUBLISHED', '2025-05-11', 4, 3, 59),
+
+(28, 'Apartamento Armenia Centro', 'Apartamento de 2 habitaciones en el centro de Armenia, cerca a la plaza de mercado y zona comercial. Ideal para inversión.', 250000000, 'Carrera 14 #18-23, Centro', 2, 1, '2025-06-28', 'PUBLISHED', '2025-05-12', 5, 1, 65),
+
+-- Completando registros hasta 50 propiedades con más variedad
+
+(29, 'Oficina Manizales Centro', 'Oficina profesional de 60 m², 2 oficinas privadas, recepción, baño, excelente iluminación natural. Edificio con ascensor y parqueadero.', 190000000, 'Carrera 23 #26-34, Centro', 2, 1, '2025-06-29', 'PUBLISHED', '2025-05-13', 2, 5, 68),
+
+(30, 'Casa Turística Santa Marta', 'Casa de 4 habitaciones a 2 cuadras de la playa, terraza con vista al mar, aire acondicionado, garaje. Perfecta para alquiler turístico.', 680000000, 'Calle 22 #3-45, El Rodadero', 4, 3, '2025-06-30', 'PUBLISHED', '2025-05-14', 3, 3, 71),
+
+-- Bodegas y espacios industriales
+(31, 'Bodega Medellín Industrial', 'Bodega de 800 m² con oficina, 3 baños, patio de maniobras, altura de 10 metros. Zona industrial consolidada con excelente acceso vial.', 920000000, 'Carrera 50 #12-89, Itagüí', 1, 3, '2025-06-01', 'PUBLISHED', '2025-05-15', 4, 14, 6),
+
+(32, 'Local Comercial Buenaventura', 'Local comercial esquinero de 180 m², gran vitrina, 2 niveles, baño, ideal para almacén o restaurante. Alto flujo vehicular y peatonal.', 350000000, 'Calle 2 #4-67, Centro', 2, 1, '2025-06-02', 'PUBLISHED', '2025-05-16', 5, 6, 104),
+
+-- Fincas de recreo
+(33, 'Finca Recreativa Guatapé', 'Finca de 2 hectáreas con casa de 3 habitaciones, piscina natural, senderos ecológicos, caballerizas. Vista espectacular al embalse.', 750000000, 'Vereda La Piedra, Guatapé', 3, 2, '2025-06-03', 'PUBLISHED', '2025-05-17', 2, 8, 4),
+
+(34, 'Finca Agrícola Tolima', 'Finca productiva de 15 hectáreas con cultivos de arroz, casa de 4 habitaciones, bodegas, sistema de riego, maquinaria incluida.', 1200000000, 'Vereda El Placer, Espinal', 4, 2, '2025-06-04', 'PUBLISHED', '2025-05-18', 3, 8, 99),
+
+-- Apartamentos en ciudades intermedias
+(35, 'Apartamento Moderno Ibagué', 'Apartamento de 3 habitaciones, sala comedor, cocina integral, balcón, conjunto con piscina y gimnasio. Excelente ubicación.', 340000000, 'Carrera 5 #60-23, Ambalá', 3, 2, '2025-06-05', 'PUBLISHED', '2025-05-19', 4, 1, 88),
+
+(36, 'Apartaestudio Popayán Centro', 'Apartaestudio amoblado cerca a universidades, cocina equipada, internet, servicios incluidos. Ideal para estudiantes o profesionales.', 220000000, 'Calle 4 #8-45, Centro', 1, 1, '2025-06-06', 'PUBLISHED', '2025-05-20', 5, 10, 75),
+
+-- Casas de lujo
+(37, 'Casa de Lujo La Calera', 'Mansión de 6 habitaciones, 5 baños, piscina climatizada, canchas múltiples, jacuzzi, caballerizas. Lote de 3.000 m².', 2800000000, 'Km 15 Vía La Calera, La Calera', 6, 5, '2025-06-07', 'PUBLISHED', '2025-05-21', 2, 3, 48),
+
+(38, 'Casa Campestre Rionegro', 'Casa campestre de 5 habitaciones, 4 baños, chimenea, BBQ, jardín ornamental, garaje para 4 carros. Clima primavera todo el año.', 1800000000, 'Vereda Barro Blanco, Rionegro', 5, 4, '2025-06-08', 'PUBLISHED', '2025-05-22', 3, 9, 7),
+
+-- Oficinas ejecutivas
+(39, 'Oficina Premium World Trade Center', 'Oficina ejecutiva de 200 m² en WTC, 6 oficinas privadas, sala de juntas, recepción, 3 baños, 4 parqueaderos. Vista panorámica.', 1200000000, 'Calle 100 #8A-55, Bogotá', 6, 3, '2025-06-09', 'PUBLISHED', '2025-05-23', 4, 5, 11),
+
+(40, 'Consultorio Médico Medellín', 'Consultorio de 80 m² en zona médica, 3 consultorios, sala de espera, baño, aire acondicionado. Edificio especializado en salud.', 380000000, 'Carrera 70 #52-18, Laureles', 3, 1, '2025-06-10', 'PUBLISHED', '2025-05-24', 5, 5, 2),
+
+-- Lotes urbanos
+(41, 'Lote Residencial Cajicá', 'Lote esquinero de 600 m² en conjunto cerrado, todos los servicios, vías pavimentadas, zona verde comunal. Ideal para casa familiar.', 420000000, 'Conjunto Hacienda Casablanca, Cajicá', 0, 0, '2025-06-11', 'PUBLISHED', '2025-05-25', 2, 7, 49),
+
+(42, 'Lote Comercial Zipaquirá', 'Lote comercial de 1.200 m² sobre vía principal, ideal para centro comercial o supermercado. Todos los servicios públicos disponibles.', 680000000, 'Autopista Norte Km 45, Zipaquirá', 0, 0, '2025-06-12', 'PUBLISHED', '2025-05-26', 3, 7, 51),
+
+-- Propiedades en arriendo
+(43, 'Casa Arriendo Temporal Girardot', 'Casa de 3 habitaciones con piscina para arriendo por días o semanas, completamente amoblada, aire acondicionado, zona BBQ.', 4500000, 'Conjunto Villa del Sol, Girardot', 3, 2, '2025-06-13', 'PUBLISHED', '2025-05-27', 4, 3, 94),
+
+-- Apartamentos en conjuntos cerrados
+(44, 'Apartamento Conjunto Cerrado Floridablanca', 'Apartamento de 3 habitaciones en conjunto con piscina, gimnasio, salones sociales, canchas deportivas, portería 24/7.', 380000000, 'Carrera 27 #45-123, Cañaveral', 3, 2, '2025-06-14', 'PUBLISHED', '2025-05-28', 5, 1, 55),
+
+(45, 'Apartamento Familiar Tunja', 'Apartamento de 2 habitaciones, calefacción, balcón cerrado, parqueadero cubierto. Conjunto con zonas verdes y juegos infantiles.', 280000000, 'Carrera 10 #18-45, Centro', 2, 2, '2025-06-15', 'PUBLISHED', '2025-05-29', 2, 1, 77),
+
+-- Propiedades comerciales especializadas
+(46, 'Restaurante Equipado Zona Rosa', 'Local comercial de 250 m² totalmente equipado para restaurante, cocina industrial, 2 baños, terraza, licencias al día.', 1500000000, 'Carrera 13 #82-45, Zona Rosa', 1, 2, '2025-06-16', 'PUBLISHED', '2025-05-30', 3, 6, 11),
+
+(47, 'Hotel Boutique Centro Histórico', 'Edificio colonial de 3 pisos, 12 habitaciones, restaurante, recepción, completamente restaurado. Operando como hotel.', 3200000000, 'Calle del Arsenal #23-45, Cartagena', 12, 8, '2025-06-17', 'PUBLISHED', '2025-05-31', 4, 6, 44),
+
+-- Propiedades con estado pausado
+(48, 'Casa Remodelación El Poblado', 'Casa de 4 habitaciones en proceso de remodelación, excelente ubicación, proyecto arquitectónico aprobado. Inversión garantizada.', 1200000000, 'Calle 9 #42-67, El Poblado', 4, 3, '2025-06-18', 'PUBLICATION_PAUSED', '2025-05-01', 5, 3, 1),
+
+-- Apartamentos económicos
+(49, 'Apartamento VIS Bosa', 'Apartamento de interés social de 2 habitaciones, sala comedor, cocina, conjunto con parque infantil y salón comunal.', 180000000, 'Carrera 89 #65-23, Bosa', 2, 1, '2025-06-19', 'PUBLISHED', '2025-05-02', 2, 1, 16),
+
+-- Propiedad de lujo final
+(50, 'Penthouse Ultra Lujo Santa Marta', 'Penthouse de 300 m² con 4 habitaciones, terraza de 150 m², jacuzzi, vista al mar y Sierra Nevada, ascensor privado, 4 parqueaderos.', 4200000000, 'Carrera 1 #26-45, El Rodadero', 4, 5, '2025-06-20', 'PUBLISHED', '2025-05-03', 3, 1, 71);
